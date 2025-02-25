@@ -1,4 +1,4 @@
--- Active: 1729614686330@@127.0.0.1@3306@audiencias
+-- Active: 1739467802696@@127.0.0.1@3306@audiencias
 CREATE TABLE DISTRITO_JUDICIAL (
     dis_id INT PRIMARY KEY AUTO_INCREMENT,
     dis_nombre VARCHAR(50)
