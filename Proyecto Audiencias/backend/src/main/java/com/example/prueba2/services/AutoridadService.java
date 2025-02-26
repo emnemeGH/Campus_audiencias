@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.prueba2.models.Autoridad;
 import com.example.prueba2.repository.AutoridadRepository;
-
 @Service
 
 public class AutoridadService {
