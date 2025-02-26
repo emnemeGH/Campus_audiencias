@@ -16,7 +16,7 @@ public class AutoridadController {
     private AutoridadService autoridadService;
     
     @GetMapping("/Autoridades")
-    public List<Autoridad> obteneAutoridades(){
+    public List<Autoridad> obtenerAutoridades(){
         return autoridadService.obtenerAutoridades();
     }
 }
