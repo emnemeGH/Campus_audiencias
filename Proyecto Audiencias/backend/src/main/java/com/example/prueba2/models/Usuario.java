@@ -2,6 +2,8 @@ package com.example.prueba2.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Data
@@ -21,5 +23,8 @@ public class Usuario {
     private Integer usr_isadmin;
     //private Interger dis_id;  
     
+    @ManyToOne
+    @JoinColumn(name="dis_id")
+    private Distrito_judicial distrito;
 }
 
