@@ -15,7 +15,7 @@ public class AutoridadController {
     @Autowired
     private AutoridadService autoridadService;
     
-    @GetMapping("/Autoridades")
+    @GetMapping("/autoridades")
     public List<Autoridad> obtenerAutoridades(){
         return autoridadService.obtenerAutoridades();
     }

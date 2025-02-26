@@ -20,14 +20,10 @@ public class Audiencia {
     //private date fecha
     //private time aud_hora;
     //private time aud_duracion;
-    private Integer aud_cuij;
-    private String aud_caratula;
+    //private Integer aud_cuij;
+    //private String aud_caratula;
 
-    @ManyToOne
-    @JoinColumn(name="usr_id")
+   @ManyToOne
+   @JoinColumn(name="usr_id")
     private Usuario usuario;
-
-    @ManyToOne
-    @JoinColumn(name="sal_id")
-    private Sala sala;
 }

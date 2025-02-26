@@ -26,5 +26,6 @@ public class Usuario {
     @ManyToOne
     @JoinColumn(name="dis_id")
     private Distrito_judicial distrito;
+
 }
 

@@ -10,7 +10,6 @@ import com.example.prueba2.models.Audiencia;
 import com.example.prueba2.services.AudienciaService;
 
 @RestController
-
 public class AudienciaController {
     @Autowired
     private AudienciaService audienciaService;
