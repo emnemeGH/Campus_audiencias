@@ -9,11 +9,13 @@ import lombok.Data;
 @Entity
 @Data
 
-public class Sala {
+public class Autoridad {
     @Id
-    private Integer sal_id;
-    private String sal_nombre;
-    private String sal_lugar;
+    private Integer aut_id;
+    private String aut_nombre;
+    private String aut_mail;
+    //private Enum aut_tipo;
+    //private Enum aut_estado;
 
     @ManyToOne
     @JoinColumn(name="dis_id")
