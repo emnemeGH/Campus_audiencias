@@ -49,8 +49,5 @@ public class Audiencia {
     @Column(name = "aud_tipo")
     private EstadoAudiencia aud_tipo;
 
-    @Enumerated(EnumType.STRING) // Guarda el nombre del enum en la BD
-    @Column(name = "aud_estado")
-    private EstadoAudiencia aud_estado;
 
 }
