@@ -25,8 +25,7 @@ public class Audiencia {
     private String aud_nombre;
     private LocalDateTime aud_fecins;
     private LocalDateTime aud_fecmod;
-    //private enum aud_estado;
-    //private enum aud_tipo;
+    private boolean aud_estado;
     private LocalDate fecha;
     private LocalTime aud_hora;
     private LocalTime aud_duracion;
@@ -48,6 +47,5 @@ public class Audiencia {
     @Enumerated(EnumType.STRING) // Guarda el nombre del enum en la BD
     @Column(name = "aud_tipo")
     private EstadoAudiencia aud_tipo;
-
 
 }
