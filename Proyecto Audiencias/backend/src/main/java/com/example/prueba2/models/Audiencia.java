@@ -24,7 +24,7 @@ public class Audiencia {
     private Integer aud_id;
     private String aud_nombre;
     private LocalDateTime aud_fecins;
-    private LocalDateTime aud_fecmod;
+    private LocalDate aud_fecmod;
     private boolean aud_estado;
     private LocalDate aud_fecha;
     private LocalTime aud_hora;
@@ -35,14 +35,16 @@ public class Audiencia {
    @ManyToOne
    @JoinColumn(name="sal_id")
     private Sala sal_id;
-
-    @ManyToOne
-    @JoinColumn(name = "aud_usrins", nullable = false) // Usuario que la creó
-    private Usuario usuarioCreacion;
-
-    @ManyToOne
-    @JoinColumn(name = "aud_usrmod") // Usuario que la modificó (puede ser null)
-    private Usuario usuarioModificacion;
+    
+    //ACA YA LO VOY A VER, PERO SIN ESTOS METODOS, ME FUNCIONO!!!!!!!!!!!!!
+    
+    // public void setAudUsrmod(){
+    //     this.aud_fecmod = (aud_fecmod == null) ? 0 : aud_fecmod ;
+    // }
+    
+    // public Integer getAudUsrmod(){
+    //     return aud_fecmod == null? 0 : aud_fecmod;
+    // }
 
     @Enumerated(EnumType.STRING) // Guarda el nombre del enum en la BD
     @Column(name = "aud_tipo")
