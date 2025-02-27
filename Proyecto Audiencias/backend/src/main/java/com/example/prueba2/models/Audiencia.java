@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import com.example.prueba2.Enums.Enum.EstadoAudiencia;
+import com.example.prueba2.Enums.EstadoAudiencia;
 
 
 import jakarta.persistence.Column;
@@ -26,7 +26,7 @@ public class Audiencia {
     private LocalDateTime aud_fecins;
     private LocalDateTime aud_fecmod;
     private boolean aud_estado;
-    private LocalDate fecha;
+    private LocalDate aud_fecha;
     private LocalTime aud_hora;
     private LocalTime aud_duracion;
     private Integer aud_cuij;
