@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class ListaAudienciasComponent {
 
+  editarAudiencia(){
+    console.log("audiencia editada");
+  }
 }

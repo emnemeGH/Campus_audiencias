@@ -1,0 +1,44 @@
+body {
+    background-color: #f8f9fa;
+}
+.navbar {
+    background-color: #003d2c;
+    color: white;
+}
+.navbar a {
+    color: white;
+}
+.card-header {
+    background-color: #003d2c;
+    color: white;
+}
+.btn-success {
+    background-color: #f2f7f5;
+    border-color: #003d2c;
+}
+.table thead {
+    background-color: #003d2c;
+    color: white;
+}
+.btn-outline-secondary {
+    border-color: #29b687;
+    color: #03241b;
+}
+.btn-outline-secondary:hover {
+    background-color: #003d2c;
+    color: white;
+}
+
+.navbar-brand {
+    padding-top: var(--bs-navbar-brand-padding-y);
+    padding-bottom: var(--bs-navbar-brand-padding-y);
+    margin-right: var(--bs-navbar-brand-margin-end);
+    font-size: var(--bs-navbar-brand-font-size);
+    color: #fff;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.bi.bi-pencil.text-primary{
+    cursor: pointer;
+}

@@ -8,6 +8,7 @@ import { RegistroComponent } from './registro/registro.component';
 import { FormsModule } from '@angular/forms';
 import { ListaAudienciasComponent } from './lista-audiencias/lista-audiencias.component';
 import { DetalleAudienciasComponent } from './detalle-audiencias/detalle-audiencias.component';
+import { CrearAudienciaComponent } from './crear-audiencia/crear-audiencia.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { DetalleAudienciasComponent } from './detalle-audiencias/detalle-audienc
     LoginComponent,
     RegistroComponent,
     ListaAudienciasComponent,
-    DetalleAudienciasComponent
+    DetalleAudienciasComponent,
+    CrearAudienciaComponent
   ],
   imports: [
     BrowserModule,
