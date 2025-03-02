@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./crear-audiencia.component.css']
 })
 export class CrearAudienciaComponent {
-
 }
