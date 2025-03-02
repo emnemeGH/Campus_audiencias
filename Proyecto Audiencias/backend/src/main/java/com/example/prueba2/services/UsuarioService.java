@@ -7,11 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.prueba2.models.Usuario;
 import com.example.prueba2.repository.UsuarioRepository;
-
 @Service
-
 public class UsuarioService {
-@Autowired  
+    @Autowired
     private UsuarioRepository usuarioRepository;
 
     public List<Usuario> obtenerUsuarios(){

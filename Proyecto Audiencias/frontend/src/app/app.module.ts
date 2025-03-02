@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { ListaAudienciasComponent } from './lista-audiencias/lista-audiencias.component';
 import { DetalleAudienciasComponent } from './detalle-audiencias/detalle-audiencias.component';
 import { CrearAudienciaComponent } from './crear-audiencia/crear-audiencia.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CrearAudienciaComponent } from './crear-audiencia/crear-audiencia.compo
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
