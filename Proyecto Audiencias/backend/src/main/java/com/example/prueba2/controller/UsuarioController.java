@@ -1,21 +1,19 @@
 package com.example.prueba2.controller;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.prueba2.models.Usuario;
 import com.example.prueba2.services.UsuarioService;
 
-@RestController
-public class UsuarioController {
-    @Autowired
-    private UsuarioService usuarioService;
 
-    @GetMapping("/usuarios")
-    public List<Usuario> obtenerUsuarios(){
-        return usuarioService.obtenerUsuarios();
+@RestController
+@RequestMapping("/api/usuarios")
+@CrossOrigin(origins = "http://localhost:4200")
+public class UsuarioController extends BaseController<Usuario, Integer>{
+    
+    public UsuarioController(UsuarioService service) {
+        super(service);
     }
+    
 }

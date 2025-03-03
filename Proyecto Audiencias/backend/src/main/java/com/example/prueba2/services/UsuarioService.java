@@ -1,18 +1,16 @@
 package com.example.prueba2.services;
 
-import java.util.List;
+//import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.prueba2.models.Usuario;
-import com.example.prueba2.repository.UsuarioRepository;
+import com.example.prueba2.services.impl.BaseServiceImpl;
 @Service
-public class UsuarioService {
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+public class UsuarioService extends BaseServiceImpl<Usuario, Integer>{
+    
 
-    public List<Usuario> obtenerUsuarios(){
-        return usuarioRepository.findAll();
-    }
+    //public List<Usuario> obtenerUsuarios(){
+    //    return usuarioRepository.findAll();
+    //}
 }
