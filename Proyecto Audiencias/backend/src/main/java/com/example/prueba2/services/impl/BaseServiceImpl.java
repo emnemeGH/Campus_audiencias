@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.prueba2.services.BaseService;
 
+import jakarta.persistence.EntityNotFoundException;
+
 public abstract class BaseServiceImpl<TipoEntidad, TipoID> implements BaseService<TipoEntidad, TipoID> {
     
     @Autowired
@@ -27,5 +29,14 @@ public abstract class BaseServiceImpl<TipoEntidad, TipoID> implements BaseServic
     public TipoEntidad guardar(TipoEntidad entidad) {
         return repository.save(entidad);
     }
+
+    @Override
+    public TipoEntidad actualizar(TipoEntidad entidad, TipoID id) {
+    if (repository.existsById(id)) {  // Verifica si existe antes de actualizar
+        return repository.save(entidad);
+    } else {
+        throw new EntityNotFoundException("No se encontró la entidad con ID: " + id);
+    }
+}
 }
 

@@ -7,4 +7,5 @@ public interface BaseService<TipoEntidad, TipoID> {
     List<TipoEntidad> obtenerEntidades();
     Optional<TipoEntidad> obtenerPorId(TipoID id);
     TipoEntidad guardar(TipoEntidad entidad);
+    TipoEntidad actualizar(TipoEntidad entidad, TipoID id);
 }
