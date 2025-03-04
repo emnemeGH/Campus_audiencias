@@ -7,9 +7,9 @@ public enum EstadoEntidad {
     Suspendida("Suspendida"),
 
     // Valores para auditoridades (aut_tipo)
-    JUEZ("juez"),
-    FISCAL("fiscal"),
-    DEFENSOR("defensor");
+    juez("juez"),
+    fiscal("fiscal"),
+    defensor("defensor");
 
     private final String valor;
 
