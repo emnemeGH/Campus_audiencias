@@ -1,4 +1,6 @@
 package com.example.prueba2.controller;
+import com.example.prueba2.models.Audiencia;
+import com.example.prueba2.services.AudienciaService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
