@@ -29,4 +29,3 @@ public class Usuario {
     private Distrito_judicial distrito;
 
 }
-
