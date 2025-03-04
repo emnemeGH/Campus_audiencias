@@ -2,9 +2,9 @@ package com.example.prueba2.Enums;
 
 public enum EstadoEntidad {
     // Valores para audiencias
-    PROGRAMADA("Programada"),
-    DEMORADA("Demorada"),
-    SUSPENDIDA("Suspendida"),
+    Programada("Programada"),
+    Demorada("Demorada"),
+    Suspendida("Suspendida"),
 
     // Valores para auditoridades (aut_tipo)
     JUEZ("juez"),
