@@ -4,13 +4,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import com.example.prueba2.Enums.EstadoAudiencia;
+import com.example.prueba2.Enums.EstadoEntidad;
 
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -21,11 +23,12 @@ import lombok.Data;
 
 public class Audiencia {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer aud_id;
     private String aud_nombre;
     private LocalDateTime aud_fecins;
     private LocalDateTime aud_fecmod;
-    private boolean aud_estado;
+    private Boolean aud_estado;
     private LocalDate aud_fecha;
     private LocalTime aud_hora;
     private LocalTime aud_duracion;
@@ -47,6 +50,6 @@ public class Audiencia {
 
     @Enumerated(EnumType.STRING) // Guarda el nombre del enum en la BD
     @Column(name = "aud_tipo")
-    private EstadoAudiencia aud_tipo;
+    private EstadoEntidad aud_tipo;
 
 }
