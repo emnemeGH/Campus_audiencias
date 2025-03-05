@@ -22,7 +22,7 @@ public class Autoridad {
     private Integer aut_id;
     private String aut_nombre;
     private String aut_mail;
-    private Boolean aut_estado;
+    //private Boolean aut_estado;
 
     @ManyToOne
     @JoinColumn(name="dis_id")
@@ -31,4 +31,15 @@ public class Autoridad {
     @Enumerated(EnumType.STRING) // Guarda el nombre del enum en la BD
     @Column(name = "aut_tipo")
     private EstadoEntidad aut_tipo;
+
+    @Column(name = "aut_estado")
+    private Boolean aut_estado;
+
+    public Boolean getAutoridad() {
+        return aut_estado;
+    }
+
+    public void setAutoridad(Boolean aut_estado) {
+        this.aut_estado = aut_estado;
+    }
 }

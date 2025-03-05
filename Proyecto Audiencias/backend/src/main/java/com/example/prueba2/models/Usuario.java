@@ -1,5 +1,6 @@
 package com.example.prueba2.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +20,7 @@ public class Usuario {
     private String usr_nombre;
     private String usr_username;
     private String usr_mail;
-    private Boolean usr_estado;
+    //private Boolean usr_estado;
     private Integer usr_login;
     private String usr_password;
     private Integer usr_isadmin;
@@ -28,4 +29,14 @@ public class Usuario {
     @JoinColumn(name="dis_id")
     private Distrito_judicial distrito;
 
+    @Column(name = "usr_estado")
+    private Boolean usrEstado;
+
+    public Boolean getUsrEstado() {
+        return usrEstado;
+    }
+
+    public void setUsrEstado(Boolean usrEstado) {
+        this.usrEstado = usrEstado;
+    }
 }
