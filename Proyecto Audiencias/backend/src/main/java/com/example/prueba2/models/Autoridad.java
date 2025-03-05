@@ -33,13 +33,13 @@ public class Autoridad {
     private EstadoEntidad aut_tipo;
 
     @Column(name = "aut_estado")
-    private Boolean aut_estado;
+    private Boolean autEstado;
 
     public Boolean getAutoridad() {
-        return aut_estado;
+        return autEstado;
     }
 
-    public void setAutoridad(Boolean aut_estado) {
-        this.aut_estado = aut_estado;
+    public void setAutoridad(Boolean autEstado) {
+        this.autEstado = autEstado;
     }
 }
