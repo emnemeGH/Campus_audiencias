@@ -1,25 +1,53 @@
 import { Component, OnInit } from '@angular/core';
 import { AudienciaService } from '../audiencia.service';
+
 @Component({
   selector: 'app-lista-audiencias',
   templateUrl: './lista-audiencias.component.html',
   styleUrls: ['./lista-audiencias.component.css']
 })
-export class ListaAudienciasComponent implements OnInit{
+export class ListaAudienciasComponent implements OnInit {
+  audiencias: any[] = [];
+  mostrarFormulario: boolean = false;
+  distritoSeleccionado: string = '';
+  salaSeleccionada: string = '';
+  salasDisponibles: string[] = [];
+  audienciasFiltradas: any[] = [];
+  fechaSeleccionada: string = '';
 
+  salasPorDistrito: { [key: string]: string[] } = {
+    "03 Venado Tuerto": ["Sala VC Venado Tuerto", "Sala 1 Venado Tuerto"],
+    "04 Reconquista": ["Sala 1 Reconquista", "Sala 2 Reconquista"],
+    "11 San Jorge": ["Sala 1 San Jorge", "Sala 2 San Jorge"]
+  };
 
-  constructor(private audienciaService: AudienciaService){}
+  constructor(private audienciaService: AudienciaService) {}
 
-  audiencias: { cuij: string; caratula: string; tipo: string }[] = []; 
-  
   ngOnInit() {
-    this.audiencias = [
-      { cuij: '21087069726', caratula: 'MARTINEZ s/Homicidio doloso simple y otros', tipo: 'Juicio de querella' },
-      { cuij: '21087069727', caratula: 'PEREZ s/Robo agravado', tipo: 'Juicio oral' },
-      { cuij: '21087069728', caratula: 'GOMEZ s/Estafa', tipo: 'Audiencia preliminar' },
-    ];
+    this.obtenerAudiencias();
   }
-  editarAudiencia(){
-    console.log("audiencia editada");
+
+  obtenerAudiencias() {
+    this.audiencias = this.audienciaService.getAudiencias();
+    this.audienciasFiltradas = [...this.audiencias];
+  }
+
+  toggleFormulario() {
+    this.mostrarFormulario = !this.mostrarFormulario;
+  }
+
+  actualizarSalas() {
+    this.salasDisponibles = this.salasPorDistrito[this.distritoSeleccionado] || [];
+  }
+
+  filtrarAudiencias() {
+    this.audienciasFiltradas = this.audiencias.filter(audiencia => {
+      const coincideDistrito = this.distritoSeleccionado ? audiencia.distrito.trim() === this.distritoSeleccionado.trim() : true;
+      const coincideSala = this.salaSeleccionada ? audiencia.sala.trim() === this.salaSeleccionada.trim() : true;
+      const coincideFecha = this.fechaSeleccionada ? audiencia.fecha === this.fechaSeleccionada : true;
+
+      return coincideDistrito && coincideSala && coincideFecha;
+    });
+    
   }
 }
