@@ -28,8 +28,15 @@ export class ListaAudienciasComponent implements OnInit {
   }
 
   obtenerAudiencias() {
-    this.audiencias = this.audienciaService.getAudiencias();
-    this.audienciasFiltradas = [...this.audiencias];
+    this.audienciaService.getAudiencias().subscribe(
+      data => {
+        this.audiencias = data;
+        this.audienciasFiltradas = [...this.audiencias];
+      },
+      error => {
+        console.error('Error al obtener audiencias:', error);
+      }
+    );
   }
 
   toggleFormulario() {
