@@ -16,9 +16,9 @@ export class ListaAudienciasComponent implements OnInit {
   fechaSeleccionada: string = '';
 
   salasPorDistrito: { [key: string]: string[] } = {
-    "03 Venado Tuerto": ["Sala VC Venado Tuerto", "Sala 1 Venado Tuerto"],
-    "04 Reconquista": ["Sala 1 Reconquista", "Sala 2 Reconquista"],
-    "11 San Jorge": ["Sala 1 San Jorge", "Sala 2 San Jorge"]
+    "Venado Tuerto": ["Sala VC Venado Tuerto", "Sala 1 Venado Tuerto"],
+    "Reconquista": ["Sala 1 Reconquista", "Sala 2 Reconquista"],
+    "San Jorge": ["Sala 1 San Jorge", "Sala 2 San Jorge"]
   };
 
   constructor(private audienciaService: AudienciaService) {}
@@ -32,10 +32,10 @@ export class ListaAudienciasComponent implements OnInit {
       data => {
         this.audiencias = data;
         this.audienciasFiltradas = [...this.audiencias];
-      },
+        },
       error => {
         console.error('Error al obtener audiencias:', error);
-      }
+        }
     );
   }
 
@@ -45,16 +45,18 @@ export class ListaAudienciasComponent implements OnInit {
 
   actualizarSalas() {
     this.salasDisponibles = this.salasPorDistrito[this.distritoSeleccionado] || [];
+    this.salaSeleccionada = ''; // Limpia la selección de sala cuando cambia de distrito
   }
 
   filtrarAudiencias() {
+    const distrito = this.distritoSeleccionado?.trim() || '';
+    const sala = this.salaSeleccionada?.trim() || '';
+    const fecha = this.fechaSeleccionada || '';
+  
     this.audienciasFiltradas = this.audiencias.filter(audiencia => {
-      const coincideDistrito = this.distritoSeleccionado ? audiencia.distrito.trim() === this.distritoSeleccionado.trim() : true;
-      const coincideSala = this.salaSeleccionada ? audiencia.sala.trim() === this.salaSeleccionada.trim() : true;
-      const coincideFecha = this.fechaSeleccionada ? audiencia.fecha === this.fechaSeleccionada : true;
-
-      return coincideDistrito && coincideSala && coincideFecha;
+      return (!distrito || audiencia.distrito?.trim() === distrito) &&
+             (!sala || audiencia.sala?.trim() === sala) &&
+             (!fecha || audiencia.fecha === fecha);
     });
-    
   }
 }
