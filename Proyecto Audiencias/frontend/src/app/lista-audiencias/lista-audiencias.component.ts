@@ -49,14 +49,30 @@ export class ListaAudienciasComponent implements OnInit {
   }
 
   filtrarAudiencias() {
-    const distrito = this.distritoSeleccionado?.trim() || '';
-    const sala = this.salaSeleccionada?.trim() || '';
-    const fecha = this.fechaSeleccionada || '';
-  
-    this.audienciasFiltradas = this.audiencias.filter(audiencia => {
-      return (!distrito || audiencia.distrito?.trim() === distrito) &&
-             (!sala || audiencia.sala?.trim() === sala) &&
-             (!fecha || audiencia.fecha === fecha);
-    });
-  }
+    console.log(this.audiencias)
+  this.audienciasFiltradas = this.audiencias.filter((audiencia) => {
+    // Verificar si 'sal_id' y 'distrito' están definidos antes de acceder a ellos
+    const coincideDistrito = this.distritoSeleccionado 
+      ? audiencia.sal_id && audiencia.sal_id.distrito && audiencia.sal_id.distrito.dis_id
+        ? audiencia.sal_id.distrito.dis_nombre.trim() === this.distritoSeleccionado.trim() 
+        : false 
+      : true;
+
+    // Verificar si 'sal_nombre' está definido antes de acceder
+    const coincideSala = this.salaSeleccionada 
+      ? audiencia.sal_id && audiencia.sal_id.sal_nombre 
+        ? audiencia.sal_id.sal_nombre.trim() === this.salaSeleccionada.trim() 
+        : false 
+      : true;
+
+    // Filtrado por fecha
+    const coincideFecha = this.fechaSeleccionada 
+      ? audiencia.aud_fecha === this.fechaSeleccionada 
+      : true;
+
+    return coincideDistrito && coincideSala && coincideFecha;
+  });
+  console.log(this.audienciasFiltradas);
+}
+
 }
