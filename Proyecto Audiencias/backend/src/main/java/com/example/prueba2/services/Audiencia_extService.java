@@ -4,6 +4,8 @@ import com.example.prueba2.services.impl.BaseServiceImpl;
 
 import jakarta.transaction.Transactional;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +26,20 @@ public class Audiencia_extService extends BaseServiceImpl<Audiencia_ext, Integer
     @Transactional
     public void borradoLogico(Integer id) {
         audienciaExtRepository.borrarLogico(id);
+    }
+
+    public Audiencia_ext guardarAudienciaExt(Audiencia_ext audienciaExt) {
+        // Validar si la autoridad ya tiene una audiencia en la misma fecha y hora
+        List<Audiencia_ext> conflictos = audienciaExtRepository.encontrarConflictos(
+            audienciaExt.getAut_id().getAut_id(),
+            audienciaExt.getAud_id().getAud_fecha()
+        );
+
+        if (!conflictos.isEmpty()) {
+            throw new IllegalArgumentException("La autoridad ya tiene una audiencia en la misma fecha y hora.");
+        }
+
+        // Si no hay conflictos, guardar la audiencia
+        return audienciaExtRepository.save(audienciaExt);
     }
 }
