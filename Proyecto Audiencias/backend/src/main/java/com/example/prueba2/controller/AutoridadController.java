@@ -20,7 +20,7 @@ public class AutoridadController extends BaseController<Autoridad, Integer> {
         this.autoridadService = autoridadService;
     }
 
-    @DeleteMapping({"/id"})
+    @DeleteMapping(("/{id}"))
     public void borradoLogico(Integer id) {
         autoridadService.borradoLogico(id);
     }

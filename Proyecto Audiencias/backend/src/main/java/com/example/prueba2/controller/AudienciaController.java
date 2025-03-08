@@ -20,7 +20,7 @@ public class AudienciaController extends BaseController<Audiencia, Integer> {
         this.audienciaService = audienciaService;
     }
 
-    @DeleteMapping({"/id"})
+    @DeleteMapping(("/{id}"))
     public void borradoLogico(Integer id) {
         audienciaService.borradoLogico(id);
     }    
