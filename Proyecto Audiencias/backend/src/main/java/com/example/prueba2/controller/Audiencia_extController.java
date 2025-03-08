@@ -2,6 +2,7 @@ package com.example.prueba2.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +16,11 @@ import com.example.prueba2.services.Audiencia_extService;
 @CrossOrigin(origins = "http://localhost:4200")
 public class Audiencia_extController extends BaseController<Audiencia_ext, Integer> {
 
-    private final Audiencia_extService Audiencia_extService;
+    private final Audiencia_extService audiencia_extService;
 
-    public Audiencia_extController(Audiencia_extService Audiencia_extService) {
-        super(Audiencia_extService);
-        this.Audiencia_extService = Audiencia_extService;
+    public Audiencia_extController(Audiencia_extService audiencia_extService) {
+        super(audiencia_extService);
+        this.audiencia_extService = audiencia_extService;
     }
 
     @PostMapping("/api/audienciasExt")
@@ -32,6 +33,9 @@ public class Audiencia_extController extends BaseController<Audiencia_ext, Integ
         }
     }
 
-    
+    @DeleteMapping({"/id"})
+    public void borradoLogico(Integer id) {
+        audiencia_extService.borradoLogico(id);
+    }   
 
 }

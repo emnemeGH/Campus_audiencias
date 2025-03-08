@@ -2,6 +2,7 @@ package com.example.prueba2.models;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,4 +33,14 @@ public class Audiencia_ext {
     @JoinColumn(name="aud_id")
     private Audiencia aud_id;
 
+    @Column(name = "eau_estado")
+    private Boolean eauEstado;
+
+    public Boolean getEauEstado() {
+        return eauEstado;
+    }
+
+    public void setEauEstado(Boolean eauEstado) {
+        this.eauEstado = eauEstado;
+    }
 }

@@ -20,7 +20,6 @@ public class Usuario {
     private String usr_nombre;
     private String usr_username;
     private String usr_mail;
-    //private Boolean usr_estado;
     private Integer usr_login;
     private String usr_password;
     private Integer usr_isadmin;

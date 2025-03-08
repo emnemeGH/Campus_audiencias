@@ -35,11 +35,11 @@ public class Autoridad {
     @Column(name = "aut_estado")
     private Boolean autEstado;
 
-    public Boolean getAutoridad() {
+    public Boolean getAutEstado() {
         return autEstado;
     }
 
-    public void setAutoridad(Boolean autEstado) {
+    public void setAutEstado(Boolean autEstado) {
         this.autEstado = autEstado;
     }
 }

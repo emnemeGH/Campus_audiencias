@@ -52,4 +52,15 @@ public class Audiencia {
     @Column(name = "aud_tipo")
     private EstadoEntidad aud_tipo;
 
+    @Column(name = "aud_estado")
+    private Boolean audEstado;
+
+    public Boolean getAudEstado() {
+        return audEstado;
+    }
+
+    public void setAudEstado(Boolean audEstado) {
+        this.audEstado = audEstado;
+    }
+
 }
