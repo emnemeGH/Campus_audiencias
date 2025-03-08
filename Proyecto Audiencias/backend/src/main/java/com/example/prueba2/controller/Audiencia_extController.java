@@ -23,10 +23,10 @@ public class Audiencia_extController extends BaseController<Audiencia_ext, Integ
         this.audiencia_extService = audiencia_extService;
     }
 
-    @PostMapping("/api/audienciasExt")
+    @PostMapping
     public ResponseEntity<?> crearAudienciaExt(@RequestBody Audiencia_ext audienciaExt) {
         try {
-            Audiencia_ext nuevaAudienciaExt = Audiencia_extService.guardar(audienciaExt);
+            Audiencia_ext nuevaAudienciaExt = audiencia_extService.guardar(audienciaExt);
             return ResponseEntity.ok(nuevaAudienciaExt);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());  // 🔹 Devuelve el error si hay conflicto
