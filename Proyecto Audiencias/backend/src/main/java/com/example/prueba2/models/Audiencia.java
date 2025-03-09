@@ -28,7 +28,6 @@ public class Audiencia {
     private String aud_nombre;
     private LocalDateTime aud_fecins;
     private LocalDateTime aud_fecmod;
-    private Boolean aud_estado;
     private LocalDate aud_fecha;
     private LocalTime aud_hora;
     private LocalTime aud_duracion;

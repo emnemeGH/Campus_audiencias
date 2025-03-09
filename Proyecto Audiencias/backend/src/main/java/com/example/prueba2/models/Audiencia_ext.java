@@ -23,7 +23,6 @@ public class Audiencia_ext {
     private LocalDate eau_fecins;
     private Integer eau_usrmod;
     private LocalDate eau_fecmod;
-    private Boolean eau_estado;
 
     @ManyToOne
     @JoinColumn(name="aut_id")

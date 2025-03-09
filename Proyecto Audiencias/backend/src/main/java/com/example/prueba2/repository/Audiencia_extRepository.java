@@ -19,7 +19,7 @@ public interface Audiencia_extRepository extends JpaRepository<Audiencia_ext, In
            "WHERE ae.aut_id.aut_id = :autoridadId " +
            "AND a.aud_fecha = :fecha " +
            "AND a.aud_hora = :hora")
-    List<Audiencia_ext> encontrarConflictos(Integer eau_id, LocalDate eau_fecins);
+    List<Audiencia_ext> encontrarConflictos(Integer autoridadId, LocalDate fecha, java.time.LocalTime hora);
 
     List<Audiencia_ext> findByAutEstadoTrue();
 

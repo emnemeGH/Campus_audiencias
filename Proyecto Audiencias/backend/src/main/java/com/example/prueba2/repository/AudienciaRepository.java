@@ -14,7 +14,7 @@ import jakarta.transaction.Transactional;
 
 public interface AudienciaRepository extends JpaRepository<Audiencia, Integer>{
     
-    List<Audiencia> findByAutEstadoTrue();
+    List<Audiencia> findByAudEstadoTrue();
 
     //Borrado lógico: Cambia usr_estado a false en la BD
     @Transactional

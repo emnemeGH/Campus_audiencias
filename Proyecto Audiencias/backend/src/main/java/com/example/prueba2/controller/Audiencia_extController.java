@@ -3,6 +3,7 @@ package com.example.prueba2.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,7 @@ public class Audiencia_extController extends BaseController<Audiencia_ext, Integ
     }
 
     @DeleteMapping("/{id}")
-    public void borradoLogico(Integer id) {
+    public void borradoLogico(@PathVariable Integer id) {
         audiencia_extService.borradoLogico(id);
     }   
 

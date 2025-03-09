@@ -32,7 +32,8 @@ public class Audiencia_extService extends BaseServiceImpl<Audiencia_ext, Integer
         // Validar si la autoridad ya tiene una audiencia en la misma fecha y hora
         List<Audiencia_ext> conflictos = audienciaExtRepository.encontrarConflictos(
             audienciaExt.getAut_id().getAut_id(),
-            audienciaExt.getAud_id().getAud_fecha()
+            audienciaExt.getAud_id().getAud_fecha(),
+            audienciaExt.getAud_id().getAud_hora()
         );
 
         if (!conflictos.isEmpty()) {
