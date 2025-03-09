@@ -23,7 +23,7 @@ public class UsuarioController extends BaseController<Usuario, Integer>{
     }
 
     @DeleteMapping("/{id}")
-    public void borradoLogico(@PathVariable Integer id) {
+    public void eliminarPorId(@PathVariable Integer id) {
         usuarioService.borradoLogico(id); 
     }
 }

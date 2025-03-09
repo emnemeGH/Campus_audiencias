@@ -21,7 +21,7 @@ public class AudienciaController extends BaseController<Audiencia, Integer> {
     }
 
     @DeleteMapping(("/{id}"))
-    public void borradoLogico(Integer id) {
+    public void eliminarPorId(Integer id) {
         audienciaService.borradoLogico(id);
     }    
 }

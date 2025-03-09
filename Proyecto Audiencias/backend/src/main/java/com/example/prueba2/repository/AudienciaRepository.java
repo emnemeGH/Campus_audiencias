@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import com.example.prueba2.models.Audiencia;
-import com.example.prueba2.models.Audiencia_ext;
 
 import jakarta.transaction.Transactional;
 
@@ -15,13 +14,14 @@ import jakarta.transaction.Transactional;
 
 public interface AudienciaRepository extends JpaRepository<Audiencia, Integer>{
     
-    List<Audiencia> findByEauEstadoTrue();
+    //Metodo estado
+    List<Audiencia> findByAudEstadoTrue();
 
-    //Borrado lógico: Cambia usr_estado a false en la BD
+    //Borrado lógico
     @Transactional
     @Modifying
-    @Query("SELECT ae FROM Audiencia_ext ae WHERE ae.eauEstado = true") // ✅ CORRECTO
-    List<Audiencia_ext> encontrarActivas();
+    @Query("SELECT a FROM Audiencia a WHERE a.audEstado = true")
+    List<Audiencia> encontrarActivas();
     
     void borrarLogico(Integer id);
 }

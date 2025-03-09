@@ -35,7 +35,7 @@ public class Audiencia_extController extends BaseController<Audiencia_ext, Integ
     }
 
     @DeleteMapping("/{id}")
-    public void borradoLogico(@PathVariable Integer id) {
+    public void eliminarPorId(@PathVariable Integer id) {
         audiencia_extService.borradoLogico(id);
     }   
 
