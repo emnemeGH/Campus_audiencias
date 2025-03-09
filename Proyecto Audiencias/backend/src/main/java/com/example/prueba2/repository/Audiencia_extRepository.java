@@ -21,11 +21,10 @@ public interface Audiencia_extRepository extends JpaRepository<Audiencia_ext, In
            "AND a.aud_hora = :hora")
     List<Audiencia_ext> encontrarConflictos(Integer autoridadId, LocalDate fecha, java.time.LocalTime hora);
 
-    List<Audiencia_ext> findByAutEstadoTrue();
+    List<Audiencia_ext> findByEauEstadoTrue();
 
-    //Borrado lógico: Cambia usr_estado a false en la BD
-    @Transactional
+    @Query("UPDATE Audiencia_ext ae SET ae.eauEstado = false WHERE ae.eau_id = :id")
     @Modifying
-    @Query("UPDATE Audiencia_ext u SET u.eauEstado = false WHERE u.eau_id = :id")
+    @Transactional
     void borrarLogico(Integer id);
 }

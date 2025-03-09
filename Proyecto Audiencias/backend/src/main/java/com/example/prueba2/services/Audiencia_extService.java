@@ -25,7 +25,7 @@ public class Audiencia_extService extends BaseServiceImpl<Audiencia_ext, Integer
 
     @Transactional
     public void borradoLogico(Integer id) {
-        audienciaExtRepository.borrarLogico(id);
+    audienciaExtRepository.borrarLogico(id);
     }
 
     public Audiencia_ext guardarAudienciaExt(Audiencia_ext audienciaExt) {
