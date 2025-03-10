@@ -24,7 +24,7 @@ public class Audiencia_extController extends BaseController<Audiencia_ext, Integ
         this.audiencia_extService = audiencia_extService;
     }
 
-    @PostMapping
+    @PostMapping("/crear")
     public ResponseEntity<?> crearAudienciaExt(@RequestBody Audiencia_ext audienciaExt) {
         try {
             Audiencia_ext nuevaAudienciaExt = audiencia_extService.guardar(audienciaExt);
