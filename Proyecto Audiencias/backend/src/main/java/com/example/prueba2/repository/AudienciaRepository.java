@@ -14,14 +14,13 @@ import jakarta.transaction.Transactional;
 
 public interface AudienciaRepository extends JpaRepository<Audiencia, Integer>{
     
+    //Metodo estado
+    List<Audiencia> findByAudEstadoTrue();
+
     //Borrado lógico
     @Transactional
     @Modifying
     @Query("SELECT a FROM Audiencia a WHERE a.audEstado = true")
-    List<Audiencia> encontrarActivas();
-    
-    //Metodo estado
-    List<Audiencia> findByAudEstadoTrue();
-
+    //List<Audiencia> encontrarActivas();
     void borrarLogico(Integer id);
 }

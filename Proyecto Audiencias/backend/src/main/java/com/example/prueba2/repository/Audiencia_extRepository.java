@@ -15,16 +15,20 @@ import jakarta.transaction.Transactional;
 public interface Audiencia_extRepository extends JpaRepository<Audiencia_ext, Integer>{
     
     @Query("SELECT ae FROM Audiencia_ext ae " +
-           "JOIN ae.aud_id a " +
-           "WHERE ae.aut_id.aut_id = :autoridadId " +
-           "AND a.aud_fecha = :fecha " +
-           "AND a.aud_hora = :hora")
+       "JOIN ae.aud_id a " +
+       "WHERE ae.autoridad.aut_id = :autoridadId " +  // ✅ CORRECTO
+       "AND a.aud_fecha = :fecha " +
+       "AND a.aud_hora = :hora")
     List<Audiencia_ext> encontrarConflictos(Integer autoridadId, LocalDate fecha, java.time.LocalTime hora);
 
     List<Audiencia_ext> findByEauEstadoTrue();
 
-    @Query("UPDATE Audiencia_ext ae SET ae.eauEstado = false WHERE ae.eau_id = :id")
-    @Modifying
     @Transactional
+    @Modifying
+    @Query("UPDATE Audiencia_ext ae SET ae.eauEstado = false WHERE ae.eau_id = :id")
     void borrarLogico(Integer id);
+
+
+    @Query("SELECT ae FROM Audiencia_ext ae WHERE ae.autoridad.aut_id = :autoridadId") // ✅ CORRECTO
+    List<Audiencia_ext> encontrarPorAutoridad(Integer autoridadId);
 }
