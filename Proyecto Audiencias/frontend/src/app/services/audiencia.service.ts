@@ -17,5 +17,13 @@ export class AudienciaService {
   agregarAudiencia(audiencia: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, audiencia);
   }
+
+  obtenerAudienciaPorId(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
+  editarAudiencia(audiencia: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${audiencia.id}`, audiencia);
+  }
 }
 

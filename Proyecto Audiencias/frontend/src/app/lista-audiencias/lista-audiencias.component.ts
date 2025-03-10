@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AudienciaService } from '../audiencia.service';
+import { AudienciaService } from '../services/audiencia.service';
 
 @Component({
   selector: 'app-lista-audiencias',

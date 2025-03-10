@@ -7,9 +7,10 @@ import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
 import { FormsModule } from '@angular/forms';
 import { ListaAudienciasComponent } from './lista-audiencias/lista-audiencias.component';
-import { DetalleAudienciasComponent } from './detalle-audiencias/detalle-audiencias.component';
 import { CrearAudienciaComponent } from './crear-audiencia/crear-audiencia.component';
 import { HttpClientModule } from '@angular/common/http';
+import { EditarAudienciaComponent } from './editar-audiencia/editar-audiencia.component';
+import { LoginJuezComponent } from './login-juez/login-juez.component';
 
 @NgModule({
   declarations: [
@@ -17,8 +18,9 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     RegistroComponent,
     ListaAudienciasComponent,
-    DetalleAudienciasComponent,
-    CrearAudienciaComponent
+    CrearAudienciaComponent,
+    EditarAudienciaComponent,
+    LoginJuezComponent
   ],
   imports: [
     BrowserModule,
