@@ -45,7 +45,7 @@ CREATE TABLE AUDIENCIA (
     FOREIGN KEY(aud_usrmod) REFERENCES USUARIO(usr_id),
     aud_fecmod DATETIME,
     aud_estado BOOLEAN,
-    aud_tipo ENUM('Demorada', 'En Horario', 'Realizada', 'Suspendida'),
+    aud_tipo ENUM('Demorada', 'Programada', 'Realizada', 'Suspendida'),
     sal_id INT,
     FOREIGN KEY (sal_id) REFERENCES SALA(sal_id),
     aud_fecha DATE,
