@@ -30,7 +30,7 @@ public class Audiencia_extService extends BaseServiceImpl<Audiencia_ext, Integer
 
     public Audiencia_ext guardarAudienciaExt(Audiencia_ext audienciaExt) {
         
-        if (audienciaExt.getAutoridad() == null || audienciaExt.getAud_id() == null) {
+        if (audienciaExt.getAutoridad() == null || audienciaExt.getAudiencia() == null) {
             throw new IllegalArgumentException("Debe seleccionar una autoridad y una audiencia válida.");
         }
     
@@ -39,8 +39,8 @@ public class Audiencia_extService extends BaseServiceImpl<Audiencia_ext, Integer
         List<Audiencia_ext> conflictos = audienciaExtRepository.encontrarConflictos(
             // audienciaExt.getAutoridad().getAut_id(): Obtiene el ID de la autoridad asociada a la audiencia.
             audienciaExt.getAutoridad().getAut_id(),
-            audienciaExt.getAud_id().getAud_fecha(),
-            audienciaExt.getAud_id().getAud_hora()
+            audienciaExt.getAudiencia().getAud_fecha(),
+            audienciaExt.getAudiencia().getAud_hora()
         );
     
         if (!conflictos.isEmpty()) {

@@ -30,7 +30,7 @@ public class Audiencia_ext {
 
     @ManyToOne
     @JoinColumn(name="aud_id")
-    private Audiencia aud_id;
+    private Audiencia audiencia;
 
     @Column(name = "eau_estado")
     private Boolean eauEstado;
