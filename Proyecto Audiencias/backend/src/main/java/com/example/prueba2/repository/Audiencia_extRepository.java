@@ -18,8 +18,7 @@ public interface Audiencia_extRepository extends JpaRepository<Audiencia_ext, In
        "JOIN ae.aud_id a " +
        "WHERE ae.autoridad.aut_id = :autoridadId " +  // ✅ Cambiado de ae.autoridad.aut_id a ae.aut_id.aut_id
        "AND a.aud_fecha = :fecha " +
-       "AND a.aud_hora = :hora " +  // ✅ Se corrigió el espacio antes de AND
-       "AND ae.eauEstado = TRUE")  // ✅ Uso correcto para boolean en JPQL
+       "AND a.aud_hora = :hora ")  // ✅ Uso correcto para boolean en JPQL
     List<Audiencia_ext> encontrarConflictos(Integer autoridadId, LocalDate fecha, java.time.LocalTime hora);
 
     List<Audiencia_ext> findByEauEstadoTrue();

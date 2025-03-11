@@ -83,17 +83,17 @@
             </thead>
             <tbody>
                 <tr *ngFor="let audiencia of audienciasFiltradas">
-                    <td>{{ audiencia.hora }}</td>
-                    <td>{{ audiencia.distrito }}</td>
-                    <td>{{ audiencia.sala }}</td>
-                    <td>{{ audiencia.cuij }}</td>
+                    <td>{{ audiencia.aud_hora }}</td>
+                    <td>{{ audiencia.sal_id.distrito.dis_nombre }}</td>
+                    <td>{{ audiencia.sal_id.sal_lugar }}</td>
+                    <td>{{ audiencia.aud_cuij }}</td>
                     <td>{{ audiencia.aud_caratula }}</td>
-                    <td>{{ audiencia.tipo }}</td>
+                    <td>{{ audiencia.aud_tipo }}</td>
                     <td>{{ audiencia.juez }}</td>
                     <td>{{ audiencia.fiscal }}</td>
                     <td>{{ audiencia.defensor }}</td>
-                    <td>{{ audiencia.fecha | date:'dd-MM-yyyy' }}</td>
-                    <td>{{ audiencia.estado }}</td>
+                    <td>{{ audiencia.aud_fecha }}</td>
+                    <td>{{ audiencia.audEstado }}</td>
                 </tr>
             </tbody>
         </table>

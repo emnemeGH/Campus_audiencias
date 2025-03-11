@@ -34,7 +34,10 @@ public class Audiencia_extService extends BaseServiceImpl<Audiencia_ext, Integer
             throw new IllegalArgumentException("Debe seleccionar una autoridad y una audiencia válida.");
         }
     
+        // List<Audiencia_ext> conflictos
+        // Declara una lista de objetos de tipo Audiencia_ext llamada conflictos.
         List<Audiencia_ext> conflictos = audienciaExtRepository.encontrarConflictos(
+            // audienciaExt.getAutoridad().getAut_id(): Obtiene el ID de la autoridad asociada a la audiencia.
             audienciaExt.getAutoridad().getAut_id(),
             audienciaExt.getAud_id().getAud_fecha(),
             audienciaExt.getAud_id().getAud_hora()
