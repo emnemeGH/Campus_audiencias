@@ -32,18 +32,9 @@
                 <label>Distrito Judicial</label>
                 <select [(ngModel)]="distritoSeleccionado" (change)="actualizarSalas()" class="form-control">
                     <option value="">Seleccione</option>
-                    <option value="03 Venado Tuerto">03 Venado Tuerto</option>
-                    <option value="04 Reconquista">04 Reconquista</option>
-                    <option value="11 San Jorge">11 San Jorge</option>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label>Instancia</label>
-                <select class="form-control">
-                    <option value="">Seleccione</option>
-                    <option value="Primera">Primera Instancia</option>
-                    <option value="Segunda">Segunda Instancia</option>
-                    <option value="Apelacion">Cámara de Apelaciones</option>
+                    <option value="Distrito Capital">Distrito Capital</option>
+                    <option value="Distrito Sur">Distrito Sur</option>
+                    <option value="Distrito Norte">Distrito Norte</option>
                 </select>
             </div>
         </div>
@@ -60,7 +51,10 @@
                 <input type="date" class="form-control" [(ngModel)]="fechaSeleccionada">
             </div>
         </div>
-        <button (click)="filtrarAudiencias()" class="btn btn-primary">Buscar</button>
+        <div class="d-flex justify-content-between">
+            <button (click)="filtrarAudiencias()" class="btn btn-primary">Buscar</button>
+            <button (click)="borrarFiltros()" class="btn btn-secondary">Borrar filtros</button>
+        </div>
     </div>
 
     <!-- Tabla de audiencias -->
@@ -71,9 +65,9 @@
                     <th>Hora Inicio</th>
                     <th>Distrito</th>
                     <th>Sala</th>
+                    <th>Nombre</th>
                     <th>CUIJ</th>
                     <th>Carátula</th>
-                    <th>Tipo de Audiencia</th>
                     <th>Juez</th>
                     <th>Fiscal</th>
                     <th>Defensor</th>
@@ -85,15 +79,15 @@
                 <tr *ngFor="let audiencia of audienciasFiltradas">
                     <td>{{ audiencia.aud_hora }}</td>
                     <td>{{ audiencia.sal_id.distrito.dis_nombre }}</td>
-                    <td>{{ audiencia.sal_id.sal_lugar }}</td>
-                    <td>{{ audiencia.aud_cuij }}</td>
-                    <td>{{ audiencia.aud_caratula }}</td>
-                    <td>{{ audiencia.aud_tipo }}</td>
-                    <td>{{ audiencia.juez }}</td>
-                    <td>{{ audiencia.fiscal }}</td>
-                    <td>{{ audiencia.defensor }}</td>
+                    <td>{{ audiencia.sal_id.sal_nombre }}</td>
+                    <td>{{ audiencia.aud_nombre }}</td>
+                    <td>{{ audiencia.aud_cuij ? audiencia.aud_caratula: '-' }}</td>
+                    <td>{{ audiencia.aud_caratula ? audiencia.aud_caratula: '-' }}</td>
+                    <td>{{ audiencia.juez ? audiencia.aud_caratula: '-' }}</td>
+                    <td>{{ audiencia.fiscal ? audiencia.aud_caratula: '-' }}</td>
+                    <td>{{ audiencia.defensor ? audiencia.aud_caratula: '-' }}</td>
                     <td>{{ audiencia.aud_fecha }}</td>
-                    <td>{{ audiencia.audEstado }}</td>
+                    <td>{{ audiencia.aud_tipo }}</td>
                 </tr>
             </tbody>
         </table>

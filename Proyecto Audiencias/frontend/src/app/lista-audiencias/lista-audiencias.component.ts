@@ -16,9 +16,9 @@ export class ListaAudienciasComponent implements OnInit {
   fechaSeleccionada: string = '';
 
   salasPorDistrito: { [key: string]: string[] } = {
-    "Venado Tuerto": ["Sala VC Venado Tuerto", "Sala 1 Venado Tuerto"],
-    "Reconquista": ["Sala 1 Reconquista", "Sala 2 Reconquista"],
-    "San Jorge": ["Sala 1 San Jorge", "Sala 2 San Jorge"]
+    "Distrito Capital": ["Sala Penal 1", "Sala Civil 1", "Sala Familia 1", "Cámara Gessel 1"],
+    "Distrito Sur": ["Sala Penal 2", "Sala Civil 2", "Sala Familia 2", "Cámara Gessel 2"],
+    "Distrito Norte": ["Sala Penal 3", "Sala Civil 3", "Sala Familia 3", "Cámara Gessel 3"]
   };
 
   constructor(private audienciaService: AudienciaService) {}
@@ -73,6 +73,16 @@ export class ListaAudienciasComponent implements OnInit {
     return coincideDistrito && coincideSala && coincideFecha;
   });
   console.log(this.audienciasFiltradas);
+}
+
+borrarFiltros() {
+  // Reiniciar los filtros
+  this.distritoSeleccionado = '';
+  this.salaSeleccionada = '';
+  this.fechaSeleccionada = '';
+
+  // sacarle los filtros a la lista de audiencias
+  this.audienciasFiltradas = [...this.audiencias];
 }
 
 }

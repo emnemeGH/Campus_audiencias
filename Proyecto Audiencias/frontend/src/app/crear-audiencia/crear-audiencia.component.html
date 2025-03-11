@@ -20,9 +20,9 @@
                     <label>Distrito Judicial</label>
                     <select [(ngModel)]="audiencia.distrito" name="distrito" class="form-control" required>
                         <option value="">Seleccione</option>
-                        <option value="03 Venado Tuerto">03 Venado Tuerto</option>
-                        <option value="04 Reconquista">04 Reconquista</option>
-                        <option value="11 San Jorge">11 San Jorge</option>
+                        <option value="Distrito Capital">Distrito Capital</option>
+                        <option value="Distrito Sur">Distrito Sur</option>
+                        <option value="Distrito Norte">Distrito Norte</option>
                     </select>                
                 </div>
             </div>
@@ -32,9 +32,21 @@
                     <label>Sala</label>
                     <select [(ngModel)]="audiencia.sala" name="sala" class="form-control" required>
                         <option value="">Seleccione</option>
-                        <option value="Sala VC Venado Tuerto">Sala VC Venado Tuerto</option>
-                        <option value="Sala 1 Reconquista">Sala 1 Reconquista</option>
-                        <option value="Sala 1 San Jorge">Sala 1 San Jorge</option>
+                        <!-- Distrito Capital -->
+                        <option *ngIf="audiencia.distrito === 'Distrito Capital'" value="Sala Penal 1">Sala Penal 1</option>
+                        <option *ngIf="audiencia.distrito === 'Distrito Capital'" value="Sala Civil 1">Sala Civil 1</option>
+                        <option *ngIf="audiencia.distrito === 'Distrito Capital'" value="Sala Familia 1">Sala Familia 1</option>
+                        <option *ngIf="audiencia.distrito === 'Distrito Capital'" value="Cámara Gessel 1">Cámara Gessel 1</option>
+
+                        <option *ngIf="audiencia.distrito === 'Distrito Sur'" value="Sala Penal 2">Sala Penal 2</option>
+                        <option *ngIf="audiencia.distrito === 'Distrito Sur'" value="Sala Civil 2">Sala Civil 2</option>
+                        <option *ngIf="audiencia.distrito === 'Distrito Sur'" value="Sala Familia 2">Sala Familia 2</option>
+                        <option *ngIf="audiencia.distrito === 'Distrito Sur'" value="Cámara Gessel 2">Cámara Gessel 2</option>
+
+                        <option *ngIf="audiencia.distrito === 'Distrito Norte'" value="Sala Penal 3">Sala Penal 3</option>
+                        <option *ngIf="audiencia.distrito === 'Distrito Norte'" value="Sala Civil 3">Sala Civil 3</option>
+                        <option *ngIf="audiencia.distrito === 'Distrito Norte'" value="Sala Familia 3">Sala Familia 3</option>
+                        <option *ngIf="audiencia.distrito === 'Distrito Norte'" value="Cámara Gessel 3">Cámara Gessel 3</option>
                     </select>
                 </div>
                 <div class="col-md-6">
@@ -49,8 +61,8 @@
                     <input type="text" [(ngModel)]="audiencia.caratula" name="caratula" class="form-control" required>
                 </div>
                 <div class="col-md-6">
-                    <label>Tipo de Audiencia</label>
-                    <input type="text" [(ngModel)]="audiencia.tipo" name="tipo" class="form-control" required>
+                    <label>Nombre</label>
+                    <input type="text" [(ngModel)]="audiencia.nombre" name="tipo" class="form-control" required>
                 </div>
             </div>
     
@@ -73,10 +85,10 @@
                 <div class="col-md-6">
                     <label>Estado</label>
                     <select [(ngModel)]="audiencia.estado" name="estado" class="form-control" required>
-                        <option value="REALIZADA">REALIZADA</option>
-                        <option value="EN HORARIO">EN HORARIO</option>
-                        <option value="DEMORADA">DEMORADA</option>
-                        <option value="SUSPENDIDA">SUSPENDIDA</option>
+                        <option value="Realizada">REALIZADA</option>
+                        <option value="Programada">PROGRAMADA</option>
+                        <option value="Demorada">DEMORADA</option>
+                        <option value="Suspendida">SUSPENDIDA</option>
                     </select>
                 </div>
             </div>

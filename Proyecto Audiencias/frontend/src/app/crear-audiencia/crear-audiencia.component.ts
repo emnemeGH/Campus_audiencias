@@ -12,9 +12,9 @@ export class CrearAudienciaComponent {
     hora: '',
     distrito: '',
     sala: '',
+    nombre: '',
     cuij: '',
     caratula: '',
-    tipo: '',
     juez: '',
     fiscal: '',
     defensor: '',
@@ -24,10 +24,11 @@ export class CrearAudienciaComponent {
   constructor(private audienciaService: AudienciaService, private router: Router) {}
 
   guardarAudiencia() {
+    console.log('Datos a enviar:', this.audiencia); //PARA VER SI LA AUDIENCIA SE CARGA BIEN CUANDO ES ENVIADA
     this.audienciaService.agregarAudiencia(this.audiencia).subscribe(
       () => {
         alert('Audiencia guardada correctamente.');
-        this.router.navigate(['/audiencias']); // Redirige a la lista de audiencias
+        this.router.navigate(['/lista-audiencias']); // Redirige a la lista de audiencias
       },
       error => {
         console.error('Error al guardar audiencia:', error);
