@@ -1,6 +1,5 @@
 package com.example.prueba2.repository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,13 +12,6 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public interface Audiencia_extRepository extends JpaRepository<Audiencia_ext, Integer> {
-
-    @Query("SELECT ae FROM Audiencia_ext ae " +
-            "JOIN ae.audiencia a " +
-            "WHERE ae.autoridad.aut_id = :autoridadId " +
-            "AND a.aud_fecha = :fecha " +
-            "AND a.aud_hora = :hora")
-    List<Audiencia_ext> encontrarConflictos(Integer autoridadId, LocalDate fecha, java.time.LocalTime hora);
 
     List<Audiencia_ext> findByEauEstadoTrue();
 

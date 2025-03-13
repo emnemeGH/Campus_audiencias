@@ -36,4 +36,23 @@ public class AudienciaService extends BaseServiceImpl<Audiencia, Integer> {
     public List<Audiencia_ext> obtenerAutoridadesPorAudiencia(Long aud_id) {
         return Audiencia_extRepository.findByAudienciaId(aud_id);
     }
+
+    public Audiencia guardarAudiencia(Audiencia audiencia, Integer autoridadId) {
+        if (autoridadId == null || audiencia.getAud_fecha() == null || audiencia.getAud_hora() == null) {
+            throw new IllegalArgumentException("Debe seleccionar una autoridad, fecha y hora válidas.");
+        }
+    
+        // Verificar si la autoridad ya tiene una audiencia en la misma fecha y hora
+        Long conflictos = audienciaRepository.contarConflictos(
+            autoridadId,
+            audiencia.getAud_fecha(),
+            audiencia.getAud_hora()
+        );
+    
+        if (conflictos > 0) {
+            throw new IllegalArgumentException("La autoridad ya tiene una audiencia en la misma fecha y hora.");
+        }
+    
+        return audienciaRepository.save(audiencia);
+    }
 }
