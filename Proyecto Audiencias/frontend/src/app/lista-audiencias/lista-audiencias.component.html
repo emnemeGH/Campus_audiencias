@@ -68,8 +68,9 @@
                         <th>Distrito</th>
                         <th>Sala</th>
                         <th>Nombre</th>
-                        <th>CUIJ</th>
-                        <th>Carátula</th>
+                        <!--  Solo se muestra si tieneCuij() es true. -->
+                        <th *ngIf="tieneCuij()">CUIJ</th>
+                        <th *ngIf="tieneCaratula()">Carátula</th>
                         <th>Juez</th>
                         <th>Fiscal</th>
                         <th>Defensor</th>
@@ -83,8 +84,9 @@
                         <td>{{ audiencia.sal_id.distrito.dis_nombre }}</td>
                         <td>{{ audiencia.sal_id.sal_nombre }}</td>
                         <td>{{ audiencia.aud_nombre }}</td>
-                        <td>{{ audiencia.aud_cuij ? audiencia.aud_caratula: '-' }}</td>
-                        <td>{{ audiencia.aud_caratula ? audiencia.aud_caratula: '-' }}</td>
+                        <!--  Solo se muestra si tieneCuij() es true. -->
+                        <td *ngIf="tieneCuij()">{{ audiencia.aud_cuij }}</td>
+                        <td *ngIf="tieneCaratula()">{{ audiencia.aud_caratula }}</td>
                         <td>{{ audiencia.juez }}</td>
                         <td>{{ audiencia.fiscal }}</td>
                         <td>{{ audiencia.defensor }}</td>

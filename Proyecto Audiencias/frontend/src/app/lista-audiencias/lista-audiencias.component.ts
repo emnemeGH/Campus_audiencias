@@ -21,7 +21,7 @@ export class ListaAudienciasComponent implements OnInit {
     "Distrito Norte": ["Sala Penal 3", "Sala Civil 3", "Sala Familia 3", "Cámara Gessel 3"]
   };
 
-  constructor(private audienciaService: AudienciaService) {}
+  constructor(private audienciaService: AudienciaService) { }
 
   ngOnInit() {
     this.obtenerAudiencias();
@@ -32,7 +32,7 @@ export class ListaAudienciasComponent implements OnInit {
       data => {
         this.audiencias = data;
         this.audienciasFiltradas = [...this.audiencias];
-  
+
         // Para cada audiencia, obtener sus autoridades
         this.audiencias.forEach(audiencia => {
           this.audienciaService.getAutoridadesPorAudiencia(audiencia.aud_id).subscribe(
@@ -50,7 +50,7 @@ export class ListaAudienciasComponent implements OnInit {
       }
     );
   }
-  
+
 
   toggleFormulario() {
     this.mostrarFormulario = !this.mostrarFormulario;
@@ -63,39 +63,50 @@ export class ListaAudienciasComponent implements OnInit {
 
   filtrarAudiencias() {
     console.log(this.audiencias)
-  this.audienciasFiltradas = this.audiencias.filter((audiencia) => {
-    // Verificar si 'sal_id' y 'distrito' están definidos antes de acceder a ellos
-    const coincideDistrito = this.distritoSeleccionado 
-      ? audiencia.sal_id && audiencia.sal_id.distrito && audiencia.sal_id.distrito.dis_id
-        ? audiencia.sal_id.distrito.dis_nombre.trim() === this.distritoSeleccionado.trim() 
-        : false 
-      : true;
+    this.audienciasFiltradas = this.audiencias.filter((audiencia) => {
+      // Verificar si 'sal_id' y 'distrito' están definidos antes de acceder a ellos
+      const coincideDistrito = this.distritoSeleccionado
+        ? audiencia.sal_id && audiencia.sal_id.distrito && audiencia.sal_id.distrito.dis_id
+          ? audiencia.sal_id.distrito.dis_nombre.trim() === this.distritoSeleccionado.trim()
+          : false
+        : true;
 
-    // Verificar si 'sal_nombre' está definido antes de acceder
-    const coincideSala = this.salaSeleccionada 
-      ? audiencia.sal_id && audiencia.sal_id.sal_nombre 
-        ? audiencia.sal_id.sal_nombre.trim() === this.salaSeleccionada.trim() 
-        : false 
-      : true;
+      // Verificar si 'sal_nombre' está definido antes de acceder
+      const coincideSala = this.salaSeleccionada
+        ? audiencia.sal_id && audiencia.sal_id.sal_nombre
+          ? audiencia.sal_id.sal_nombre.trim() === this.salaSeleccionada.trim()
+          : false
+        : true;
 
-    // Filtrado por fecha
-    const coincideFecha = this.fechaSeleccionada 
-      ? audiencia.aud_fecha === this.fechaSeleccionada 
-      : true;
+      // Filtrado por fecha
+      const coincideFecha = this.fechaSeleccionada
+        ? audiencia.aud_fecha === this.fechaSeleccionada
+        : true;
 
-    return coincideDistrito && coincideSala && coincideFecha;
-  });
-  console.log(this.audienciasFiltradas);
-}
+      return coincideDistrito && coincideSala && coincideFecha;
+    });
+    console.log(this.audienciasFiltradas);
+  }
 
-borrarFiltros() {
-  // Reiniciar los filtros
-  this.distritoSeleccionado = '';
-  this.salaSeleccionada = '';
-  this.fechaSeleccionada = '';
+  borrarFiltros() {
+    // Reiniciar los filtros
+    this.distritoSeleccionado = '';
+    this.salaSeleccionada = '';
+    this.fechaSeleccionada = '';
 
-  // sacarle los filtros a la lista de audiencias
-  this.audienciasFiltradas = [...this.audiencias];
-}
+    // sacarle los filtros a la lista de audiencias
+    this.audienciasFiltradas = [...this.audiencias];
+  }
+
+
+  tieneCuij(): boolean {
+    return this.audienciasFiltradas.some(audiencia => audiencia.aud_cuij);
+  }
+
+  tieneCaratula(): boolean {
+    return this.audienciasFiltradas.some(audiencia => audiencia.aud_caratula);
+  }
+
+
 
 }
