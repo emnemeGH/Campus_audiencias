@@ -32,12 +32,25 @@ export class ListaAudienciasComponent implements OnInit {
       data => {
         this.audiencias = data;
         this.audienciasFiltradas = [...this.audiencias];
-        },
+  
+        // Para cada audiencia, obtener sus autoridades
+        this.audiencias.forEach(audiencia => {
+          this.audienciaService.getAutoridadesPorAudiencia(audiencia.aud_id).subscribe(
+            autoridades => {
+              audiencia.juez = autoridades.find(a => a.autoridad.aut_tipo === 'juez')?.autoridad.aut_nombre || '-';
+              audiencia.fiscal = autoridades.find(a => a.autoridad.aut_tipo === 'fiscal')?.autoridad.aut_nombre || '-';
+              audiencia.defensor = autoridades.find(a => a.autoridad.aut_tipo === 'defensor')?.autoridad.aut_nombre || '-';
+            },
+            error => console.error('Error obteniendo autoridades:', error)
+          );
+        });
+      },
       error => {
         console.error('Error al obtener audiencias:', error);
-        }
+      }
     );
   }
+  
 
   toggleFormulario() {
     this.mostrarFormulario = !this.mostrarFormulario;

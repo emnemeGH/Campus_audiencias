@@ -20,6 +20,13 @@
 
 //  @RequestBody → Datos en el cuerpo de la solicitud. Se usa cuando quieres enviar datos en formato JSON en una petición POST o PUT.
 
+// ResponseEntity Es una respuesta HTTP completa que Spring Boot usa para enviar datos desde el backend a quien hizo la petición (por ejemplo, un frontend en Angular). Nos permite: Enviar datos (como una lista de objetos, un mensaje, etc.) y Controlar el código de estado HTTP (como 200 OK, 404 Not Found, etc.).
+// Ejemplo: Si no usáramos ResponseEntity, podríamos escribir:
+// List<Audiencia_ext> lista = new ArrayList<>();
+// return lista;
+
+// Pero con ResponseEntity, lo envolvemos en una respuesta HTTP estructurada:
+// return ResponseEntity.ok(lista);
 
 // EJEMPLO
 

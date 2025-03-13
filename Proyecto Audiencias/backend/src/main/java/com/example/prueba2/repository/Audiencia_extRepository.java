@@ -28,6 +28,7 @@ public interface Audiencia_extRepository extends JpaRepository<Audiencia_ext, In
     // tipo Audiencia. Así que tienes que acceder al ID a través del objeto:
     // ae.audiencia.aud_id
     @Query("SELECT ae FROM Audiencia_ext ae WHERE ae.audiencia.aud_id = :aud_id")
+    // Obtenemos desde Audiencia_ext todas las autoridades que están asociadas a la audiencia cuyo ID le pasamos. Esto es posible porque Audiencia_ext actúa como una tabla intermedia que vincula audiencias con autoridades
     List<Audiencia_ext> findByAudienciaId(Long aud_id);
 
 }

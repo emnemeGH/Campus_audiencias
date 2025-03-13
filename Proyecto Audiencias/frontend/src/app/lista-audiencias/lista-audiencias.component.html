@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,98 +8,100 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
+
 <body>
 
-<nav class="navbar navbar-expand-lg px-4">
-    <div class="container-fluid">
-        <span class="navbar-brand">GESTIÓN DE AUDIENCIAS</span>
-        <a href="#" class="btn btn-outline-secondary" [routerLink]="'/crear-audiencia'">+ Nuevo</a>
+    <nav class="navbar navbar-expand-lg px-4">
+        <div class="container-fluid">
+            <span class="navbar-brand">GESTIÓN DE AUDIENCIAS</span>
+            <a href="#" class="btn btn-outline-secondary" [routerLink]="'/crear-audiencia'">+ Nuevo</a>
 
-    </div>
-</nav>
+        </div>
+    </nav>
 
-<div class="container mt-4">
-    <h2 class="text-white bg-dark p-2 text-center d-flex justify-content-between align-items-center">
-        Consulta de Audiencias
-        <button (click)="toggleFormulario()" class="btn btn-light">
-            {{ mostrarFormulario ? '▲' : '▼' }}
-        </button>
-    </h2>
+    <div class="container mt-4">
+        <h2 class="text-white bg-dark p-2 text-center d-flex justify-content-between align-items-center">
+            Consulta de Audiencias
+            <button (click)="toggleFormulario()" class="btn btn-light">
+                {{ mostrarFormulario ? '▲' : '▼' }}
+            </button>
+        </h2>
 
-    <!-- Formulario de búsqueda -->
-    <div *ngIf="mostrarFormulario" class="p-3 bg-light border rounded">
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label>Distrito Judicial</label>
-                <select [(ngModel)]="distritoSeleccionado" (change)="actualizarSalas()" class="form-control">
-                    <option value="">Seleccione</option>
-                    <option value="Distrito Capital">Distrito Capital</option>
-                    <option value="Distrito Sur">Distrito Sur</option>
-                    <option value="Distrito Norte">Distrito Norte</option>
-                </select>
+        <!-- Formulario de búsqueda -->
+        <div *ngIf="mostrarFormulario" class="p-3 bg-light border rounded">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>Distrito Judicial</label>
+                    <select [(ngModel)]="distritoSeleccionado" (change)="actualizarSalas()" class="form-control">
+                        <option value="">Seleccione</option>
+                        <option value="Distrito Capital">Distrito Capital</option>
+                        <option value="Distrito Sur">Distrito Sur</option>
+                        <option value="Distrito Norte">Distrito Norte</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>Sala</label>
+                    <select [(ngModel)]="salaSeleccionada" class="form-control">
+                        <option value="">Seleccione</option>
+                        <option *ngFor="let sala of salasDisponibles" [value]="sala">{{ sala }}</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>Fecha</label>
+                    <input type="date" class="form-control" [(ngModel)]="fechaSeleccionada">
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button (click)="filtrarAudiencias()" class="btn btn-primary">Buscar</button>
+                <button (click)="borrarFiltros()" class="btn btn-secondary">Borrar filtros</button>
             </div>
         </div>
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label>Sala</label>
-                <select [(ngModel)]="salaSeleccionada" class="form-control">
-                    <option value="">Seleccione</option>
-                    <option *ngFor="let sala of salasDisponibles" [value]="sala">{{ sala }}</option>
-                </select>
-            </div>
-            <div class="col-md-6">
-                <label>Fecha</label>
-                <input type="date" class="form-control" [(ngModel)]="fechaSeleccionada">
-            </div>
-        </div>
-        <div class="d-flex justify-content-between">
-            <button (click)="filtrarAudiencias()" class="btn btn-primary">Buscar</button>
-            <button (click)="borrarFiltros()" class="btn btn-secondary">Borrar filtros</button>
+
+        <!-- Tabla de audiencias -->
+        <div class="consulta-box mt-3">
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>Hora Inicio</th>
+                        <th>Distrito</th>
+                        <th>Sala</th>
+                        <th>Nombre</th>
+                        <th>CUIJ</th>
+                        <th>Carátula</th>
+                        <th>Juez</th>
+                        <th>Fiscal</th>
+                        <th>Defensor</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let audiencia of audienciasFiltradas">
+                        <td>{{ audiencia.aud_hora }}</td>
+                        <td>{{ audiencia.sal_id.distrito.dis_nombre }}</td>
+                        <td>{{ audiencia.sal_id.sal_nombre }}</td>
+                        <td>{{ audiencia.aud_nombre }}</td>
+                        <td>{{ audiencia.aud_cuij ? audiencia.aud_caratula: '-' }}</td>
+                        <td>{{ audiencia.aud_caratula ? audiencia.aud_caratula: '-' }}</td>
+                        <td>{{ audiencia.juez }}</td>
+                        <td>{{ audiencia.fiscal }}</td>
+                        <td>{{ audiencia.defensor }}</td>
+                        <td>{{ audiencia.aud_fecha }}</td>
+                        <td>{{ audiencia.aud_tipo }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
-    <!-- Tabla de audiencias -->
-    <div class="consulta-box mt-3">
-        <table class="table table-bordered text-center">
-            <thead>
-                <tr>
-                    <th>Hora Inicio</th>
-                    <th>Distrito</th>
-                    <th>Sala</th>
-                    <th>Nombre</th>
-                    <th>CUIJ</th>
-                    <th>Carátula</th>
-                    <th>Juez</th>
-                    <th>Fiscal</th>
-                    <th>Defensor</th>
-                    <th>Fecha</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let audiencia of audienciasFiltradas">
-                    <td>{{ audiencia.aud_hora }}</td>
-                    <td>{{ audiencia.sal_id.distrito.dis_nombre }}</td>
-                    <td>{{ audiencia.sal_id.sal_nombre }}</td>
-                    <td>{{ audiencia.aud_nombre }}</td>
-                    <td>{{ audiencia.aud_cuij ? audiencia.aud_caratula: '-' }}</td>
-                    <td>{{ audiencia.aud_caratula ? audiencia.aud_caratula: '-' }}</td>
-                    <td>{{ audiencia.juez ? audiencia.aud_caratula: '-' }}</td>
-                    <td>{{ audiencia.fiscal ? audiencia.aud_caratula: '-' }}</td>
-                    <td>{{ audiencia.defensor ? audiencia.aud_caratula: '-' }}</td>
-                    <td>{{ audiencia.aud_fecha }}</td>
-                    <td>{{ audiencia.aud_tipo }}</td>
-                </tr>
-            </tbody>
-        </table>
+
+    <div class="container">
+        <button class="btn btn-outline-secondary" [routerLink]="''">Volver</button>
     </div>
-</div>
 
-
-<div class="container">
-    <button class="btn btn-outline-secondary" [routerLink]="''">Volver</button>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

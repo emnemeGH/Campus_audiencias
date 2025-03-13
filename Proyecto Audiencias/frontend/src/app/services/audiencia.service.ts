@@ -25,5 +25,9 @@ export class AudienciaService {
   editarAudiencia(audiencia: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${audiencia.id}`, audiencia);
   }
+
+  getAutoridadesPorAudiencia(id: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/${id}/autoridades`);
+  }
 }
 
