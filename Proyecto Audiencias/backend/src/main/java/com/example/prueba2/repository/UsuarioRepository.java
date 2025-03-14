@@ -1,6 +1,7 @@
 package com.example.prueba2.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -22,4 +23,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
     @Modifying
     @Query("UPDATE Usuario u SET u.usrEstado = false WHERE u.usr_id = :id")
     void borrarLogico(Integer id);
+
+    Optional<Usuario> findByUsrUserName(String usrUsrname);
+    Optional<Usuario> findByUsrMail(String usrMail);
 }

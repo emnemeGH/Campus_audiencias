@@ -19,10 +19,7 @@ public class Usuario {
     private Integer usr_id;
     private String usr_nombre;
     private String usr_username;
-    private String usr_mail;
     private Integer usr_login;
-    private String usr_password;
-    private Integer usr_isadmin;
     
     @ManyToOne
     @JoinColumn(name="dis_id")
@@ -37,5 +34,48 @@ public class Usuario {
 
     public void setUsrEstado(Boolean usrEstado) {
         this.usrEstado = usrEstado;
+    }
+
+    @Column(name = "usr_isadmin")
+    private Boolean usrIsAdmin; // ✅ Indica si el usuario es admin (true = admin, false = normal)
+
+    public Boolean getUsrIsAdmin() {
+        return usrIsAdmin;
+    }
+    
+    public void setUsrIsAdmin(Boolean usrIsAdmin) {
+        this.usrIsAdmin = usrIsAdmin;
+    }
+
+    @Column(name = "usr_username")
+    private String usrUsername;
+
+    public String getUsrUsername() {
+        return usrUsername;
+    }
+    public void setUsrUsername(String usrUsername) {
+        this.usrUsername = usrUsername;
+    }
+
+    @Column(name = "usr_mail")
+    private String usrMail;
+
+    public String getUsrMail() {
+        return usrMail;
+    }
+
+    public void setUsrMail(String usrMail) {
+        this.usrMail = usrMail;
+    }
+
+    @Column(name = "usr_password")
+    private String usrPassword;
+
+    public String getUsrPassword() {
+        return usrPassword;
+    }
+
+    public void setUsrPassword(String usrPassword) {
+        this.usrPassword = usrPassword;
     }
 }
