@@ -27,6 +27,12 @@ export interface Audiencia {
   aud_caratula?: string;
 };
 
+export interface AudienciaForm extends Audiencia {
+  aud_juez?: number;
+  aud_fiscal?: number;
+  aud_defensor?: number;
+}
+
 @Component({
   selector: 'app-agregar-audiencia',
   templateUrl: './crear-audiencia.component.html',
@@ -34,7 +40,7 @@ export interface Audiencia {
 })
 
 export class CrearAudienciaComponent {
-  audiencia: Audiencia = {
+  audiencia: AudienciaForm = {
     sal_id: {
       sal_id: undefined,
       sal_nombre: undefined,
@@ -42,18 +48,39 @@ export class CrearAudienciaComponent {
         dis_id: undefined,
         dis_nombre: undefined
       }
-    }
+    },
+    aud_juez: undefined,
+    aud_fiscal: undefined,
+    aud_defensor: undefined
   };
+  
   constructor(private audienciaService: AudienciaService, private router: Router) {}
 
   
-guardarAudiencia() {
-  // Para reiniciar el ID: ALTER TABLE audiencia AUTO_INCREMENT = 5; Primero se deben borrar todas las audiencias no deseas y luego setear el id que queremos que arranque desde.
-  console.log('Datos a enviar:', this.audiencia);  // Verifica los datos antes de enviarlos
-  this.audienciaService.agregarAudiencia(this.audiencia).subscribe(() => {
+  guardarAudiencia() {
+    // Para reiniciar el ID: ALTER TABLE audiencia AUTO_INCREMENT = 5; Primero se deben borrar todas las audiencias no deseas y luego setear el id que queremos que arranque desde.
+    console.log('Datos a enviar:', this.audiencia);
+    this.audienciaService.agregarAudiencia(this.audiencia).subscribe((nuevaAudiencia) => {
+      const audienciaId = nuevaAudiencia.aud_id;
+  
+      // Crear relaciones en AUDIENCIA_EXT para juez, fiscal y defensor
+      if (this.audiencia.aud_juez) {
+        this.audienciaService.agregarRelacionAudienciaAutoridad(audienciaId, this.audiencia.aud_juez)
+          .subscribe();
+      }
+      if (this.audiencia.aud_fiscal) {
+        this.audienciaService.agregarRelacionAudienciaAutoridad(audienciaId, this.audiencia.aud_fiscal)
+          .subscribe();
+      }
+      if (this.audiencia.aud_defensor) {
+        this.audienciaService.agregarRelacionAudienciaAutoridad(audienciaId, this.audiencia.aud_defensor)
+          .subscribe();
+      }
+  
       this.router.navigate(['/lista-audiencias']);
-  });
-}
+    });
+  }
+  
 
 
 

@@ -24,7 +24,8 @@
                 </div>
                 <div class="col-md-6">
                     <label>Distrito Judicial</label>
-                    <select [(ngModel)]="audiencia.sal_id.distrito.dis_nombre" name="audiencia.sal_id.distrito.dis_nombre" class="form-control" required>
+                    <select [(ngModel)]="audiencia.sal_id.distrito.dis_nombre"
+                        name="audiencia.sal_id.distrito.dis_nombre" class="form-control" required>
                         <option value="">Seleccione</option>
                         <option value="Distrito Capital">Distrito Capital</option>
                         <option value="Distrito Sur">Distrito Sur</option>
@@ -38,26 +39,38 @@
                     <label>Sala</label>
                     <select [(ngModel)]="audiencia.sal_id.sal_id" name="sal_id" class="form-control" required>
                         <option value="">Seleccione</option>
-                    
+
                         <!-- Distrito Capital -->
-                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" [value]="1">Sala Penal 1</option>
-                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" [value]="2">Sala Civil 1</option>
-                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" [value]="3">Sala Familia 1</option>
-                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" [value]="4">Cámara Gessel 1</option>
-                    
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" [value]="1">Sala
+                            Penal 1</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" [value]="2">Sala
+                            Civil 1</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" [value]="3">Sala
+                            Familia 1</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" [value]="4">Cámara
+                            Gessel 1</option>
+
                         <!-- Distrito Sur -->
-                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" [value]="5">Sala Penal 2</option>
-                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" [value]="6">Sala Civil 2</option>
-                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" [value]="7">Sala Familia 2</option>
-                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" [value]="8">Cámara Gessel 2</option>
-                    
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" [value]="5">Sala Penal 2
+                        </option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" [value]="6">Sala Civil 2
+                        </option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" [value]="7">Sala Familia
+                            2</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" [value]="8">Cámara
+                            Gessel 2</option>
+
                         <!-- Distrito Norte -->
-                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" [value]="9">Sala Penal 3</option>
-                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" [value]="10">Sala Civil 3</option>
-                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" [value]="11">Sala Familia 3</option>
-                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" [value]="12">Cámara Gessel 3</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" [value]="9">Sala Penal
+                            3</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" [value]="10">Sala
+                            Civil 3</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" [value]="11">Sala
+                            Familia 3</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" [value]="12">Cámara
+                            Gessel 3</option>
                     </select>
-                    
+
                 </div>
                 <div class="col-md-6">
                     <label>CUIJ</label>
@@ -77,7 +90,7 @@
                 </div>
             </div>
 
-            <!-- <div class="row mb-3">
+            <div class="row mb-3">
                 <div class="col-md-4">
                     <label>Juez</label>
                     <select [(ngModel)]="audiencia.aud_juez" name="juez" class="form-control" required>
@@ -138,7 +151,7 @@
                         </option>
                     </select>
                 </div>
-             </div> -->
+            </div>
 
             <div class="row mb-3">
                 <div class="col-md-6">
