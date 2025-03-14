@@ -1,103 +1,162 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Audiencia</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container mt-4">
         <h2 class="text-white bg-dark p-2 text-center">Agregar Nueva Audiencia</h2>
-    
+
         <form (ngSubmit)="guardarAudiencia()" class="bg-light p-4 border rounded">
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label>Hora Inicio</label>
-                    <input type="time" [(ngModel)]="audiencia.hora" name="hora" class="form-control" required>
+                    <input type="time" [(ngModel)]="audiencia.aud_hora" name="hora" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label>Fecha</label>
+                    <input type="date" [(ngModel)]="audiencia.aud_fecha" name="fecha" class="form-control" required>
                 </div>
                 <div class="col-md-6">
                     <label>Distrito Judicial</label>
-                    <select [(ngModel)]="audiencia.distrito" name="distrito" class="form-control" required>
+                    <select [(ngModel)]="audiencia.sal_id.distrito.dis_nombre" name="audiencia.sal_id.distrito.dis_nombre" class="form-control" required>
                         <option value="">Seleccione</option>
                         <option value="Distrito Capital">Distrito Capital</option>
                         <option value="Distrito Sur">Distrito Sur</option>
                         <option value="Distrito Norte">Distrito Norte</option>
-                    </select>                
+                    </select>
                 </div>
             </div>
-    
+
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label>Sala</label>
-                    <select [(ngModel)]="audiencia.sala" name="sala" class="form-control" required>
+                    <select [(ngModel)]="audiencia.sal_id.sal_id" name="sal_id" class="form-control" required>
                         <option value="">Seleccione</option>
+                    
                         <!-- Distrito Capital -->
-                        <option *ngIf="audiencia.distrito === 'Distrito Capital'" value="Sala Penal 1">Sala Penal 1</option>
-                        <option *ngIf="audiencia.distrito === 'Distrito Capital'" value="Sala Civil 1">Sala Civil 1</option>
-                        <option *ngIf="audiencia.distrito === 'Distrito Capital'" value="Sala Familia 1">Sala Familia 1</option>
-                        <option *ngIf="audiencia.distrito === 'Distrito Capital'" value="Cámara Gessel 1">Cámara Gessel 1</option>
-
-                        <option *ngIf="audiencia.distrito === 'Distrito Sur'" value="Sala Penal 2">Sala Penal 2</option>
-                        <option *ngIf="audiencia.distrito === 'Distrito Sur'" value="Sala Civil 2">Sala Civil 2</option>
-                        <option *ngIf="audiencia.distrito === 'Distrito Sur'" value="Sala Familia 2">Sala Familia 2</option>
-                        <option *ngIf="audiencia.distrito === 'Distrito Sur'" value="Cámara Gessel 2">Cámara Gessel 2</option>
-
-                        <option *ngIf="audiencia.distrito === 'Distrito Norte'" value="Sala Penal 3">Sala Penal 3</option>
-                        <option *ngIf="audiencia.distrito === 'Distrito Norte'" value="Sala Civil 3">Sala Civil 3</option>
-                        <option *ngIf="audiencia.distrito === 'Distrito Norte'" value="Sala Familia 3">Sala Familia 3</option>
-                        <option *ngIf="audiencia.distrito === 'Distrito Norte'" value="Cámara Gessel 3">Cámara Gessel 3</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" [value]="1">Sala Penal 1</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" [value]="2">Sala Civil 1</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" [value]="3">Sala Familia 1</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" [value]="4">Cámara Gessel 1</option>
+                    
+                        <!-- Distrito Sur -->
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" [value]="5">Sala Penal 2</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" [value]="6">Sala Civil 2</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" [value]="7">Sala Familia 2</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" [value]="8">Cámara Gessel 2</option>
+                    
+                        <!-- Distrito Norte -->
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" [value]="9">Sala Penal 3</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" [value]="10">Sala Civil 3</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" [value]="11">Sala Familia 3</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" [value]="12">Cámara Gessel 3</option>
                     </select>
+                    
                 </div>
                 <div class="col-md-6">
                     <label>CUIJ</label>
-                    <input type="text" [(ngModel)]="audiencia.cuij" name="cuij" class="form-control" required>
+                    <input type="number" [(ngModel)]="audiencia.aud_cuij" name="cuij" class="form-control" required>
                 </div>
             </div>
-    
+
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label>Carátula</label>
-                    <input type="text" [(ngModel)]="audiencia.caratula" name="caratula" class="form-control" required>
+                    <input type="text" [(ngModel)]="audiencia.aud_caratula" name="caratula" class="form-control"
+                        required>
                 </div>
                 <div class="col-md-6">
                     <label>Nombre</label>
-                    <input type="text" [(ngModel)]="audiencia.nombre" name="tipo" class="form-control" required>
+                    <input type="text" [(ngModel)]="audiencia.aud_nombre" name="nombre" class="form-control" required>
                 </div>
             </div>
-    
-            <div class="row mb-3">
+
+            <!-- <div class="row mb-3">
                 <div class="col-md-4">
                     <label>Juez</label>
-                    <input type="text" [(ngModel)]="audiencia.juez" name="juez" class="form-control" required>
+                    <select [(ngModel)]="audiencia.aud_juez" name="juez" class="form-control" required>
+                        <option value="">Seleccione</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" value="1">Juez1 Dist1
+                        </option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" value="2">Juez2 Dist1
+                        </option>
+
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" value="7">Juez1 Dist2
+                        </option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" value="8">Juez2 Dist2
+                        </option>
+
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" value="13">Juez1 Dist3
+                        </option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" value="14">Juez2 Dist3
+                        </option>
+                    </select>
                 </div>
                 <div class="col-md-4">
                     <label>Fiscal</label>
-                    <input type="text" [(ngModel)]="audiencia.fiscal" name="fiscal" class="form-control" required>
+                    <select [(ngModel)]="audiencia.aud_fiscal" name="fiscal" class="form-control" required>
+                        <option value="">Seleccione</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" value="3">Fiscal1 Dist1
+                        </option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" value="4">Fiscal2 Dist1
+                        </option>
+
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" value="9">Fiscal1 Dist2
+                        </option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" value="10">Fiscal2 Dist2
+                        </option>
+
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" value="15">Fiscal1 Dist3
+                        </option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" value="16">Fiscal2 Dist3
+                        </option>
+                    </select>
                 </div>
                 <div class="col-md-4">
                     <label>Defensor</label>
-                    <input type="text" [(ngModel)]="audiencia.defensor" name="defensor" class="form-control" required>
+                    <select [(ngModel)]="audiencia.aud_defensor" name="defensor" class="form-control" required>
+                        <option value="">Seleccione</option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" value="5">Defensor1 Dist1
+                        </option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Capital'" value="6">Defensor2 Dist1
+                        </option>
+
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" value="11">Defensor1 Dist2
+                        </option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Sur'" value="12">Defensor2 Dist2
+                        </option>
+
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" value="17">Defensor1 Dist3
+                        </option>
+                        <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" value="18">Defensor2 Dist3
+                        </option>
+                    </select>
                 </div>
-            </div>
-    
+             </div> -->
+
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label>Estado</label>
-                    <select [(ngModel)]="audiencia.estado" name="estado" class="form-control" required>
-                        <option value="Realizada">REALIZADA</option>
-                        <option value="Programada">PROGRAMADA</option>
-                        <option value="Demorada">DEMORADA</option>
-                        <option value="Suspendida">SUSPENDIDA</option>
+                    <select [(ngModel)]="audiencia.aud_tipo" name="tipo" class="form-control" required>
+                        <option value="Realizada">Realizada</option>
+                        <option value="Programada">Programada</option>
+                        <option value="Demorada">Demorada</option>
+                        <option value="Suspendida">Suspendida</option>
                     </select>
                 </div>
             </div>
-    
+
             <button type="submit" class="btn btn-success">Guardar Audiencia</button>
             <div class="d-flex justify-content-end mt-3">
                 <a [routerLink]="'/lista-audiencias'" class="btn btn-secondary">Volver</a>
-            </div> 
-        </form>       
+            </div>
+        </form>
     </div>
-    
+
 </body>

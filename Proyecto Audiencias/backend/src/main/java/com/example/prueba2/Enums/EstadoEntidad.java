@@ -5,6 +5,7 @@ public enum EstadoEntidad {
     Programada("Programada"),
     Demorada("Demorada"),
     Suspendida("Suspendida"),
+    Realizada("Realizada"),
 
     // Valores para auditoridades (aut_tipo)
     juez("juez"),
