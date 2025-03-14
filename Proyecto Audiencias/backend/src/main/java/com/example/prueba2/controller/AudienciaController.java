@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.prueba2.models.Audiencia;
 import com.example.prueba2.models.Audiencia_ext;
+import com.example.prueba2.models.Usuario;
 import com.example.prueba2.services.AudienciaService;
 
 @RestController
@@ -40,12 +42,22 @@ public class AudienciaController extends BaseController<Audiencia, Integer> {
     }
 
     @PostMapping("/crear/{autoridadId}")
-public ResponseEntity<?> crearAudiencia(@RequestBody Audiencia audiencia, @PathVariable Integer autoridadId) {
+    public ResponseEntity<?> crearAudiencia(@RequestBody Audiencia audiencia,
+                                        @PathVariable Integer autoridadId,
+                                        @RequestParam Integer usuarioSolicitanteId) {
+    Usuario usuarioSolicitante = audienciaService.obtenerUsuarioPorId(usuarioSolicitanteId)
+        .orElseThrow(() -> new IllegalArgumentException("Usuario solicitante no encontrado"));
+
+    // ❌ Si es admin, no puede crear audiencias
+    if (usuarioSolicitante.getUsrIsAdmin()) {
+        return ResponseEntity.status(403).body("Los administradores no pueden gestionar audiencias.");
+    }
+
     try {
         Audiencia nuevaAudiencia = audienciaService.guardarAudiencia(audiencia, autoridadId);
         return ResponseEntity.ok(nuevaAudiencia);
     } catch (IllegalArgumentException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());  // 🔹 Devuelve el error si hay conflicto
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
-}
+    }
 }

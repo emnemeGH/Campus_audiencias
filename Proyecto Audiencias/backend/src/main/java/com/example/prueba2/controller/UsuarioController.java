@@ -38,12 +38,20 @@ public class UsuarioController extends BaseController<Usuario, Integer>{
     }
 
     @PostMapping("/registrar")
-    public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario) {
+    public ResponseEntity<?> registrarUsuario(@RequestBody Usuario usuario, @RequestParam Integer usuarioSolicitanteId) {
+        Usuario usuarioSolicitante = usuarioService.obtenerPorId(usuarioSolicitanteId)
+            .orElseThrow(() -> new IllegalArgumentException("Usuario solicitante no encontrado"));
+    
+        // ❌ Si no es admin, no puede crear usuarios
+        if (!usuarioSolicitante.getUsrIsAdmin()) {
+            return ResponseEntity.status(403).body("No tienes permisos para crear usuarios.");
+        }
+    
         try {
             Usuario nuevoUsuario = usuarioService.registrarUsuario(usuario);
             return ResponseEntity.ok(nuevoUsuario);
-    } catch (IllegalArgumentException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
-}
 }
