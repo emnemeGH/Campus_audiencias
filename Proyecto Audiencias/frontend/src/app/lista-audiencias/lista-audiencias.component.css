@@ -34,7 +34,7 @@ body {
     padding-bottom: var(--bs-navbar-brand-padding-y);
     margin-right: var(--bs-navbar-brand-margin-end);
     font-size: var(--bs-navbar-brand-font-size);
-    color: #fff;
+    color: #fff !important;
     text-decoration: none;
     white-space: nowrap;
 }

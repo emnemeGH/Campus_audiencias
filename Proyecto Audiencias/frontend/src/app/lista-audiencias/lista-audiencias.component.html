@@ -80,18 +80,24 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let audiencia of audienciasFiltradas">
-                        <td>{{ audiencia.aud_hora }}</td>
+                        <td>{{ audiencia.aud_hora | hora }}</td>
                         <td>{{ audiencia.sal_id.distrito.dis_nombre }}</td>
                         <td>{{ audiencia.sal_id.sal_nombre }}</td>
                         <td>{{ audiencia.aud_nombre }}</td>
                         <!--  Solo se muestra si tieneCuij() es true. -->
-                        <td *ngIf="tieneCuij()">{{ audiencia.aud_cuij }}</td>
-                        <td *ngIf="tieneCaratula()">{{ audiencia.aud_caratula }}</td>
+                        <td *ngIf="tieneCuij()">{{ audiencia.aud_cuij ? audiencia.aud_cuij: '-'  }}</td>
+                        <td *ngIf="tieneCaratula()">{{ audiencia.aud_caratula ? audiencia.aud_caratula: '-'  }}</td>
                         <td>{{ audiencia.juez }}</td>
                         <td>{{ audiencia.fiscal }}</td>
                         <td>{{ audiencia.defensor }}</td>
                         <td>{{ audiencia.aud_fecha }}</td>
                         <td>{{ audiencia.aud_tipo }}</td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center gap-3">
+                                <i class="bi bi-pencil text-primary" [routerLink]= "['/editar-audiencia']"></i>
+                                <i class="bi bi-trash text-danger"></i>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
