@@ -33,7 +33,7 @@ public class UsuarioService extends BaseServiceImpl<Usuario, Integer>{
     
     public Usuario registrarUsuario(Usuario nuevoUsuario) {
         // Verificar si el nombre de usuario ya existe
-        if (usuarioRepository.findByUsrUserName(nuevoUsuario.getUsrUsername()).isPresent()) {
+        if (usuarioRepository.findByUsrUsername(nuevoUsuario.getUsrUsername()).isPresent()) {
             throw new IllegalArgumentException("El nombre de usuario ya está en uso.");
         }
     
@@ -54,5 +54,4 @@ public class UsuarioService extends BaseServiceImpl<Usuario, Integer>{
     
         return usuarioRepository.save(nuevoUsuario);
     }
-    
 }

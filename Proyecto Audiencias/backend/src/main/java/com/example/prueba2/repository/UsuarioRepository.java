@@ -24,6 +24,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
     @Query("UPDATE Usuario u SET u.usrEstado = false WHERE u.usr_id = :id")
     void borrarLogico(Integer id);
 
-    Optional<Usuario> findByUsrUserName(String usrUsrname);
+    Optional<Usuario> findByUsrUsername(String usrUsrname);
     Optional<Usuario> findByUsrMail(String usrMail);
 }
