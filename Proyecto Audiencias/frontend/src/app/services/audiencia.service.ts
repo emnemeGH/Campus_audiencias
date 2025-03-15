@@ -18,13 +18,17 @@ export class AudienciaService {
     return this.http.post<any>(this.apiUrl, audiencia);
   }
 
-  obtenerAudienciaPorId(id: string): Observable<any> {
+  obtenerAudienciaPorId(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
   editarAudiencia(audiencia: any): Observable<any> {
+    if (!audiencia.aud_id) {
+      console.error("Error: La audiencia no tiene un ID definido.");
+    }
     return this.http.put<any>(`${this.apiUrl}/${audiencia.aud_id}`, audiencia);
   }
+  
 
   getAutoridadesPorAudiencia(id: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/${id}/autoridades`);

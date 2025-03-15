@@ -61,7 +61,8 @@ export class EditarAudienciaComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.audienciaService.obtenerAudienciaPorId(id).subscribe(
+      const audId = Number(id); // Convertir a número
+      this.audienciaService.obtenerAudienciaPorId(audId).subscribe(
         data => {
           this.audiencia = data;
         },
@@ -71,6 +72,7 @@ export class EditarAudienciaComponent implements OnInit {
       );
     }
   }
+  
 
   guardarCambios() {
     // Para reiniciar el ID: ALTER TABLE audiencia AUTO_INCREMENT = 5; Primero se deben borrar todas las audiencias no deseas y luego setear el id que queremos que arranque desde.

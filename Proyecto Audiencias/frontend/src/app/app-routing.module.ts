@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'registro', component: RegistroComponent },  // Ruta para el registro
   { path: 'lista-audiencias', component: ListaAudienciasComponent },  // Ruta para la pág principal donde se ven todas las audiencias
   { path: 'crear-audiencia', component: CrearAudienciaComponent },
-  { path: 'editar-audiencia', component: EditarAudienciaComponent },
+  { path: 'editar-audiencia/:id', component: EditarAudienciaComponent },
   { path: 'login-juez', component: LoginJuezComponent },
 ];
 
