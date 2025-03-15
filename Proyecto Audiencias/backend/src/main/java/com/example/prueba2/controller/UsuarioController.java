@@ -33,8 +33,8 @@ public class UsuarioController extends BaseController<Usuario, Integer>{
     }
 
     @PutMapping("/{id}/cambiar-admin")
-    public Usuario cambiarEstadoAdmin(@PathVariable Integer id, @RequestParam Boolean esAdmin) {
-        return usuarioService.cambiarEstadoAdmin(id, esAdmin);
+    public Usuario cambiarEstadoAdmin(@PathVariable Integer id, @RequestParam Boolean isAdmin) {
+        return usuarioService.cambiarEstadoAdmin(id, isAdmin);
     }
 
     @PostMapping("/registrar")

@@ -18,7 +18,6 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer usr_id;
     private String usr_nombre;
-    private String usr_username;
     private Integer usr_login;
     
     @ManyToOne
