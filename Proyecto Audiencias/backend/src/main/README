@@ -1,0 +1,30 @@
+TAREAS REALIZADAS
+
+//Perfiles de usuarios identificados
+
++ Usuario/Operador: Responsable de gestionar las audiencias dentro del sistema, incluyendo la asignación de salas, la programación de horarios y la publicación de información relevante para cada audiencia. También puede administrar los datos de las autoridades y distritos judiciales. ✅
+
++ Administrador: Encargado de la gestión global del sistema, incluyendo la creación y administración de usuarios operadores y autoridades, asegurando el correcto funcionamiento de la plataforma y supervisando el cumplimiento de los requisitos establecidos. ✅
+
+
+TAREAS EN PROCESO
+
+? Módulo gestor de audiencias:
+Permite programar, modificar y cancelar audiencias, asignando salas y horarios. Se valida que una autoridad no pueda estar asignada a dos audiencias con la misma fecha y hora. (HACER FUNCIONAL EL BOTON DE BORRAR)
+
+? Desafío:Búsqueda y filtrado de audiencias
+Opciones para consultar audiencias por fecha, sala, juez-fiscal o tipo de causa. 
+(AGREGAR CONSULTAS POR AUTORIDAD Y TIPO DE CAUSA)
+
+
+TAREAS FALTANTES
+
+- Módulo gestión de autoridades:
+Las autoridades solo pueden ser gestionadas dentro de su distrito y no pueden ser eliminadas si tienen una audiencia en fecha y que no esté suspendida.
+
+- Módulo administración de usuarios:
+Posibilidad de gestionar los perfiles de usuario, incluyendo operadores y autoridades. Los operadores solo pueden cargar audiencias dentro de su distrito.
+
+- Pantalla admin con gestion de usuarios y formulario para nuevo usuario
+
+- Asignacion de salas (validaciones para que en la misma sala no haya dos audiencias)
