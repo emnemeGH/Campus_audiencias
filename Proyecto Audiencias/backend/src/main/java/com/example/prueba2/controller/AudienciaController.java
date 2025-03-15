@@ -40,7 +40,7 @@ public class AudienciaController extends BaseController<Audiencia, Integer> {
         List<Audiencia_ext> autoridades = audienciaService.obtenerAutoridadesPorAudiencia(id);
         return ResponseEntity.ok(autoridades);
     }
-
+    //http://localhost:8080/api/audiencias/crear/1 URL para que se valide si hay coincidecia de autoridades en audicencias distintas
     @PostMapping("/crear/{autoridadId}")
     public ResponseEntity<?> crearAudiencia(@RequestBody Audiencia audiencia,
                                         @PathVariable Integer autoridadId,

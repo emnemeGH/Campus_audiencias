@@ -37,8 +37,8 @@ public class UsuarioController extends BaseController<Usuario, Integer>{
     public Usuario cambiarEstadoAdmin(@PathVariable Integer id, @RequestParam Boolean isAdmin) {
         return usuarioService.cambiarEstadoAdmin(id, isAdmin);
     }
-
-    @PostMapping("/registrar")
+    //http://localhost:8080/api/usuarios/registrar URL para validar que no haya coincidencias con datos de usuarios que ya estan en la bd
+    @PostMapping("/registrar") 
     public ResponseEntity<?> registrarUsuario(@RequestBody RegistroUsuarioDTO request) {
     Integer usuarioSolicitanteId = request.getUsuarioSolicitanteId();
     Usuario usuario = request.getUsuario();
