@@ -6,6 +6,8 @@ TAREAS REALIZADAS
 
 + Administrador: Encargado de la gestión global del sistema, incluyendo la creación y administración de usuarios operadores y autoridades, asegurando el correcto funcionamiento de la plataforma y supervisando el cumplimiento de los requisitos establecidos. ✅
 
++ Asignacion de salas (validaciones para que en la misma sala no haya dos audiencias) ✅
+
 
 TAREAS EN PROCESO
 
@@ -26,5 +28,3 @@ Las autoridades solo pueden ser gestionadas dentro de su distrito y no pueden se
 Posibilidad de gestionar los perfiles de usuario, incluyendo operadores y autoridades. Los operadores solo pueden cargar audiencias dentro de su distrito.
 
 - Pantalla admin con gestion de usuarios y formulario para nuevo usuario
-
-- Asignacion de salas (validaciones para que en la misma sala no haya dos audiencias)
