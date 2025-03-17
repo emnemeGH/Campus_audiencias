@@ -40,24 +40,30 @@ public class AudienciaController extends BaseController<Audiencia, Integer> {
         List<Audiencia_ext> autoridades = audienciaService.obtenerAutoridadesPorAudiencia(id);
         return ResponseEntity.ok(autoridades);
     }
-    //http://localhost:8080/api/audiencias/crear/1 URL para que se valide si hay coincidecia de autoridades en audicencias distintas
+    //http://localhost:8080/api/audiencias/crear/{autoridadId}?usuarioSolicitanteId=2
+    //{autoridadId} es el id de la autoridad a asignar en la audiencia y "usuarioSolicitanteId" es el id del usuario que quiere crear la audiencia
+    //URL para que valide si hay coincidecia de autoridades en audicencias distintas y que la sala no tenga una audiencia asignada en la misma fecha
     @PostMapping("/crear/{autoridadId}")
     public ResponseEntity<?> crearAudiencia(@RequestBody Audiencia audiencia,
                                         @PathVariable Integer autoridadId,
                                         @RequestParam Integer usuarioSolicitanteId) {
-    Usuario usuarioSolicitante = audienciaService.obtenerUsuarioPorId(usuarioSolicitanteId)
-        .orElseThrow(() -> new IllegalArgumentException("Usuario solicitante no encontrado"));
-
-    // ❌ Si es admin, no puede crear audiencias
-    if (usuarioSolicitante.getUsrIsAdmin()) {
-        return ResponseEntity.status(403).body("Los administradores no pueden gestionar audiencias.");
-    }
-
     try {
+        // Verificar que el usuario solicitante exista
+        Usuario usuarioSolicitante = audienciaService.obtenerUsuarioPorId(usuarioSolicitanteId)
+            .orElseThrow(() -> new IllegalArgumentException("Usuario solicitante no encontrado"));
+
+        // ❌ Si es admin, no puede gestionar audiencias
+        if (usuarioSolicitante.getUsrIsAdmin()) {
+            return ResponseEntity.status(403).body("Los administradores no pueden gestionar audiencias.");
+        }
+
+        // ✅ Guardar la audiencia (esto ya incluye validaciones de autoridad y sala)
         Audiencia nuevaAudiencia = audienciaService.guardarAudiencia(audiencia, autoridadId);
+
         return ResponseEntity.ok(nuevaAudiencia);
     } catch (IllegalArgumentException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
+        return ResponseEntity.badRequest().body(e.getMessage()); // ⚠️ Devuelve el error si hay conflicto
     }
-    }
+}
+
 }

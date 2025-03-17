@@ -41,24 +41,28 @@ public class AudienciaService extends BaseServiceImpl<Audiencia, Integer> {
     }
 
     public Audiencia guardarAudiencia(Audiencia audiencia, Integer autoridadId) {
-        if (autoridadId == null || audiencia.getAud_fecha() == null || audiencia.getAud_hora() == null) {
-            throw new IllegalArgumentException("Debe seleccionar una autoridad, fecha y hora válidas.");
-        }
-    
         // Verificar si la autoridad ya tiene una audiencia en la misma fecha y hora
-        Long conflictos = audienciaRepository.contarConflictos(
-            autoridadId,
-            audiencia.getAud_fecha(),
-            audiencia.getAud_hora()
-        );
+        Long conflictosAutoridad = audienciaRepository.contarConflictos(autoridadId, audiencia.getAud_fecha(), audiencia.getAud_hora());
     
-        if (conflictos > 0) {
+        if (conflictosAutoridad > 0) {
             throw new IllegalArgumentException("La autoridad ya tiene una audiencia en la misma fecha y hora.");
         }
     
+        // Verificar si la sala ya está ocupada en la misma fecha y hora
+        List<Audiencia> audienciasEnSala = audienciaRepository.encontrarPorSala(audiencia.getSal_id().getSal_id());
+    
+        boolean salaOcupada = audienciasEnSala.stream()
+            .anyMatch(a -> a.getAud_fecha().equals(audiencia.getAud_fecha()) &&
+                           a.getAud_hora().equals(audiencia.getAud_hora()));
+    
+        if (salaOcupada) {
+            throw new IllegalArgumentException("La sala seleccionada ya tiene una audiencia en la misma fecha y hora.");
+        }
+    
+        // Si todo está bien, guardar la nueva audiencia
         return audienciaRepository.save(audiencia);
     }
-
+    
     @Autowired
     private UsuarioRepository usuarioRepository;
 
