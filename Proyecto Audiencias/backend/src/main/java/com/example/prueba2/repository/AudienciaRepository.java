@@ -42,7 +42,7 @@ public interface AudienciaRepository extends JpaRepository<Audiencia, Integer> {
                      "AND a.aud_fecha = :fecha " +
                      "AND a.aud_hora = :hora")
        Long contarConflictos(@Param("autoridadId") Integer autoridadId,
-                     @Param("fecha") LocalDate fecha,
-                     @Param("hora") LocalTime hora);
+                             @Param("fecha") LocalDate fecha,
+                             @Param("hora") LocalTime hora);
 
 }

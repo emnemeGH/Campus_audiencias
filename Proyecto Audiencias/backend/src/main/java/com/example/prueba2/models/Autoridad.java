@@ -22,7 +22,6 @@ public class Autoridad {
     private Integer aut_id;
     private String aut_nombre;
     private String aut_mail;
-    //private Boolean aut_estado;
 
     @ManyToOne
     @JoinColumn(name="dis_id")
