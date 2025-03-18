@@ -10,7 +10,6 @@ import { ListaAudienciasComponent } from './lista-audiencias/lista-audiencias.co
 import { CrearAudienciaComponent } from './crear-audiencia/crear-audiencia.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EditarAudienciaComponent } from './editar-audiencia/editar-audiencia.component';
-import { LoginJuezComponent } from './login-juez/login-juez.component';
 import { HoraPipe } from './pipes/hora-pipe.pipe';
 
 @NgModule({
@@ -21,7 +20,6 @@ import { HoraPipe } from './pipes/hora-pipe.pipe';
     ListaAudienciasComponent,
     CrearAudienciaComponent,
     EditarAudienciaComponent,
-    LoginJuezComponent,
     HoraPipe
   ],
   imports: [

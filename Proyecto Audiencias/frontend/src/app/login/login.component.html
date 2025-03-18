@@ -10,16 +10,16 @@
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="card p-4 shadow-lg" style="width: 350px;">
             <h2 class="text-center">Iniciar sesión</h2>
-            <form id="loginForm">
+            <form (ngSubmit)="onLogin()">
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo electrónico</label>
-                    <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo electrónico">
+                    <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" placeholder="Ingresa tu correo">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" placeholder="Ingresa tu contraseña">
+                    <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" placeholder="Ingresa tu contraseña">
                 </div>
-                <button type="submit" class="btn btn-primary w-100" [routerLink]="'/lista-audiencias'">Acceder</button>
+                <button type="submit" class="btn btn-primary w-100">Acceder</button>
             </form>
         </div>
     </div>
