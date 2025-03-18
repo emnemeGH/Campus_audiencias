@@ -11,6 +11,8 @@ import { CrearAudienciaComponent } from './crear-audiencia/crear-audiencia.compo
 import { HttpClientModule } from '@angular/common/http';
 import { EditarAudienciaComponent } from './editar-audiencia/editar-audiencia.component';
 import { HoraPipe } from './pipes/hora-pipe.pipe';
+import { ListaUsuarioComponent } from './lista-usuario/lista-usuario.component';
+import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { HoraPipe } from './pipes/hora-pipe.pipe';
     ListaAudienciasComponent,
     CrearAudienciaComponent,
     EditarAudienciaComponent,
-    HoraPipe
+    HoraPipe,
+    ListaUsuarioComponent,
+    CrearUsuarioComponent
   ],
   imports: [
     BrowserModule,
