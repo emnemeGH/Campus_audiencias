@@ -32,15 +32,32 @@
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label>Distrito Judicial</label>
-                    <select [(ngModel)]="distritoSeleccionado" (change)="actualizarSalas()" class="form-control">
+                    <!-- ngModel Conecta el <select> con la variable distritoSeleccionado en el código TypeScript -->
+                    <!-- (change)="actualizarDatos()" → Cuando el usuario cambia la selección, se llama a la función actualizarDatos(). -->
+                    <select [(ngModel)]="distritoSeleccionado" (change)="actualizarDatos()" class="form-control">
                         <option value="">Seleccione</option>
                         <option value="Distrito Capital">Distrito Capital</option>
                         <option value="Distrito Sur">Distrito Sur</option>
                         <option value="Distrito Norte">Distrito Norte</option>
                     </select>
                 </div>
+                <div class="col-md-6">
+                    <label>Juez</label>
+                    <select [(ngModel)]="juezSeleccionado" class="form-control">
+                        <option value="">Seleccione</option>
+                        <!-- {{ juez }} es Interpolación, Angular insertará el valor de juez dentro de la etiqueta <option>.La interpolación en Angular es una forma de mostrar valores dinámicos en el HTML desde el TypeScript. Se usa con {{ }} (doble llave) para insertar valores dentro del código HTML.-->
+                        <option *ngFor="let juez of juecesDisponibles" [value]="juez">{{ juez }}</option>
+                    </select>
+                </div>
             </div>
             <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>Fiscal</label>
+                    <select [(ngModel)]="fiscalSeleccionado" class="form-control">
+                        <option value="">Seleccione</option>
+                        <option *ngFor="let fiscal of fiscalesDisponibles" [value]="fiscal">{{ fiscal }}</option>
+                    </select>
+                </div>
                 <div class="col-md-6">
                     <label>Sala</label>
                     <select [(ngModel)]="salaSeleccionada" class="form-control">
@@ -51,6 +68,16 @@
                 <div class="col-md-6">
                     <label>Fecha</label>
                     <input type="date" class="form-control" [(ngModel)]="fechaSeleccionada">
+                </div>
+                <div class="col-md-6">
+                    <label>Estado</label>
+                    <select class="form-control" [(ngModel)]="estadoSeleccionado">
+                        <option value="">Seleccione</option>
+                        <option value="Realizada">Realizada</option>
+                        <option value="Programada">Programada</option>
+                        <option value="Demorada">Demorada</option>
+                        <option value="Suspendida">Suspendida</option>
+                    </select>
                 </div>
             </div>
             <div class="d-flex justify-content-between">
