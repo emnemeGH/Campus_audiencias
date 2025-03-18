@@ -23,7 +23,7 @@ export class LoginComponent {
 
     if (user) {
       if (user.role === 'admin') {
-        this.router.navigate(['/registro']);
+        this.router.navigate(['/lista-usuarios']);
       } else if (user.role === 'operador') {
         this.router.navigate(['/lista-audiencias'])
       }
