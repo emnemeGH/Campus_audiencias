@@ -20,36 +20,35 @@
     <div class="card w-100 mx-auto p-4 border-success">
         <h5 class="card-header bg-success text-white text-center">Opciones de Búsqueda</h5>
         <div class="card-body">
-            <form>
+            <form (ngSubmit)="filtrarUsuarios()">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label class="form-label">Correo</label>
-                            <input type="text" class="form-control" placeholder="Ingrese Correo">
+                            <input type="email" class="form-control" placeholder="Ingrese Correo" [(ngModel)]="correoFiltro" name="correo">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label class="form-label">Nombre de usuario</label>
-                            <input type="text" class="form-control" placeholder="Ingrese Nombre de usuario">
+                            <input type="text" class="form-control" placeholder="Ingrese Nombre de usuario" [(ngModel)]="usuarioFiltro" name="usuario">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label class="form-label">Rol</label>
-                            <select class="form-select">
-                                <option disabled selected>Seleccione</option>
-                                <option value="1">Operador</option>
-                                <option value="2">Autoridad</option>
-                                <option value="3">Administrador</option>
+                            <select class="form-select" [(ngModel)]="rolFiltro" name="rol">
+                                <option disabled selected value="">Seleccione</option>
+                                <option value="Operador">Operador</option>
+                                <option value="Autoridad">Autoridad</option>
+                                <option value="Administrador">Administrador</option>
                             </select>
                         </div>
                     </div>
                 </div>
-                
                 <div class="d-flex justify-content-between mt-3">
-                    <button type="button" class="btn btn-outline-primary">Buscar</button>
-                    <button type="submit" class="btn btn-outline-secondary">Reiniciar filtros</button>
+                    <button type="submit" class="btn btn-outline-primary" (click)="filtrarUsuarios()">Buscar</button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="reiniciarFiltros()">Reiniciar filtros</button>
                 </div>
             </form>
         </div>
@@ -69,12 +68,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let usuario of usuarios">
+            <tr *ngFor="let usuario of usuariosFiltrados">
                 <td>{{ usuario.usr_id }}</td>
                 <td>{{ usuario.usr_nombre }}</td>
                 <td>{{ usuario.usrUsername }}</td>
                 <td>{{ usuario.usrMail }}</td>
-                <td>-</td>
+                <td>{{ usuario.usrRol || '-' }}</td>
                 <td class="text-center">
                     <div class="d-flex justify-content-center gap-2">
                         <button class="btn btn-sm btn-outline-primary" [routerLink]="['/editar-usuario', usuario.usr_id]">
@@ -87,6 +86,7 @@
                 </td>
             </tr>
         </tbody>
+        
     </table>
 </div>
 
