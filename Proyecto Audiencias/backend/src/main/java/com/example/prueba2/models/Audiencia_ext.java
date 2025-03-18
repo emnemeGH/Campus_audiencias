@@ -27,7 +27,7 @@ public class Audiencia_ext {
     @ManyToOne
     @JoinColumn(name="aut_id")
     private Autoridad autoridad;
-
+    
     @ManyToOne
     @JoinColumn(name="aud_id")
     private Audiencia audiencia;

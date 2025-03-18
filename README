@@ -12,11 +12,12 @@ TAREAS REALIZADAS
 
 !!!!!! IMPORTANTE. Ejecutar UPDATE Audiencia SET aud_estado = TRUE WHERE aud_id>0; Si no, no se va a mostrar ninguna audiencia porque todas tenian false.
 
++ Se valida que una autoridad no pueda estar asignada a dos audiencias con la misma fecha y hora. ✅
+
+
 TAREAS EN PROCESO
 
 Módulo gestor de audiencias:
-? Se valida que una autoridad no pueda estar asignada a dos audiencias con la misma fecha y hora. 
-
 ? Desafío:Búsqueda y filtrado de audiencias
 Opciones para consultar audiencias por fecha, sala, juez-fiscal o tipo de causa. 
 (AGREGAR CONSULTAS POR AUTORIDAD Y TIPO DE CAUSA)
