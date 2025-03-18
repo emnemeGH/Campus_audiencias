@@ -45,5 +45,9 @@ export class AudienciaService {
     };
     return this.http.post<any>(`http://localhost:8080/api/audienciasExt`, relacion);
   }
+
+  borrarAudiencia(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`); // delete hace referencia al DeleteMapping del back
+  }
 }
 

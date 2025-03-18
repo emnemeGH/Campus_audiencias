@@ -42,3 +42,7 @@ body {
 .bi.bi-pencil.text-primary{
     cursor: pointer;
 }
+
+.bi.bi-trash.text-danger{
+    cursor: pointer;
+}

@@ -29,9 +29,10 @@ export class ListaAudienciasComponent implements OnInit {
 
   obtenerAudiencias() {
     this.audienciaService.getAudiencias().subscribe(
-      data => {
-        this.audiencias = data;
-        this.audienciasFiltradas = [...this.audiencias];
+    data => {
+      console.log(data); // Esto devuelve todas las audiencias
+      this.audiencias = data.filter(audiencia => audiencia.audEstado); // Filtra solo las activas
+      this.audienciasFiltradas = [...this.audiencias];  // ... Crea una copia nueva del array this.audiencias, en lugar de solo referenciarlo.
 
         // Para cada audiencia, obtener sus autoridades
         this.audiencias.forEach(audiencia => {
@@ -107,6 +108,14 @@ export class ListaAudienciasComponent implements OnInit {
     return this.audienciasFiltradas.some(audiencia => audiencia.aud_caratula);
   }
 
-
+  eliminarAudiencia(id: number) {
+    if (confirm("¿Estás seguro de que deseas eliminar esta audiencia?")) {
+      this.audienciaService.borrarAudiencia(id).subscribe(() => {
+        this.audiencias = this.audiencias.filter(a => a.aud_id !== id);
+        this.audienciasFiltradas = [...this.audiencias];
+      });
+    }
+  }
+  
 
 }

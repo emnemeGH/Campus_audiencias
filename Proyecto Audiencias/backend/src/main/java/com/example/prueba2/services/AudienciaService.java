@@ -33,6 +33,10 @@ public class AudienciaService extends BaseServiceImpl<Audiencia, Integer> {
         audienciaRepository.borrarLogico(id);
     }
 
+    public List<Audiencia> obtenerAudienciasActivas() {
+        return audienciaRepository.findAudienciasConEstadoTrue();  
+    }
+
     @Autowired
     private Audiencia_extRepository Audiencia_extRepository;
 

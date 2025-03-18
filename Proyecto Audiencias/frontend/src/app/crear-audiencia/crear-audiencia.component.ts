@@ -41,6 +41,7 @@ export interface AudienciaForm extends Audiencia {
 
 export class CrearAudienciaComponent {
   audiencia: AudienciaForm = {
+    aud_estado: true,
     sal_id: {
       sal_id: undefined,
       sal_nombre: undefined,

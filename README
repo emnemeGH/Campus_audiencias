@@ -8,11 +8,14 @@ TAREAS REALIZADAS
 
 + Asignacion de salas (validaciones para que en la misma sala no haya dos audiencias) ✅
 
++ Permite programar, modificar y cancelar audiencias, asignando salas y horarios (HACER FUNCIONAL EL BOTON DE BORRAR)✅
+
+!!!!!! IMPORTANTE. Ejecutar UPDATE Audiencia SET aud_estado = TRUE WHERE aud_id>0; Si no, no se va a mostrar ninguna audiencia porque todas tenian false.
 
 TAREAS EN PROCESO
 
-? Módulo gestor de audiencias:
-Permite programar, modificar y cancelar audiencias, asignando salas y horarios. Se valida que una autoridad no pueda estar asignada a dos audiencias con la misma fecha y hora. (HACER FUNCIONAL EL BOTON DE BORRAR)
+Módulo gestor de audiencias:
+? Se valida que una autoridad no pueda estar asignada a dos audiencias con la misma fecha y hora. 
 
 ? Desafío:Búsqueda y filtrado de audiencias
 Opciones para consultar audiencias por fecha, sala, juez-fiscal o tipo de causa. 
