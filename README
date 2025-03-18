@@ -14,21 +14,19 @@ TAREAS REALIZADAS
 
 + Se valida que una autoridad no pueda estar asignada a dos audiencias con la misma fecha y hora. ✅
 
+Módulo gestor de audiencias:
++ Desafío:Búsqueda y filtrado de audiencias
+Opciones para consultar audiencias por fecha, sala, juez-fiscal o tipo de causa. 
+(AGREGAR CONSULTAS POR AUTORIDAD Y TIPO DE CAUSA) ✅
 
 TAREAS EN PROCESO
 
-Módulo gestor de audiencias:
-? Desafío:Búsqueda y filtrado de audiencias
-Opciones para consultar audiencias por fecha, sala, juez-fiscal o tipo de causa. 
-(AGREGAR CONSULTAS POR AUTORIDAD Y TIPO DE CAUSA)
+? Pantalla admin con gestion de usuarios y formulario para nuevo usuario (CREACION DE COMPONENTES)
 
+? Módulo gestión de autoridades:
+Las autoridades solo pueden ser gestionadas dentro de su distrito y no pueden ser eliminadas si tienen una audiencia en fecha y que no esté suspendida.
 
 TAREAS FALTANTES
 
-- Módulo gestión de autoridades:
-Las autoridades solo pueden ser gestionadas dentro de su distrito y no pueden ser eliminadas si tienen una audiencia en fecha y que no esté suspendida.
-
 - Módulo administración de usuarios:
 Posibilidad de gestionar los perfiles de usuario, incluyendo operadores y autoridades. Los operadores solo pueden cargar audiencias dentro de su distrito.
-
-- Pantalla admin con gestion de usuarios y formulario para nuevo usuario
