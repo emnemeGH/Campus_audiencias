@@ -125,7 +125,7 @@ export class ListaAudienciasComponent implements OnInit {
       //   coincideJuez = true;
       // }
 
-      // Si se selecciona un juez, se compara la audiencia con ese juez. Si no se selecciona un juez, el true del "else" hace que la condición de "juez" siempre sea verdadera (es decir, no se filtra por juez).
+      // La condición this.juezSeleccionado ? audiencia.juez === this.juezSeleccionado : true; es una forma de evitar filtrar por juez si no se selecciona ninguno. Si this.juezSeleccionado tiene un valor (es decir, si seleccionaste un juez), entonces se verifica si el juez de la audiencia coincide con el seleccionado (audiencia.juez === this.juezSeleccionado).Si this.juezSeleccionado no tiene valor (es decir, si no seleccionaste un juez), entonces se asigna true a coincideJuez. Esto significa que no se hace ninguna comprobación para el juez y se considera que "coincide".
       const coincideJuez = this.juezSeleccionado
         ? audiencia.juez === this.juezSeleccionado
         : true;
@@ -138,7 +138,7 @@ export class ListaAudienciasComponent implements OnInit {
         ? audiencia.aud_tipo === this.estadoSeleccionado
         : true;
 
-
+      // Se filtran las audiencias Si todas las condiciones son true, la audiencia pasará el filtro y se mostrará en la interfaz. Si alguna condición es false, la audiencia no se mostrará.
       return coincideDistrito && coincideSala && coincideFecha && coincideJuez && coincideFiscal && coincideEstado;
     });
   }
