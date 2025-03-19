@@ -15,7 +15,7 @@ export class AudienciaService {
   }
 
   agregarAudiencia(audiencia: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, audiencia);
+    return this.http.post<any>(this.apiUrl, audiencia); // + '/crear/{autoridadId}' para que vaya al post con los metodos para validaciones
   }
 
   obtenerAudienciaPorId(id: number): Observable<any> {
