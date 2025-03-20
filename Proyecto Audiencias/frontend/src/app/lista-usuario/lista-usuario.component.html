@@ -69,10 +69,10 @@
         </thead>
         <tbody>
             <tr *ngFor="let usuario of usuariosFiltrados">
-                <td>{{ usuario.usr_id }}</td>
-                <td>{{ usuario.usr_nombre }}</td>
-                <td>{{ usuario.usrUsername }}</td>
-                <td>{{ usuario.usrMail }}</td>
+                <td>{{ usuario.id }}</td>
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.username || '-' }}</td>
+                <td>{{ usuario.correo }}</td>
                 <td>{{ usuario.rol || '-' }}</td>
                 <td class="text-center">
                     <div class="d-flex justify-content-center gap-2">

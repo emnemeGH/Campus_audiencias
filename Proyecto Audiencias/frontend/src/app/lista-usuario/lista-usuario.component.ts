@@ -22,12 +22,11 @@ export class ListaUsuarioComponent implements OnInit {
   }
 
   obtenerUsuarios() {
-    this.usuariosService.getUsuarios().subscribe(
+    this.usuariosService.obtenerTodos().subscribe(
       (data) => {
         console.log("Usuarios obtenidos:", data); // Verifica los datos en consola
         this.usuarios = data;
         this.usuariosFiltrados = [...this.usuarios]; // Copia inicial sin filtros
-        this.obtenerRol();
       },
       (error) => {
         console.error("Error al obtener usuarios:", error);
@@ -38,26 +37,20 @@ export class ListaUsuarioComponent implements OnInit {
   filtrarUsuarios() {
     this.usuariosFiltrados = this.usuarios.filter(usuario => {
       const coincideCorreo = this.correoFiltro
-        ? usuario.usrMail.toLowerCase().includes(this.correoFiltro.toLowerCase())
+        ? usuario.correo && usuario.correo.toLowerCase().includes(this.correoFiltro.toLowerCase()) 
         : true;
-      
+  
       const coincideUsuario = this.usuarioFiltro
-        ? usuario.usrUsername.toLowerCase().includes(this.usuarioFiltro.toLowerCase())
+        ? usuario.username && usuario.username.toLowerCase().includes(this.usuarioFiltro.toLowerCase()) 
         : true;
-
+  
       const coincideRol = this.rolFiltro
         ? usuario.rol === this.rolFiltro
         : true;
-
+  
       return coincideCorreo && coincideUsuario && coincideRol;
     });
   }
-
-  obtenerRol() {
-    this.usuariosFiltrados.forEach(usuario => {
-      usuario.rol = usuario.usrIsAdmin  === true ? "Administrador" : "Operador";
-    });
- }
   
 
   reiniciarFiltros() {
