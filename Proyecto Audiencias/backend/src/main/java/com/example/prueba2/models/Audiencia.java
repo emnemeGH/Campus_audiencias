@@ -52,7 +52,7 @@ public class Audiencia {
     private EstadoEntidad aud_tipo;
 
     @Column(name = "aud_estado")
-    private Boolean audEstado;
+    private Boolean audEstado = true;
 
     public Boolean getAudEstado() {
         return audEstado;

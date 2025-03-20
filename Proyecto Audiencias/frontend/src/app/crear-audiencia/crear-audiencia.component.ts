@@ -28,9 +28,9 @@ export interface Audiencia {
 };
 
 export interface AudienciaForm extends Audiencia {
-  aud_juez?: number;
-  aud_fiscal?: number;
-  aud_defensor?: number;
+  juez?: number;
+  fiscal?: number;
+  defensor?: number;
 }
 
 @Component({
@@ -41,7 +41,7 @@ export interface AudienciaForm extends Audiencia {
 
 export class CrearAudienciaComponent {
   audiencia: AudienciaForm = {
-    aud_estado: true,
+    aud_estado: undefined,
     sal_id: {
       sal_id: undefined,
       sal_nombre: undefined,
@@ -50,33 +50,38 @@ export class CrearAudienciaComponent {
         dis_nombre: undefined
       }
     },
-    aud_juez: undefined,
-    aud_fiscal: undefined,
-    aud_defensor: undefined
+    juez: undefined,
+    fiscal: undefined,
+    defensor: undefined
   };
   
   constructor(private audienciaService: AudienciaService, private router: Router) {}
 
   
   guardarAudiencia() {
+    // Si audiencia.juez tiene algun valor lo pasa a number
+    this.audiencia.juez = this.audiencia.juez ? Number(this.audiencia.juez) : undefined;
+    this.audiencia.fiscal = this.audiencia.fiscal ? Number(this.audiencia.fiscal) : undefined;
+    this.audiencia.defensor = this.audiencia.defensor ? Number(this.audiencia.defensor) : undefined;
+
     // Para reiniciar el ID: ALTER TABLE audiencia AUTO_INCREMENT = 5; Primero se deben borrar todas las audiencias no deseas y luego setear el id que queremos que arranque desde.
-    console.log('Datos a enviar:', this.audiencia);
+    // Hacer lo mismo en audiencia_ext ALTER TABLE audiencia_ext AUTO_INCREMENT = 13;
+    console.log('Datos antes de enviar:', this.audiencia);
+    // el parámetro nuevaAudiencia es necesario, El ID (aud_id) es generado automaticamente por la base de datos. Cuando el servidor responde con la nueva audiencia creada, su aud_id es necesario para crear las relaciones en AUDIENCIA_EXT con juez, fiscal y defensor.
     this.audienciaService.agregarAudiencia(this.audiencia).subscribe((nuevaAudiencia) => {
       const audienciaId = nuevaAudiencia.aud_id;
-
-      nuevaAudiencia.aud_estado = true;
   
       // Crear relaciones en AUDIENCIA_EXT para juez, fiscal y defensor
-      if (this.audiencia.aud_juez) {
-        this.audienciaService.agregarRelacionAudienciaAutoridad(audienciaId, this.audiencia.aud_juez)
+      if (this.audiencia.juez) {
+        this.audienciaService.agregarRelacionAudienciaAutoridad(audienciaId, this.audiencia.juez)
           .subscribe();
       }
-      if (this.audiencia.aud_fiscal) {
-        this.audienciaService.agregarRelacionAudienciaAutoridad(audienciaId, this.audiencia.aud_fiscal)
+      if (this.audiencia.fiscal) {
+        this.audienciaService.agregarRelacionAudienciaAutoridad(audienciaId, this.audiencia.fiscal)
           .subscribe();
       }
-      if (this.audiencia.aud_defensor) {
-        this.audienciaService.agregarRelacionAudienciaAutoridad(audienciaId, this.audiencia.aud_defensor)
+      if (this.audiencia.defensor) {
+        this.audienciaService.agregarRelacionAudienciaAutoridad(audienciaId, this.audiencia.defensor)
           .subscribe();
       }
   
