@@ -10,11 +10,15 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.prueba2.Enums.EstadoEntidad;
+import com.example.prueba2.dto.CrearAudienciaDTO;
 import com.example.prueba2.models.Audiencia;
 import com.example.prueba2.models.Audiencia_ext;
+import com.example.prueba2.models.Sala;
 import com.example.prueba2.models.Usuario;
 import com.example.prueba2.repository.AudienciaRepository;
 import com.example.prueba2.repository.Audiencia_extRepository;
+import com.example.prueba2.repository.SalaRepository;
 import com.example.prueba2.repository.UsuarioRepository;
 
 @Service
@@ -24,8 +28,19 @@ public class AudienciaService extends BaseServiceImpl<Audiencia, Integer> {
     private AudienciaRepository audienciaRepository;
 
     @Autowired
-    public AudienciaService(AudienciaRepository audienciaRepository ) {
+    private Audiencia_extRepository audienciaExtRepository;
+
+    @Autowired
+    private SalaRepository salaRepository;
+    
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    public AudienciaService(AudienciaRepository audienciaRepository, Audiencia_extRepository audienciaExtRepository, SalaRepository salaRepository) {
         this.audienciaRepository = audienciaRepository;
+        this.audienciaExtRepository = audienciaExtRepository;
+        this.salaRepository = salaRepository;
     }
 
     @Transactional
@@ -37,40 +52,44 @@ public class AudienciaService extends BaseServiceImpl<Audiencia, Integer> {
         return audienciaRepository.findAudienciasConEstadoTrue();  
     }
 
-    @Autowired
-    private Audiencia_extRepository Audiencia_extRepository;
-
     public List<Audiencia_ext> obtenerAutoridadesPorAudiencia(Long aud_id) {
-        return Audiencia_extRepository.findByAudienciaId(aud_id);
-    }
+        return audienciaExtRepository.findByAudienciaId(aud_id);
 
-    public Audiencia guardarAudiencia(Audiencia audiencia, Integer autoridadId) {
-        // Verificar si la autoridad ya tiene una audiencia en la misma fecha y hora
-        Long conflictosAutoridad = audienciaRepository.contarConflictos(autoridadId, audiencia.getAud_fecha(), audiencia.getAud_hora());
-    
-        if (conflictosAutoridad > 0) {
-            throw new IllegalArgumentException("La autoridad ya tiene una audiencia en la misma fecha y hora.");
-        }
-    
-        // Verificar si la sala ya está ocupada en la misma fecha y hora
-        List<Audiencia> audienciasEnSala = audienciaRepository.encontrarPorSala(audiencia.getSal_id().getSal_id());
-    
-        boolean salaOcupada = audienciasEnSala.stream()
-            .anyMatch(a -> a.getAud_fecha().equals(audiencia.getAud_fecha()) &&
-                           a.getAud_hora().equals(audiencia.getAud_hora()));
-    
-        if (salaOcupada) {
-            throw new IllegalArgumentException("La sala seleccionada ya tiene una audiencia en la misma fecha y hora.");
-        }
-    
-        // Si todo está bien, guardar la nueva audiencia
-        return audienciaRepository.save(audiencia);
     }
-    
-    @Autowired
-    private UsuarioRepository usuarioRepository;
 
     public Optional<Usuario> obtenerUsuarioPorId(Integer id) {
         return usuarioRepository.findById(id);
     }
+
+    public Audiencia guardarAudiencia(CrearAudienciaDTO request) {
+        // ✅ Obtener la sala antes de validarla
+        Sala sala = salaRepository.findById(request.getSal_id())
+                .orElseThrow(() -> new IllegalArgumentException("Sala no encontrada."));
+
+        // ✅ Validar que la sala esté disponible antes de guardar
+        if (audienciaRepository.salaOcupada(sala.getSal_id(), request.getAud_fecha(), request.getAud_hora())) {
+            throw new IllegalArgumentException("La sala ya tiene una audiencia en esa fecha y hora.");
+        }
+
+        // ✅ Validar que la autoridad no tenga otra audiencia en la misma fecha y hora
+        if (audienciaRepository.contarConflictos(request.getAud_juez(), request.getAud_fecha(), request.getAud_hora()) > 0 ||
+            audienciaRepository.contarConflictos(request.getAud_fiscal(), request.getAud_fecha(), request.getAud_hora()) > 0 ||
+            audienciaRepository.contarConflictos(request.getAud_defensor(), request.getAud_fecha(), request.getAud_hora()) > 0) {
+            throw new IllegalArgumentException("Una de las autoridades ya tiene una audiencia en esa fecha y hora.");
+        }
+
+        // ✅ Crear la nueva audiencia con la sala obtenida
+        Audiencia nuevaAudiencia = new Audiencia();
+        nuevaAudiencia.setAud_nombre(request.getAud_nombre());
+        nuevaAudiencia.setAud_fecha(request.getAud_fecha());
+        nuevaAudiencia.setAud_hora(request.getAud_hora());
+        nuevaAudiencia.setAud_caratula(request.getAud_caratula());
+        nuevaAudiencia.setAud_cuij(request.getAud_cuij());
+        nuevaAudiencia.setAudEstado(request.getAud_estado());
+        nuevaAudiencia.setAud_tipo(EstadoEntidad.valueOf(request.getAud_tipo()));
+        nuevaAudiencia.setSal_id(sala); // ✅ Usamos la sala obtenida
+
+        // ✅ Guardar la audiencia
+        return audienciaRepository.save(nuevaAudiencia);
+    }  
 }

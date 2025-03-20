@@ -3,40 +3,21 @@ package com.example.prueba2.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import lombok.Data;
+
+@Data
 public class CrearAudienciaDTO {
-    
+    private String aud_nombre;
     private LocalDate aud_fecha;
     private LocalTime aud_hora;
     private String aud_caratula;
-
-// : 
-// "pepe"
-// aud_cuij
-// : 
-// 12345
-// aud_defensor
-// : 
-// "5"
-// aud_estado
-// : 
-// true
-// aud_fecha
-// : 
-// "2025-03-20"
-// aud_fiscal
-// : 
-// "4"
-// aud_hora
-// : 
-// "23:08"
-// aud_juez
-// : 
-// "1"
-// aud_nombre
-// : 
-// "gustavo"
-// aud_tipo
-// : 
-// "Programada"
-
+    private Integer aud_cuij;
+    private Boolean aud_estado;
+    private String aud_tipo;
+    
+    private Integer aud_juez;  // ID del juez
+    private Integer aud_fiscal; // ID del fiscal
+    private Integer aud_defensor; // ID del defensor
+    private Integer usuarioSolicitanteId; // ID del usuario que crea la audiencia
+    private Integer sal_id;
 }

@@ -1,25 +1,17 @@
 package com.example.prueba2.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.prueba2.dto.RegistroUsuarioDTO;
 import com.example.prueba2.models.Usuario;
 import com.example.prueba2.services.UsuarioService;
 
-
 @RestController
 @RequestMapping("/api/usuarios")
 @CrossOrigin(origins = "http://localhost:4200")
-public class UsuarioController extends BaseController<Usuario, Integer>{
+public class UsuarioController extends BaseController<Usuario, Integer> {
     
     private final UsuarioService usuarioService;
 
@@ -28,30 +20,44 @@ public class UsuarioController extends BaseController<Usuario, Integer>{
         this.usuarioService = usuarioService;
     }
 
+    //@PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
-    public void eliminarPorId(@PathVariable Integer id) {
-        usuarioService.borradoLogico(id); 
+    public ResponseEntity<?> eliminarPorId(@PathVariable Integer id) {
+        usuarioService.borradoLogico(id);
+        return ResponseEntity.ok("Usuario eliminado correctamente.");
     }
 
+    //@PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}/cambiar-admin")
-    public Usuario cambiarEstadoAdmin(@PathVariable Integer id, @RequestParam Boolean isAdmin) {
-        return usuarioService.cambiarEstadoAdmin(id, isAdmin);
+    public ResponseEntity<?> cambiarEstadoAdmin(@PathVariable Integer id, @RequestParam Boolean isAdmin) {
+        Usuario usuarioActualizado = usuarioService.cambiarEstadoAdmin(id, isAdmin);
+        return ResponseEntity.ok(usuarioActualizado);
     }
-    //http://localhost:8080/api/usuarios/registrar URL para validar que no haya coincidencias con datos de usuarios que ya estan en la bd
-    @PostMapping("/registrar") 
+
+    //@PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/registrar")
     public ResponseEntity<?> registrarUsuario(@RequestBody RegistroUsuarioDTO request) {
-    Integer usuarioSolicitanteId = request.getUsuarioSolicitanteId();
-    Usuario usuario = request.getUsuario();
+        // Validar si se pasó `usuarioSolicitanteId`
+        if (request.getUsuarioSolicitanteId() == null) {
+            return ResponseEntity.badRequest().body("Se requiere el ID del usuario solicitante.");
+        }
 
-    Usuario usuarioSolicitante = usuarioService.obtenerPorId(usuarioSolicitanteId)
-        .orElseThrow(() -> new IllegalArgumentException("Usuario solicitante no encontrado"));
+        // Validar si el usuario solicitante existe
+        Usuario usuarioSolicitante = usuarioService.obtenerPorId(request.getUsuarioSolicitanteId())
+                .orElseThrow(() -> new IllegalArgumentException("Usuario solicitante no encontrado"));
 
-    if (!usuarioSolicitante.getUsrIsAdmin()) {
-        return ResponseEntity.status(403).body("No tienes permisos para crear usuarios.");
+        // Verificar si el usuario solicitante es ADMIN
+        if (!usuarioSolicitante.getUsrIsAdmin()) {
+            return ResponseEntity.status(403).body("No tienes permisos para crear usuarios.");
+        }
+
+        // Usar el usuario dentro de RegistroUsuarioDTO para crear el nuevo usuario
+        Usuario nuevoUsuario = request.getUsuario();  // Obtener el usuario del DTO
+        try {
+            Usuario usuarioRegistrado = usuarioService.registrarUsuario(nuevoUsuario);
+            return ResponseEntity.ok(usuarioRegistrado);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
-
-    Usuario nuevoUsuario = usuarioService.registrarUsuario(usuario);
-    return ResponseEntity.ok(nuevoUsuario);
-}
-
 }
