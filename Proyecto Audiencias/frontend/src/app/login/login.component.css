@@ -1,1 +1,31 @@
 @import '../../auth-styles.css';
+
+.card {
+    border: none; /* Eliminar borde */
+    border-radius: 12px; /* Bordes redondeados */
+    background-color: #88888896; /* Fondo blanco */
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease-in-out; /* Transición suave para efectos de hover */
+}
+
+/* Efecto hover de la tarjeta */
+.card:hover {
+    transform: translateY(-10px); /* Efecto sutil al pasar el mouse */
+}
+
+.form-control {
+    border-radius: 8px; 
+    border: 1px solid #ddd; 
+    padding: 12px 15px; 
+    font-size: 1rem;
+    background-color: #fafafa; 
+    transition: border-color 0.3s ease; 
+}
+
+
+.form-control:focus {
+    border-color: #007bff;
+    background-color: #ffffff; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+}
