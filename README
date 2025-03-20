@@ -21,12 +21,20 @@ Opciones para consultar audiencias por fecha, sala, juez-fiscal o tipo de causa.
 
 TAREAS EN PROCESO
 
-? Pantalla admin con gestion de usuarios y formulario para nuevo usuario (CREACION DE COMPONENTES)
+? Pantalla admin con gestion de usuarios (funcionalidad borrar (Las autoridades no pueden ser eliminadas si tienen una audiencia en fecha y que no esté suspendida.
+), editar y crear)
 
 ? Módulo gestión de autoridades:
-Las autoridades solo pueden ser gestionadas dentro de su distrito y no pueden ser eliminadas si tienen una audiencia en fecha y que no esté suspendida.
+
+? Corregir el post, el estado se tiene que inicializar en 1
 
 TAREAS FALTANTES
 
 - Módulo administración de usuarios:
 Posibilidad de gestionar los perfiles de usuario, incluyendo operadores y autoridades. Los operadores solo pueden cargar audiencias dentro de su distrito.
+
+-Una audiencia no puede ser eliminada si esta en horario.
+
+-Ocultar acciones y crear audiencia si es autoridad
+
+-SSE event de angular

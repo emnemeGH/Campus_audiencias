@@ -6,6 +6,7 @@ import { ListaAudienciasComponent } from './lista-audiencias/lista-audiencias.co
 import { CrearAudienciaComponent } from './crear-audiencia/crear-audiencia.component';
 import { EditarAudienciaComponent } from './editar-audiencia/editar-audiencia.component';
 import { ListaUsuarioComponent } from './lista-usuario/lista-usuario.component';
+import { LoginAutoridadComponent } from './login-autoridad/login-autoridad.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },  // Ruta para el login
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'lista-audiencias', component: ListaAudienciasComponent },  // Ruta para la pág principal donde se ven todas las audiencias
   { path: 'crear-audiencia', component: CrearAudienciaComponent },
   { path: 'editar-audiencia/:id', component: EditarAudienciaComponent },
-  { path: 'lista-usuarios', component: ListaUsuarioComponent }
+  { path: 'lista-usuarios', component: ListaUsuarioComponent },
+  { path: 'login-autoridad', component: LoginAutoridadComponent }
 ];
 
 @NgModule({

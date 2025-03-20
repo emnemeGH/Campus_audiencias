@@ -63,6 +63,8 @@ export class CrearAudienciaComponent {
     console.log('Datos a enviar:', this.audiencia);
     this.audienciaService.agregarAudiencia(this.audiencia).subscribe((nuevaAudiencia) => {
       const audienciaId = nuevaAudiencia.aud_id;
+
+      nuevaAudiencia.aud_estado = true;
   
       // Crear relaciones en AUDIENCIA_EXT para juez, fiscal y defensor
       if (this.audiencia.aud_juez) {
