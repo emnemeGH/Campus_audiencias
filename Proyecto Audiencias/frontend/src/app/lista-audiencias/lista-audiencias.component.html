@@ -13,16 +13,16 @@
 
     <nav class="navbar navbar-expand-lg px-4">
         <div class="container-fluid d-flex justify-content-between">
-            <button class="btn btn-outline-light btn_volver" [routerLink]="''">Volver</button>
-            <span class="navbar-brand text-white mx-auto">GESTIÓN DE AUDIENCIAS</span>
-            <a href="#" class="btn btn-outline-success" [routerLink]="'/crear-audiencia'">Agregar Audiencia</a>
+            <button class="btn btn-primary" [routerLink]="''">Volver</button>
+            <img src="../../assets/images/justicia.png" alt="" class="img-fluid justicia-logo">
+            <a href="#" class="btn btn-primary" [routerLink]="'/crear-audiencia'">Agregar Audiencia</a>
         </div>
     </nav>
     
 
     <div class="container mt-4">
-        <h2 class="text-white bg-dark p-2 text-center d-flex justify-content-between align-items-center">
-            Consulta de Audiencias
+        <h2 class="text-white bg-dark p-2 text-center d-flex justify-content-between align-items-center rounded">
+            <span class="ms-3">Consulta de Audiencias</span>
             <button (click)="toggleFormulario()" class="btn btn-light">
                 {{ mostrarFormulario ? '▲' : '▼' }}
             </button>
@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <div class="col-md-6">
+                <div class="col-md-6 mb-3">
                     <label>Fiscal</label>
                     <select [(ngModel)]="fiscalSeleccionado" class="form-control">
                         <option value="">Seleccione</option>
@@ -82,7 +82,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-between">
-                <button (click)="filtrarAudiencias()" class="btn btn-primary">Buscar</button>
+                <button (click)="filtrarAudiencias()" class="btn btn-primary ms-auto me-2 btn_buscar">Buscar</button>
                 <button (click)="borrarFiltros()" class="btn btn-secondary">Borrar filtros</button>
             </div>
         </div>
@@ -104,6 +104,7 @@
                         <th>Defensor</th>
                         <th>Fecha</th>
                         <th>Estado</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
