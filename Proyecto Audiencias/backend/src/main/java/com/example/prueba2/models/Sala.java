@@ -15,6 +15,7 @@ public class Sala {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer sal_id;
+    
     private String sal_nombre;
     private String sal_lugar;
 

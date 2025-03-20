@@ -1,5 +1,7 @@
 package com.example.prueba2.repository;
 
+//import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.example.prueba2.models.Sala;
@@ -8,4 +10,5 @@ import com.example.prueba2.models.Sala;
 
 public interface SalaRepository extends JpaRepository<Sala, Integer>{
     
+    //List<Sala> findById();
 }

@@ -15,7 +15,6 @@ import com.example.prueba2.models.Sala;
 import jakarta.transaction.Transactional;
 
 @Repository
-
 public interface AudienciaRepository extends JpaRepository<Audiencia, Integer> {
 
        @Query("SELECT a FROM Audiencia a WHERE a.audEstado = true")
@@ -28,8 +27,8 @@ public interface AudienciaRepository extends JpaRepository<Audiencia, Integer> {
        void borrarLogico(@Param("id") Integer id);
 
        // Encuentra todas las audiencias de una sala específica
-       @Query("SELECT a FROM Audiencia a WHERE a.sal_id.sal_id = :sal_id")
-       List<Audiencia> encontrarPorSala(@Param("sal_id") Integer sal_id);
+       @Query("SELECT a FROM Audiencia a WHERE a.sal_id = :salaId")
+       List<Audiencia> encontrarPorSala(@Param("salaId") Integer salaId);
 
        // Obtiene todas las salas que tienen al menos una audiencia asignada
        @Query("SELECT DISTINCT a.sal_id FROM Audiencia a")
@@ -37,12 +36,21 @@ public interface AudienciaRepository extends JpaRepository<Audiencia, Integer> {
 
        // Cuenta cuántas audiencias tienen la misma autoridad en la misma fecha y hora
        @Query("SELECT COUNT(a) FROM Audiencia a " +
-                     "JOIN Audiencia_ext ae ON ae.audiencia.aud_id = a.aud_id " +
-                     "WHERE ae.autoridad.aut_id = :autoridadId " +
-                     "AND a.aud_fecha = :fecha " +
-                     "AND a.aud_hora = :hora")
+              "JOIN Audiencia_ext ae ON ae.audiencia.aud_id = a.aud_id " +
+              "WHERE ae.autoridad.aut_id = :autoridadId " +
+              "AND a.aud_fecha = :fecha " +
+              "AND a.aud_hora = :hora")
        Long contarConflictos(@Param("autoridadId") Integer autoridadId,
-                             @Param("fecha") LocalDate fecha,
-                             @Param("hora") LocalTime hora);
+                     @Param("fecha") LocalDate fecha,
+                     @Param("hora") LocalTime hora);
+
+       // Verifica si la sala ya tiene una audiencia en la misma fecha y hora
+       @Query("SELECT COUNT(a) > 0 FROM Audiencia a " +
+              "WHERE a.sal_id.sal_id = :salaId " +
+              "AND a.aud_fecha = :fecha " +
+              "AND a.aud_hora = :hora")
+       boolean salaOcupada(@Param("salaId") Integer salaId,
+                    @Param("fecha") LocalDate fecha,
+                    @Param("hora") LocalTime hora);
 
 }
