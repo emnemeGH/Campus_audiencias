@@ -7,6 +7,7 @@ import { CrearAudienciaComponent } from './crear-audiencia/crear-audiencia.compo
 import { EditarAudienciaComponent } from './editar-audiencia/editar-audiencia.component';
 import { ListaUsuarioComponent } from './lista-usuario/lista-usuario.component';
 import { LoginAutoridadComponent } from './login-autoridad/login-autoridad.component';
+import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },  // Ruta para el login
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'crear-audiencia', component: CrearAudienciaComponent },
   { path: 'editar-audiencia/:id', component: EditarAudienciaComponent },
   { path: 'lista-usuarios', component: ListaUsuarioComponent },
-  { path: 'login-autoridad', component: LoginAutoridadComponent }
+  { path: 'login-autoridad', component: LoginAutoridadComponent },
+  { path: 'crear-usuario', component: CrearUsuarioComponent }
 ];
 
 @NgModule({

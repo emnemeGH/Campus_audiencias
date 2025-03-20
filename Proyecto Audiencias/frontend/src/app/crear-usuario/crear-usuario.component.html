@@ -1,1 +1,78 @@
-<p>crear-usuario works!</p>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Audiencia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h2 class="text-white bg-dark p-2 text-center">Agregar Nuevo Usuario</h2>
+    
+        <form (ngSubmit)="guardarUsuario()" class="bg-light p-4 border rounded">
+            <!-- Selección de Rol (Debe elegirse primero) -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>Rol</label>
+                    <select class="form-select" [(ngModel)]="nuevoUsuario.rol" name="rol" (change)="actualizarFormulario()">
+                        <option value="" disabled selected>Seleccione un Rol</option>
+                        <option value="Operador">Operador</option>
+                        <option value="Autoridad">Autoridad</option>
+                        <option value="Administrador">Administrador</option>
+                    </select>
+                </div>
+            </div>
+    
+            <!-- Datos generales -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" [(ngModel)]="nuevoUsuario.nombre" name="nombre" required>
+                </div>
+                <div class="col-md-6">
+                    <label>Correo</label>
+                    <input type="email" class="form-control" [(ngModel)]="nuevoUsuario.correo" name="correo" required>
+                </div>
+            </div>
+    
+            <!-- Nombre de Usuario y Contraseña (Solo si NO es Autoridad) -->
+            <div class="row mb-3" *ngIf="!esAutoridad">
+                <div class="col-md-6">
+                    <label>Nombre de Usuario</label>
+                    <input type="text" class="form-control" [(ngModel)]="nuevoUsuario.username" name="username" required>
+                </div>
+                <div class="col-md-6">
+                    <label>Contraseña</label>
+                    <input type="password" class="form-control" [(ngModel)]="nuevoUsuario.password" name="password" required>
+                </div>
+            </div>
+    
+            <!-- Tipo de Autoridad (Solo si es Autoridad) -->
+            <div class="row mb-3" *ngIf="esAutoridad">
+                <div class="col-md-6">
+                    <label>Tipo de Autoridad</label>
+                    <select class="form-select" [(ngModel)]="nuevoUsuario.tipoAutoridad" name="tipoAutoridad" required>
+                        <option value="" disabled selected>Seleccione un tipo</option>
+                        <option value="juez">Juez</option>
+                        <option value="fiscal">Fiscal</option>
+                        <option value="defensor">Defensor</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>Distrito Judicial</label>
+                    <select class="form-select" [(ngModel)]="nuevoUsuario.dis_id" name="distrito" required>
+                        <option disabled selected>Seleccione un tipo</option>
+                        <option *ngFor="let distrito of distritos" [value]="distrito.dis_id">{{ distrito.dis_nombre }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Guardar Usuario</button>
+            <a [routerLink]="['/lista-usuarios']" class="btn btn-secondary ms-2">Volver</a>
+        </form>
+    </div>
+    
+</body>
