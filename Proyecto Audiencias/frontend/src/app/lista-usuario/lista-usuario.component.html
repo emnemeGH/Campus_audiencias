@@ -73,7 +73,7 @@
                 <td>{{ usuario.usr_nombre }}</td>
                 <td>{{ usuario.usrUsername }}</td>
                 <td>{{ usuario.usrMail }}</td>
-                <td>{{ usuario.usrRol || '-' }}</td>
+                <td>{{ usuario.rol || '-' }}</td>
                 <td class="text-center">
                     <div class="d-flex justify-content-center gap-2">
                         <button class="btn btn-sm btn-outline-primary" [routerLink]="['/editar-usuario', usuario.usr_id]">

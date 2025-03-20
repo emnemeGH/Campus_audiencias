@@ -18,6 +18,7 @@ export class ListaUsuarioComponent implements OnInit {
 
   ngOnInit() {
     this.obtenerUsuarios();
+    
   }
 
   obtenerUsuarios() {
@@ -26,6 +27,7 @@ export class ListaUsuarioComponent implements OnInit {
         console.log("Usuarios obtenidos:", data); // Verifica los datos en consola
         this.usuarios = data;
         this.usuariosFiltrados = [...this.usuarios]; // Copia inicial sin filtros
+        this.obtenerRol();
       },
       (error) => {
         console.error("Error al obtener usuarios:", error);
@@ -44,12 +46,19 @@ export class ListaUsuarioComponent implements OnInit {
         : true;
 
       const coincideRol = this.rolFiltro
-        ? usuario.usrRol === this.rolFiltro
+        ? usuario.rol === this.rolFiltro
         : true;
 
       return coincideCorreo && coincideUsuario && coincideRol;
     });
   }
+
+  obtenerRol() {
+    this.usuariosFiltrados.forEach(usuario => {
+      usuario.rol = usuario.usrIsAdmin  === true ? "Administrador" : "Operador";
+    });
+ }
+  
 
   reiniciarFiltros() {
     this.correoFiltro = '';
