@@ -22,7 +22,7 @@ export class ListaUsuarioComponent implements OnInit {
   }
 
   obtenerUsuarios() {
-    this.usuariosService.obtenerUsuarios().subscribe(
+    this.usuariosService.getUsuarios().subscribe(
       (data) => {
         console.log("Usuarios obtenidos:", data); // Verifica los datos en consola
         this.usuarios = data;

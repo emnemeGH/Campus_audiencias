@@ -11,7 +11,9 @@ export class UsuariosService {
 
   constructor(private http: HttpClient) {}
 
-  obtenerUsuarios(): Observable<any[]> {
+  // Un Observable en Angular es como una "promesa mejorada". Es una forma de manejar datos que pueden cambiar con el tiempo, como una lista de usuarios que viene de un servidor.
+  // Observable<any[]> → Significa que este método devuelve un Observable que en algún momento tendrá una lista de usuarios (any[]).
+  getUsuarios(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
 }
