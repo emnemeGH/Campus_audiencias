@@ -8,16 +8,21 @@ import { EditarAudienciaComponent } from './editar-audiencia/editar-audiencia.co
 import { ListaUsuarioComponent } from './lista-usuario/lista-usuario.component';
 import { LoginAutoridadComponent } from './login-autoridad/login-autoridad.component';
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
+// Se importa el componente EditarUsuarioComponent, porque se usará en una ruta.
+import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },  // Ruta para el login
+  // Aquí, path: '' significa que cuando el usuario entre a la aplicación (http://localhost:4200/), se mostrará el componente LoginComponent.
+  { path: '', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },  // Ruta para el registro
   { path: 'lista-audiencias', component: ListaAudienciasComponent },  // Ruta para la pág principal donde se ven todas las audiencias
   { path: 'crear-audiencia', component: CrearAudienciaComponent },
   { path: 'editar-audiencia/:id', component: EditarAudienciaComponent },
   { path: 'lista-usuarios', component: ListaUsuarioComponent },
   { path: 'login-autoridad', component: LoginAutoridadComponent },
-  { path: 'crear-usuario', component: CrearUsuarioComponent }
+  { path: 'crear-usuario', component: CrearUsuarioComponent },
+  // Cuando el usuario vaya a http://localhost:4200/editar-usuario, se mostrará el componente EditarUsuarioComponent.
+  { path: 'editar-usuario/:tipo/:id', component: EditarUsuarioComponent},
 ];
 
 @NgModule({

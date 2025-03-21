@@ -14,6 +14,7 @@ import { HoraPipe } from './pipes/hora-pipe.pipe';
 import { ListaUsuarioComponent } from './lista-usuario/lista-usuario.component';
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { LoginAutoridadComponent } from './login-autoridad/login-autoridad.component';
+import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { LoginAutoridadComponent } from './login-autoridad/login-autoridad.compo
     HoraPipe,
     ListaUsuarioComponent,
     CrearUsuarioComponent,
-    LoginAutoridadComponent
+    LoginAutoridadComponent,
+    EditarUsuarioComponent
   ],
   imports: [
     BrowserModule,

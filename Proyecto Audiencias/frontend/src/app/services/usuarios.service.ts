@@ -18,8 +18,30 @@ export class UsuariosService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
+  getUsuarioPorId(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
   getAutoridades(): Observable<any[]> {
     return this.http.get<any[]>(this.apiAutoridades);
+  }
+
+  getAutoridadesPorId(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiAutoridades}/${id}`);
+  }
+
+  editarUsuario(usuario: any): Observable<any> {
+    if (!usuario.usr_id) {
+      console.error("Error: El usuario no tiene un ID definido.");
+    }
+    return this.http.put<any>(`${this.apiUrl}/${usuario.usr_id}`, usuario);
+  }
+
+  editarAutoridad(autoridad: any): Observable<any> {
+    if (!autoridad.aut_id) {
+      console.error("Error: La autoridad no tiene un ID definido.");
+    }
+    return this.http.put<any>(`${this.apiAutoridades}/${autoridad.aut_id}`, autoridad);
   }
 
   agregarUsuario(usuario: any): Observable<any> {
