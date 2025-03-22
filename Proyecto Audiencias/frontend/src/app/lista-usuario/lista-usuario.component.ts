@@ -24,9 +24,9 @@ export class ListaUsuarioComponent implements OnInit {
   obtenerUsuarios() {
     this.usuariosService.obtenerTodos().subscribe(
       (data) => {
-        this.usuarios = data.filter(u => u.estado !== false);
+        this.usuarios = data.filter(u => u.estado);
         console.log("Usuarios obtenidos:", this.usuarios); 
-        this.usuariosFiltrados = [...this.usuarios]; // Copia inicial sin filtros
+        this.usuariosFiltrados = [...this.usuarios]; 
       },
       (error) => {
         console.error("Error al obtener usuarios:", error);
@@ -65,17 +65,17 @@ export class ListaUsuarioComponent implements OnInit {
       if (confirm("¿Estás seguro de que deseas eliminar esta autoridad?")) {
         this.usuariosService.borrarAutoridad(id).subscribe(() => {
           // .filter() Crea una nueva lista con los elementos que cumplen una condición. Si la condición devuelve true, el elemento se mantiene en la lista.
-          // u.usr_id === id → Comprueba si el usr_id del usuario en la lista coincide con el id que queremos eliminar.
+          // u.id === id → Comprueba si el id del usuario en la lista coincide con el id que queremos eliminar.
           // u.rol === rol → Comprueba si el rol del usuario en la lista coincide con el rol que queremos eliminar.
           // ! (...) → La negación ! significa que queremos mantener todos los usuarios que NO cumplan la condición.
-          this.usuarios = this.usuarios.filter(u => !(u.usr_id === id && u.rol === rol));
+          this.usuarios = this.usuarios.filter(u => !(u.id === id && u.rol === rol));
           this.usuariosFiltrados = [...this.usuarios];
         });
       }
     } else {
       if (confirm("¿Estás seguro de que deseas eliminar este Usuario?")) {
         this.usuariosService.borrarUsuario(id).subscribe(() => {
-          this.usuarios = this.usuarios.filter(u => !(u.usr_id === id && u.rol != 'Autoridad'));
+          this.usuarios = this.usuarios.filter(u => !(u.id === id && u.rol !== 'Autoridad'));
           this.usuariosFiltrados = [...this.usuarios];
         })
       }

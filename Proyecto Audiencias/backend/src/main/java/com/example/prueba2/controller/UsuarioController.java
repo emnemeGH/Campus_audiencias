@@ -22,9 +22,8 @@ public class UsuarioController extends BaseController<Usuario, Integer> {
 
     //@PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarPorId(@PathVariable Integer id) {
+    public void eliminarPorId(@PathVariable Integer id) {
         usuarioService.borradoLogico(id);
-        return ResponseEntity.ok("Usuario eliminado correctamente.");
     }
 
     //@PreAuthorize("hasRole('ADMIN')")

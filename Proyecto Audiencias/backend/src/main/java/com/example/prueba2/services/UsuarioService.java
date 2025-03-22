@@ -8,6 +8,8 @@ import com.example.prueba2.models.Usuario;
 import com.example.prueba2.repository.UsuarioRepository;
 import com.example.prueba2.services.impl.BaseServiceImpl;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UsuarioService extends BaseServiceImpl<Usuario, Integer>{
     
@@ -49,14 +51,9 @@ public class UsuarioService extends BaseServiceImpl<Usuario, Integer>{
     }
 
     // Borrado lógico
+    @Transactional
     public void borradoLogico(Integer id) {
-        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
-        if (usuarioOptional.isPresent()) {
-            Usuario usuario = usuarioOptional.get();
-            usuario.setUsrEstado(false);  // Cambiar el estado del usuario a false (inactivo)
-            usuarioRepository.save(usuario);  // Guardar los cambios
-        } else {
-            throw new IllegalArgumentException("Usuario no encontrado");
-        }
+        usuarioRepository.borrarLogico(id);
     }
+
 }
