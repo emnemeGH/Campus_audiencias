@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.prueba2.models.Autoridad;
@@ -21,5 +22,5 @@ public interface AutoridadRepository extends JpaRepository<Autoridad, Integer>{
     @Transactional
     @Modifying
     @Query("UPDATE Autoridad u SET u.autEstado = false WHERE u.aut_id = :id")
-    void borrarLogico(Integer id);
+    void borrarLogico(@Param("id") Integer id);
 }

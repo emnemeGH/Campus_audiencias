@@ -65,7 +65,8 @@ export class UsuariosService {
           nombre: usuario.usr_nombre,
           username: usuario.usrUsername,
           correo: usuario.usrMail,
-          rol: usuario.usrIsAdmin ? 'Administrador' : 'Operador'  // Si usrIsAdmin es 1 -> Admin, si es 0 -> Operador
+          rol: usuario.usrIsAdmin ? 'Administrador' : 'Operador',  // Si usrIsAdmin es 1 -> Admin, si es 0 -> Operador
+          estado: usuario.usrEstado
         }));
 
         // Mapear autoridades
@@ -73,11 +74,22 @@ export class UsuariosService {
           id: autoridad.aut_id,  
           nombre: autoridad.aut_nombre,   
           correo: autoridad.aut_mail,  
-          rol: 'Autoridad'  
+          rol: 'Autoridad',
+          estado: autoridad.autEstado
         }));
 
         return [...listaUsuarios, ...listaAutoridades]; // Combina ambas listas
       })
     );
+  }
+
+// UPDATE usuario SET usr_estado = 1 WHERE usr_id>0;
+  borrarUsuario(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`); 
+  }
+
+  // UPDATE autoridad SET aut_estado=1 WHERE aut_id>0;
+  borrarAutoridad(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiAutoridades}/${id}`); 
   }
 }

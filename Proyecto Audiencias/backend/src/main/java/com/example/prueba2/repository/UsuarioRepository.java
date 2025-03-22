@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.prueba2.models.Usuario;
@@ -22,7 +23,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
     @Transactional
     @Modifying
     @Query("UPDATE Usuario u SET u.usrEstado = false WHERE u.usr_id = :id")
-    void borrarLogico(Integer id);
+    void borrarLogico(@Param("id") Integer id);
 
     Optional<Usuario> findByUsrUsername(String usrUsrname);
     Optional<Usuario> findByUsrMail(String usrMail);

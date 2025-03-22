@@ -80,7 +80,7 @@
                         <button class="btn btn-sm btn-outline-primary" [routerLink]="['/editar-usuario', usuario.rol === 'Autoridad' ? 'Autoridad' : 'Usuario', usuario.id]">
                             <i class="bi bi-pencil"></i>
                         </button>
-                        <button class="btn btn-sm btn-outline-danger">
+                        <button class="btn btn-sm btn-outline-danger" (click)="eliminarUsuario(usuario.id, usuario.rol)">
                             <i class="bi bi-trash"></i>
                         </button>
                     </div>
