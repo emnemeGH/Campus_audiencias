@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AudienciaService } from '../services/audiencia.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-lista-audiencias',
@@ -7,6 +8,7 @@ import { AudienciaService } from '../services/audiencia.service';
   styleUrls: ['./lista-audiencias.component.css']
 })
 export class ListaAudienciasComponent implements OnInit {
+  esUsuario: boolean = true;
   audiencias: any[] = [];
   mostrarFormulario: boolean = false;
   distritoSeleccionado: string = '';
@@ -38,9 +40,15 @@ export class ListaAudienciasComponent implements OnInit {
     "Distrito Norte": ["Fiscal1 Dist3", "Fiscal2 Dist3"],
   }
 
-  constructor(private audienciaService: AudienciaService) { }
+  constructor(private audienciaService: AudienciaService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      // Si params['esUsuario'] tiene algun valor se ejecuta la comparacion, de esta forma, aunque toquen la url y pongan true no se van a mostrar las funcionalidades
+      if(params['esUsuario']) {
+        this.esUsuario = false;
+      }
+    });
     this.obtenerAudiencias();
   }
 

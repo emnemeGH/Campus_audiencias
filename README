@@ -19,10 +19,11 @@ Módulo gestor de audiencias:
 Opciones para consultar audiencias por fecha, sala, juez-fiscal o tipo de causa. 
 (AGREGAR CONSULTAS POR AUTORIDAD Y TIPO DE CAUSA) ✅
 
+-Ocultar acciones y crear audiencia si es autoridad ✅
+
 TAREAS EN PROCESO
 
-? Pantalla admin con gestion de usuarios (funcionalidad borrar (Las autoridades no pueden ser eliminadas si tienen una audiencia en fecha y que no esté suspendida.
-) y crear)
+? Las autoridades no pueden ser eliminadas si tienen una audiencia en fecha y que no esté suspendida.
 
 TAREAS FALTANTES
 
@@ -30,8 +31,6 @@ TAREAS FALTANTES
 Posibilidad de gestionar los perfiles de usuario, incluyendo operadores y autoridades. Los operadores solo pueden cargar audiencias dentro de su distrito.
 
 -Una audiencia no puede ser eliminada si esta en horario.
-
--Ocultar acciones y crear audiencia si es autoridad
 
 -SSE event de angular
 

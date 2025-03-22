@@ -32,7 +32,7 @@ public class Autoridad {
     private EstadoEntidad aut_tipo;
 
     @Column(name = "aut_estado")
-    private Boolean autEstado;
+    private Boolean autEstado = true;
 
     public Boolean getAutEstado() {
         return autEstado;

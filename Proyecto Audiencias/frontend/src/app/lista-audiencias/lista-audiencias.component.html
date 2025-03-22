@@ -15,7 +15,7 @@
         <div class="container-fluid d-flex justify-content-between">
             <button class="btn btn-primary" [routerLink]="''">Volver</button>
             <img src="../../assets/images/justicia.png" alt="" class="img-fluid justicia-logo">
-            <a href="#" class="btn btn-primary" [routerLink]="'/crear-audiencia'">Agregar Audiencia</a>
+            <a href="#" class="btn btn-primary" [routerLink]="'/crear-audiencia'" *ngIf="esUsuario"><span>Agregar Audiencia</span></a>
         </div>
     </nav>
     
@@ -104,7 +104,7 @@
                         <th>Defensor</th>
                         <th>Fecha</th>
                         <th>Estado</th>
-                        <th>Acciones</th>
+                        <th *ngIf="esUsuario">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -121,7 +121,7 @@
                         <td>{{ audiencia.defensor }}</td>
                         <td>{{ audiencia.aud_fecha }}</td>
                         <td>{{ audiencia.aud_tipo }}</td>
-                        <td class="text-center">
+                        <td class="text-center" *ngIf="esUsuario">
                             <div class="d-flex justify-content-center gap-3">
                                 <button class="btn btn-sm btn-outline-primary" [routerLink]="['/editar-audiencia', audiencia.aud_id]">
                                     <i class="bi bi-pencil"></i>

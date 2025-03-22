@@ -25,7 +25,7 @@ public class Usuario {
     private Distrito_judicial distrito;
 
     @Column(name = "usr_estado")
-    private Boolean usrEstado;
+    private Boolean usrEstado = true;
 
     public Boolean getUsrEstado() {
         return usrEstado;
