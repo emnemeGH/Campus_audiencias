@@ -21,7 +21,10 @@ public class Autoridad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer aut_id;
     private String aut_nombre;
-    private String aut_mail;
+    
+    @Column(name = "aut_mail")
+    private String autMail;
+
 
     @ManyToOne
     @JoinColumn(name="dis_id")
@@ -41,9 +44,6 @@ public class Autoridad {
     public void setAutEstado(Boolean autEstado) {
         this.autEstado = autEstado;
     }
-
-    @Column(name = "aut_mail")
-    private String autMail;
 
     public String getAutMail(){
         return autMail;
