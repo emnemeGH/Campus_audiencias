@@ -46,11 +46,11 @@ export class UsuariosService {
 
   agregarUsuario(usuario: any): Observable<any> {
     console.log("Enviando usuario al backend:", usuario);  // Debugging adicional
-    return this.http.post<any>(this.apiUrl, usuario);
+    return this.http.post<any>(this.apiUrl + '/registrarUsu', usuario);
   }
 
   agregarAutoridad(autoridad: any): Observable<any>{
-    return this.http.post<any>(this.apiAutoridades, autoridad);
+    return this.http.post<any>(this.apiAutoridades + '/registrarAut', autoridad);
   }
 
   obtenerTodos(): Observable<any[]> {

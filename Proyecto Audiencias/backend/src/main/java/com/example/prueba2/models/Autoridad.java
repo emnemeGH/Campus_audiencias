@@ -41,4 +41,15 @@ public class Autoridad {
     public void setAutEstado(Boolean autEstado) {
         this.autEstado = autEstado;
     }
+
+    @Column(name = "aut_mail")
+    private String autMail;
+
+    public String getAutMail(){
+        return autMail;
+    }
+
+    public void setAutMail(String autMail){
+        this.autMail = autMail;
+    }
 }

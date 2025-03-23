@@ -42,11 +42,6 @@ public class AudienciaController extends BaseController<Audiencia, Integer> {
         return ResponseEntity.ok(autoridades);
     }
 
-    // http://localhost:8080/api/audiencias/crear/{autoridadId}?usuarioSolicitanteId=2
-    // {autoridadId} es el id de la autoridad a asignar en la audiencia y
-    // "usuarioSolicitanteId" es el id del usuario que quiere crear la audiencia
-    // URL para que valide si hay coincidecia de autoridades en audicencias
-    // distintas y que la sala no tenga una audiencia asignada en la misma fecha
     // @PreAuthorize("hasRole('OPERADOR')")
     @PostMapping("/crear")
     public ResponseEntity<?> crearAudiencia(@RequestBody CrearAudienciaDTO request) {
@@ -66,6 +61,5 @@ public class AudienciaController extends BaseController<Audiencia, Integer> {
         return ResponseEntity.badRequest().body(e.getMessage());
     }
 }
-
 
 }

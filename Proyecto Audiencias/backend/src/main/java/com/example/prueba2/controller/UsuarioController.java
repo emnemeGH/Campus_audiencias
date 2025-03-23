@@ -34,7 +34,7 @@ public class UsuarioController extends BaseController<Usuario, Integer> {
     }
 
     //@PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/registrar")
+    @PostMapping("/registrarUsu")
     public ResponseEntity<?> registrarUsuario(@RequestBody RegistroUsuarioDTO request) {
         // Validar si se pasó `usuarioSolicitanteId`
         if (request.getUsuarioSolicitanteId() == null) {

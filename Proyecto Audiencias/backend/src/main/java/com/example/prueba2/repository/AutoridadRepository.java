@@ -22,5 +22,7 @@ public interface AutoridadRepository extends JpaRepository<Autoridad, Integer>{
     @Transactional
     @Modifying
     @Query("UPDATE Autoridad u SET u.autEstado = false WHERE u.aut_id = :id")
-    void borrarLogico(@Param("id") Integer id);
+    void borrarLogico(@Param("id") Integer id);  
+    
+    boolean existsByAutMail(String autMail);
 }

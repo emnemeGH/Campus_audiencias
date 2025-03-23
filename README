@@ -10,7 +10,7 @@ TAREAS REALIZADAS
 
 + Permite programar, modificar y cancelar audiencias, asignando salas y horarios (HACER FUNCIONAL EL BOTON DE BORRAR)✅
 
-
++ Las autoridades no pueden ser eliminadas si tienen una audiencia en fecha y que no esté suspendida. ✅
 
 + Se valida que una autoridad no pueda estar asignada a dos audiencias con la misma fecha y hora. ✅
 
@@ -19,18 +19,21 @@ Módulo gestor de audiencias:
 Opciones para consultar audiencias por fecha, sala, juez-fiscal o tipo de causa. 
 (AGREGAR CONSULTAS POR AUTORIDAD Y TIPO DE CAUSA) ✅
 
--Ocultar acciones y crear audiencia si es autoridad ✅
++ Ocultar acciones y crear audiencia si es autoridad ✅
+
++ Los operadores solo pueden cargar audiencias dentro de su distrito. ✅
+
++ Una audiencia no puede ser eliminada si esta en horario. ✅
 
 TAREAS EN PROCESO
 
-? Las autoridades no pueden ser eliminadas si tienen una audiencia en fecha y que no esté suspendida.
+
 
 TAREAS FALTANTES
 
 - Módulo administración de usuarios:
-Posibilidad de gestionar los perfiles de usuario, incluyendo operadores y autoridades. Los operadores solo pueden cargar audiencias dentro de su distrito.
+Posibilidad de gestionar los perfiles de usuario, incluyendo operadores y autoridades. 
 
--Una audiencia no puede ser eliminada si esta en horario.
 
 -SSE event de angular
 

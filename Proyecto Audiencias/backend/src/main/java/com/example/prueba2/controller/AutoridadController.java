@@ -3,6 +3,7 @@ package com.example.prueba2.controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +20,11 @@ public class AutoridadController extends BaseController<Autoridad, Integer> {
     public AutoridadController(AutoridadService autoridadService) {
         super(autoridadService);
         this.autoridadService = autoridadService;
+    }
+
+    @PostMapping("/registrarAut")
+    public void registrarAutoridad(Autoridad autoridad){
+        autoridadService.guardarAutoridad(autoridad);
     }
 
     @DeleteMapping(("/{id}"))
