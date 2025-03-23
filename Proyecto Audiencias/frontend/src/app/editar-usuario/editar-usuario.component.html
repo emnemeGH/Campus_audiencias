@@ -9,55 +9,78 @@
 </head>
 
 <body>
-    <div class="container mt-4">
-        <h2 class="text-center bg-dark text-white p-2">Usuario</h2>
+    <div class="container">
+        <h2 *ngIf="!esAutoridad()" class="text-center bg-dark text-white p-2">Editar Usuario</h2>
+        <h2 *ngIf="esAutoridad()" class="text-center bg-dark text-white p-2">Editar Autoridad</h2>
 
         <form (ngSubmit)="guardarCambios()" class="p-4 bg-light border rounded">
-            <div class="mb-3">
-                <label class="form-label">Rol</label>
-                <select [(ngModel)]="rol" name="rol" class="form-control" required>
-                    <option disabled selected value="">Seleccione</option>
-                    <option value="Operador">Operador</option>
-                    <option value="Administrador">Administrador</option>
-                    <option value="Autoridad">Autoridad</option>
-                </select>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label class="form-label">Rol</label>
+                    <select [(ngModel)]="rol" name="rol" class="form-control" required>
+                        <option disabled selected value="">Seleccione</option>
+                        <option value="Operador">Operador</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Autoridad">Autoridad</option>
+                    </select>
+                </div>
+                <div *ngIf="!esAutoridad()" class="col-md-6">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" [(ngModel)]="usuario.usr_nombre" name="usr_nombre" class="form-control" required>
+                </div>
+                <div *ngIf="esAutoridad()" class="col-md-6">
+                    <label class="form-label">Nombre de Autoridad</label>
+                    <input type="text" [(ngModel)]="autoridad.aut_nombre" name="aut_nombre" class="form-control"
+                        required>
+                </div>
             </div>
+
             <!-- Si NO es autoridad, muestra este formulario -->
-            <div *ngIf="!esAutoridad()" class="mb-3">
-                <label class="form-label">Nombre</label>
-                <input type="text" [(ngModel)]="usuario.usr_nombre" name="usr_nombre" class="form-control" required>
-                <label class="form-label">Correo</label>
-                <input type="email" [(ngModel)]="usuario.usrMail" name="usrMail" class="form-control" required>
-                <label class="form-label">Nombre De usuario</label>
-                <input type="text" [(ngModel)]="usuario.usrUsername" name="usrUsername" class="form-control" required>
-                <label class="form-label">Contraseña</label>
-                <input type="text" [(ngModel)]="usuario.usrPassword" name="usrPassword" class="form-control" required>
+            <div *ngIf="!esAutoridad()" class="row mb-5">
+                <div class="col-md-4">
+                    <label class="form-label">Correo</label>
+                    <input type="email" [(ngModel)]="usuario.usrMail" name="usrMail" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Nombre De usuario</label>
+                    <input type="text" [(ngModel)]="usuario.usrUsername" name="usrUsername" class="form-control"
+                        required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Contraseña</label>
+                    <input type="text" [(ngModel)]="usuario.usrPassword" name="usrPassword" class="form-control"
+                        required>
+                </div>
             </div>
 
             <!-- Si ES autoridad, muestra este otro formulario -->
-            <div *ngIf="esAutoridad()" class="mb-3">
-                <label class="form-label">Nombre de Autoridad</label>
-                <input type="text" [(ngModel)]="autoridad.aut_nombre" name="aut_nombre" class="form-control" required>
-                <label class="form-label">Correo de Autoridad</label>
-                <input type="email" [(ngModel)]="autoridad.aut_mail" name="aut_mail" class="form-control" required>
-                <label class="form-label">Tipo de Autoridad</label>
-                <select [(ngModel)]="autoridad.aut_tipo" name="aut_tipo" class="form-control" required>
-                    <option value="juez">Juez</option>
-                    <option value="fiscal">Fiscal</option>
-                    <option value="defensor">Defensor</option>
-                </select>
-                <label class="form-label">Distrito Judicial</label>
-                <select [(ngModel)]="autoridad.distrito.dis_nombre" name="distrito" class="form-control" required>
-                    <option value="Distrito Capital">Distrito Capital</option>
-                    <option value="Distrito Sur">Distrito Sur</option>
-                    <option value="Distrito Norte">Distrito Norte</option>
-                </select>
+            <div *ngIf="esAutoridad()" class="row mb-5">
+                <div class="col-md-4">
+                    <label class="form-label">Correo de Autoridad</label>
+                    <input type="email" [(ngModel)]="autoridad.aut_mail" name="aut_mail" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Tipo de Autoridad</label>
+                    <select [(ngModel)]="autoridad.aut_tipo" name="aut_tipo" class="form-control" required>
+                        <option value="juez">Juez</option>
+                        <option value="fiscal">Fiscal</option>
+                        <option value="defensor">Defensor</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Distrito Judicial</label>
+                    <select [(ngModel)]="autoridad.distrito.dis_nombre" name="distrito" class="form-control" required>
+                        <option value="Distrito Capital">Distrito Capital</option>
+                        <option value="Distrito Sur">Distrito Sur</option>
+                        <option value="Distrito Norte">Distrito Norte</option>
+                    </select>
+                </div>
             </div>
 
 
-            <div class="d-flex justify-content-between mt-4">
+            <div class="d-flex justify-content-end align-items-end mt-4">
+                <button type="submit" class="btn btn-success">Guardar Cambios</button>
                 <a [routerLink]="'/lista-usuarios'" class="btn btn-secondary">Volver</a>
-                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
             </div>
         </form>
     </div>

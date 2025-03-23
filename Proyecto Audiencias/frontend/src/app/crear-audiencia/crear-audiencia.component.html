@@ -9,8 +9,8 @@
 </head>
 
 <body>
-    <div class="container mt-4">
-        <h2 class="text-white bg-dark p-2 text-center">Agregar Nueva Audiencia</h2>
+    <div class="container mt-1">
+        <h2 class="text-white bg-dark p-2 text-center">Agregar Audiencia</h2>
 
         <form (ngSubmit)="guardarAudiencia()" class="bg-light p-4 border rounded">
             <div class="row mb-3">
@@ -22,7 +22,26 @@
                     <label>Fecha</label>
                     <input type="date" [(ngModel)]="audiencia.aud_fecha" name="fecha" class="form-control" required>
                 </div>
-                <div class="col-md-6">
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label>Carátula</label>
+                    <input type="text" [(ngModel)]="audiencia.aud_caratula" name="caratula" class="form-control"
+                        required>
+                </div>
+                <div class="col-md-4">
+                    <label>Nombre</label>
+                    <input type="text" [(ngModel)]="audiencia.aud_nombre" name="nombre" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label>CUIJ</label>
+                    <input type="number" [(ngModel)]="audiencia.aud_cuij" name="cuij" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
                     <label>Distrito Judicial</label>
                     <select [(ngModel)]="audiencia.sal_id.distrito.dis_nombre"
                         name="audiencia.sal_id.distrito.dis_nombre" class="form-control" required>
@@ -32,10 +51,7 @@
                         <option value="Distrito Norte">Distrito Norte</option>
                     </select>
                 </div>
-            </div>
-
-            <div class="row mb-3">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label>Sala</label>
                     <select [(ngModel)]="audiencia.sal_id.sal_id" name="sal_id" class="form-control" required>
                         <option disabled selected value="">Seleccione</option>
@@ -70,23 +86,6 @@
                         <option *ngIf="audiencia.sal_id.distrito.dis_nombre === 'Distrito Norte'" [value]="12">Cámara
                             Gessel 3</option>
                     </select>
-
-                </div>
-                <div class="col-md-6">
-                    <label>CUIJ</label>
-                    <input type="number" [(ngModel)]="audiencia.aud_cuij" name="cuij" class="form-control" required>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label>Carátula</label>
-                    <input type="text" [(ngModel)]="audiencia.aud_caratula" name="caratula" class="form-control"
-                        required>
-                </div>
-                <div class="col-md-6">
-                    <label>Nombre</label>
-                    <input type="text" [(ngModel)]="audiencia.aud_nombre" name="nombre" class="form-control" required>
                 </div>
             </div>
 
@@ -154,7 +153,7 @@
             </div>
 
             <div class="row mb-3">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label>Estado</label>
                     <select [(ngModel)]="audiencia.aud_tipo" name="tipo" class="form-control" required>
                         <option value="Realizada">Realizada</option>
@@ -163,11 +162,10 @@
                         <option value="Suspendida">Suspendida</option>
                     </select>
                 </div>
-            </div>
-
-            <button type="submit" class="btn btn-success">Guardar Audiencia</button>
-            <div class="d-flex justify-content-end mt-3">
-                <a [routerLink]="'/lista-audiencias'" class="btn btn-secondary">Volver</a>
+                <div class="col-md-8 d-flex justify-content-end align-items-end">
+                    <button type="submit" class="btn btn-success me-2">Guardar Audiencia</button>
+                    <a [routerLink]="'/lista-audiencias'" class="btn btn-secondary">Volver</a>
+                </div>
             </div>
         </form>
     </div>

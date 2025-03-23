@@ -29,3 +29,12 @@
     background-color: #ffffff; 
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
 }
+
+.btn-primary {
+    background-color: #0a3c70;
+    border: #0a3c70;
+}
+
+.btn-primary:hover {
+    background-color: #115fb3d5;
+}
