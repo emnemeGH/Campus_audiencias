@@ -59,7 +59,7 @@ export class CrearUsuarioComponent {
       // Si es autoridad, enviar los datos, incluyendo dis_id
       this.usuariosService.agregarAutoridad({
         aut_nombre: this.nuevoUsuario.nombre,
-        aut_mail: this.nuevoUsuario.correo,
+        autMail: this.nuevoUsuario.correo,
         aut_tipo: this.nuevoUsuario.tipoAutoridad,
         dis_id: this.nuevoUsuario.dis_id // Esto relacionará la autoridad con el distrito
       }).subscribe(

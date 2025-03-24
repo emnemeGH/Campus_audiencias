@@ -73,7 +73,7 @@ export class UsuariosService {
         let listaAutoridades = autoridades.map(autoridad => ({
           id: autoridad.aut_id,  
           nombre: autoridad.aut_nombre,   
-          correo: autoridad.aut_mail,  
+          correo: autoridad.autMail,  
           rol: 'Autoridad',
           estado: autoridad.autEstado
         }));
@@ -92,4 +92,6 @@ export class UsuariosService {
   borrarAutoridad(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiAutoridades}/${id}`); 
   }
+
+  // ALTER TABLE autoridad AUTO_INCREMENT = 19;
 }
