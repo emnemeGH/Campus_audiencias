@@ -1,7 +1,6 @@
 package com.example.prueba2.controller;
 
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.prueba2.dto.RegistroUsuarioDTO;
@@ -12,7 +11,7 @@ import com.example.prueba2.services.UsuarioService;
 @RequestMapping("/api/usuarios")
 @CrossOrigin(origins = "http://localhost:4200")
 public class UsuarioController extends BaseController<Usuario, Integer> {
-    
+
     private final UsuarioService usuarioService;
 
     public UsuarioController(UsuarioService usuarioService) {
@@ -20,38 +19,28 @@ public class UsuarioController extends BaseController<Usuario, Integer> {
         this.usuarioService = usuarioService;
     }
 
-    //@PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void eliminarPorId(@PathVariable Integer id) {
         usuarioService.borradoLogico(id);
     }
 
-    //@PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}/cambiar-admin")
     public ResponseEntity<?> cambiarEstadoAdmin(@PathVariable Integer id, @RequestParam Boolean isAdmin) {
         Usuario usuarioActualizado = usuarioService.cambiarEstadoAdmin(id, isAdmin);
         return ResponseEntity.ok(usuarioActualizado);
     }
 
-    //@PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/registrarUsu")
     public ResponseEntity<?> registrarUsuario(@RequestBody RegistroUsuarioDTO request) {
-        // Validar si se pasó `usuarioSolicitanteId`
-        if (request.getUsuarioSolicitanteId() == null) {
-            return ResponseEntity.badRequest().body("Se requiere el ID del usuario solicitante.");
+        if (request.getUsuario() == null) {
+            return ResponseEntity.badRequest().body("Error: No se recibió información del usuario.");
         }
 
-        // Validar si el usuario solicitante existe
-        Usuario usuarioSolicitante = usuarioService.obtenerPorId(request.getUsuarioSolicitanteId())
-                .orElseThrow(() -> new IllegalArgumentException("Usuario solicitante no encontrado"));
+        Usuario nuevoUsuario = request.getUsuario();
 
-        // Verificar si el usuario solicitante es ADMIN
-        if (!usuarioSolicitante.getUsrIsAdmin()) {
-            return ResponseEntity.status(403).body("No tienes permisos para crear usuarios.");
-        }
-
-        // Usar el usuario dentro de RegistroUsuarioDTO para crear el nuevo usuario
-        Usuario nuevoUsuario = request.getUsuario();  // Obtener el usuario del DTO
         try {
             Usuario usuarioRegistrado = usuarioService.registrarUsuario(nuevoUsuario);
             return ResponseEntity.ok(usuarioRegistrado);
@@ -59,4 +48,5 @@ public class UsuarioController extends BaseController<Usuario, Integer> {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
 }

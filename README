@@ -35,6 +35,8 @@ TAREAS FALTANTES
 Posibilidad de gestionar los perfiles de usuario, incluyendo operadores y autoridades. 
 
 
+- BOTON VOLVER AL REGISTRO PRINCIPAL, si tocas sin querer "registarse como autoridad" no podes volver al registro principal
+
 -SSE event de angular
 
 UPDATE Audiencia SET aud_estado = TRUE WHERE aud_id>0; 

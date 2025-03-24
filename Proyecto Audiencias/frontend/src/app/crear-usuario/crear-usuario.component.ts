@@ -69,17 +69,19 @@ export class CrearUsuarioComponent {
         },
         error => {
           console.error('Error al agregar autoridad:', error);
-          alert('Hubo un error al agregar la autoridad.');
+          alert('Hubo un error al agregar la autoridad. Correo ya existente.');
         }
       );
     } else {
       // Enviar a la tabla de usuarios
       this.usuariosService.agregarUsuario({
-        usr_nombre: this.nuevoUsuario.nombre,
-        usrUsername: this.nuevoUsuario.username,
-        usrMail: this.nuevoUsuario.correo,
-        usrPassword: this.nuevoUsuario.password,
-        usrIsAdmin: this.nuevoUsuario.rol === 'Administrador' ? 1 : 0
+        usuario: {
+          usr_nombre: this.nuevoUsuario.nombre,
+          usrUsername: this.nuevoUsuario.username,
+          usrMail: this.nuevoUsuario.correo,
+          usrPassword: this.nuevoUsuario.password,
+          usrIsAdmin: this.nuevoUsuario.rol === 'Administrador' ? true : false
+        }
       }).subscribe(
         () => {
           alert('Usuario agregado correctamente.');
@@ -87,7 +89,7 @@ export class CrearUsuarioComponent {
         },
         error => {
           console.error('Error al agregar usuario:', error);
-          alert('Hubo un error al agregar el usuario.');
+          alert('Hubo un error al agregar el usuario. Correo o nombre de usuario ya existente.');
         }
       );
     }

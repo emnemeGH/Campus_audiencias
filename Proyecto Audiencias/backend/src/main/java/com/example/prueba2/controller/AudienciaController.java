@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.prueba2.dto.CrearAudienciaDTO;
 import com.example.prueba2.models.Audiencia;
 import com.example.prueba2.models.Audiencia_ext;
-import com.example.prueba2.models.Usuario;
+//import com.example.prueba2.models.Usuario;
 import com.example.prueba2.services.AudienciaService;
 
 @RestController
@@ -46,15 +46,9 @@ public class AudienciaController extends BaseController<Audiencia, Integer> {
     @PostMapping("/crear")
     public ResponseEntity<?> crearAudiencia(@RequestBody CrearAudienciaDTO request) {
     try {
-        // Validar si el usuario que intenta crear la audiencia tiene permisos
-        Usuario usuarioSolicitante = audienciaService.obtenerUsuarioPorId(request.getUsuarioSolicitanteId())
-            .orElseThrow(() -> new IllegalArgumentException("Usuario solicitante no encontrado"));
-
-        if (usuarioSolicitante.getUsrIsAdmin()) {
-            return ResponseEntity.status(403).body("Los administradores no pueden gestionar audiencias.");
-        }
-
-        // ✅ Guardar la audiencia con los datos recibidos en el DTO
+        // Verifica si el request contiene valores válidos
+        System.out.println("Recepción del request: " + request);
+        
         Audiencia nuevaAudiencia = audienciaService.guardarAudiencia(request);
         return ResponseEntity.ok(nuevaAudiencia);
     } catch (IllegalArgumentException e) {

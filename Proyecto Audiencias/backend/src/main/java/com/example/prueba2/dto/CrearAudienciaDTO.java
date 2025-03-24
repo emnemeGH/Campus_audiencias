@@ -3,6 +3,8 @@ package com.example.prueba2.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.example.prueba2.models.Sala;
+
 import lombok.Data;
 
 @Data
@@ -18,6 +20,5 @@ public class CrearAudienciaDTO {
     private Integer aud_juez;  // ID del juez
     private Integer aud_fiscal; // ID del fiscal
     private Integer aud_defensor; // ID del defensor
-    private Integer usuarioSolicitanteId; // ID del usuario que crea la audiencia
-    private Integer sal_id;
+    private Sala sala;
 }

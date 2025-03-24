@@ -27,11 +27,11 @@ public interface AudienciaRepository extends JpaRepository<Audiencia, Integer> {
        void borrarLogico(@Param("id") Integer id);
 
        // Encuentra todas las audiencias de una sala específica
-       @Query("SELECT a FROM Audiencia a WHERE a.sal_id = :salaId")
+       @Query("SELECT a FROM Audiencia a WHERE a.sala.sal_id = :salaId")
        List<Audiencia> encontrarPorSala(@Param("salaId") Integer salaId);
 
        // Obtiene todas las salas que tienen al menos una audiencia asignada
-       @Query("SELECT DISTINCT a.sal_id FROM Audiencia a")
+       @Query("SELECT DISTINCT a.sala FROM Audiencia a")
        List<Sala> encontrarSalasConAudiencias();
 
        // Cuenta cuántas audiencias tienen la misma autoridad en la misma fecha y hora
@@ -46,7 +46,7 @@ public interface AudienciaRepository extends JpaRepository<Audiencia, Integer> {
 
        // Verifica si la sala ya tiene una audiencia en la misma fecha y hora
        @Query("SELECT COUNT(a) > 0 FROM Audiencia a " +
-              "WHERE a.sal_id.sal_id = :salaId " +
+              "WHERE a.sala.sal_id = :salaId " +
               "AND a.aud_fecha = :fecha " +
               "AND a.aud_hora = :hora")
        boolean salaOcupada(@Param("salaId") Integer salaId,

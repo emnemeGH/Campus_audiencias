@@ -34,7 +34,7 @@ export class LoginAutoridadComponent {
   }
 
   onLogin() {
-    const user = this.autoridades.find(a => a.aut_mail === this.email);
+    const user = this.autoridades.find(a => a.autMail === this.email);
     if (user) {
       this.router.navigate(['/lista-audiencias'], { queryParams: { esUsuario: false } });
       } else {

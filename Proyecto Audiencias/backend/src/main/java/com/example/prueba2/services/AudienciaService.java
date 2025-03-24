@@ -19,7 +19,7 @@ import com.example.prueba2.models.Usuario;
 import com.example.prueba2.repository.AudienciaRepository;
 import com.example.prueba2.repository.Audiencia_extRepository;
 import com.example.prueba2.repository.AutoridadRepository;
-import com.example.prueba2.repository.SalaRepository;
+// import com.example.prueba2.repository.SalaRepository;
 import com.example.prueba2.repository.UsuarioRepository;
 
 @Service
@@ -31,8 +31,8 @@ public class AudienciaService extends BaseServiceImpl<Audiencia, Integer> {
     @Autowired
     private Audiencia_extRepository audienciaExtRepository;
 
-    @Autowired
-    private SalaRepository salaRepository;
+    // @Autowired
+    // private SalaRepository salaRepository;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -42,11 +42,11 @@ public class AudienciaService extends BaseServiceImpl<Audiencia, Integer> {
 
     @Autowired
     public AudienciaService(AudienciaRepository audienciaRepository, Audiencia_extRepository audienciaExtRepository,
-            SalaRepository salaRepository,
+            // SalaRepository salaRepository,
             AutoridadRepository autoridadRepository, UsuarioRepository usuarioRepository) {
         this.audienciaRepository = audienciaRepository;
         this.audienciaExtRepository = audienciaExtRepository;
-        this.salaRepository = salaRepository;
+        // this.salaRepository = salaRepository;
         this.autoridadRepository = autoridadRepository;
     }
 
@@ -80,9 +80,8 @@ public class AudienciaService extends BaseServiceImpl<Audiencia, Integer> {
     }
 
     public Audiencia guardarAudiencia(CrearAudienciaDTO request) {
-        // ✅ Obtener la sala antes de validarla
-        Sala sala = salaRepository.findById(request.getSal_id())
-                .orElseThrow(() -> new IllegalArgumentException("Sala no encontrada."));
+        // ✅ Usar el objeto Sala directamente desde el request (DTO)
+        Sala sala = request.getSala();
 
         // ✅ Validar que la sala esté disponible antes de guardar
         if (audienciaRepository.salaOcupada(sala.getSal_id(), request.getAud_fecha(), request.getAud_hora())) {
@@ -109,7 +108,7 @@ public class AudienciaService extends BaseServiceImpl<Audiencia, Integer> {
         nuevaAudiencia.setAud_cuij(request.getAud_cuij());
         nuevaAudiencia.setAudEstado(request.getAud_estado());
         nuevaAudiencia.setAud_tipo(EstadoEntidad.valueOf(request.getAud_tipo()));
-        nuevaAudiencia.setSal_id(sala); // ✅ Usamos la sala obtenida
+        nuevaAudiencia.setSala(sala); // ✅ Usamos la sala obtenida
 
         // ✅ Guardar la audiencia
         return audienciaRepository.save(nuevaAudiencia);

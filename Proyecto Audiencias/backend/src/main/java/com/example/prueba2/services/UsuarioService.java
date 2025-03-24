@@ -30,8 +30,9 @@ public class UsuarioService extends BaseServiceImpl<Usuario, Integer>{
             throw new IllegalArgumentException("El nombre de usuario ya existe.");
         }
     
-        return usuarioRepository.save(usuario);
+        return usuarioRepository.save(usuario); // ✅ Guarda y devuelve el usuario creado
     }
+    
     
 
     // Cambiar el estado admin de un usuario

@@ -37,7 +37,7 @@ public class Audiencia {
 
    @ManyToOne
    @JoinColumn(name="sal_id")
-    private Sala sal_id;
+    private Sala sala;
     
     public void setAudUsrmod(){
         this.aud_usrmod = (aud_fecmod == null) ? 0 : aud_usrmod ;

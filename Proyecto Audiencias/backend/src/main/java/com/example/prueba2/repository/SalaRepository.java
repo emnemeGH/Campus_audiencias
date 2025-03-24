@@ -10,5 +10,4 @@ import com.example.prueba2.models.Sala;
 
 public interface SalaRepository extends JpaRepository<Sala, Integer>{
     
-    //List<Sala> findById();
 }
