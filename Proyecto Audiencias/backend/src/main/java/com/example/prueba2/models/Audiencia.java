@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import com.example.prueba2.Enums.EstadoEntidad;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import com.example.prueba2.Enums.EstadoEntidad;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,8 +28,6 @@ public class Audiencia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer aud_id;
     private String aud_nombre;
-    private LocalDateTime aud_fecins;
-    private LocalDateTime aud_fecmod;
     private LocalDate aud_fecha;
     private LocalTime aud_hora;
     private LocalTime aud_duracion;
@@ -35,12 +35,20 @@ public class Audiencia {
     private String aud_caratula;
     private Integer aud_usrmod;
 
+    @CreationTimestamp  // Se llena automáticamente cuando se crea la audiencia
+    @Column(name = "aud_fecins", updatable = false)
+    private LocalDateTime audFecIns;
+
+    @UpdateTimestamp  // Se actualiza automáticamente cuando se edita la audiencia
+    @Column(name = "aud_fecmod")
+    private LocalDateTime audFecMod;
+
    @ManyToOne
    @JoinColumn(name="sal_id")
     private Sala sala;
     
     public void setAudUsrmod(){
-        this.aud_usrmod = (aud_fecmod == null) ? 0 : aud_usrmod ;
+        this.aud_usrmod = (audFecMod == null) ? 0 : aud_usrmod ;
     }
     
     public Integer getAudUsrmod(){
