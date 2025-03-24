@@ -12,7 +12,7 @@ export interface Audiencia {
   aud_fecmod?: string;
   aud_estado?: boolean;
   aud_tipo?: 'Demorada' | 'Programada' | 'Realziada' | 'Suspendida';
-  sal_id:  {
+  sala:  {
     sal_id: undefined | number,
     sal_nombre?: string,
     distrito: {
@@ -41,8 +41,8 @@ export interface AudienciaForm extends Audiencia {
 
 export class CrearAudienciaComponent {
   audiencia: AudienciaForm = {
-    aud_estado: undefined,
-    sal_id: {
+    aud_estado: true,
+    sala: {
       sal_id: undefined,
       sal_nombre: undefined,
       distrito: {
@@ -63,6 +63,11 @@ export class CrearAudienciaComponent {
     this.audiencia.juez = this.audiencia.juez ? Number(this.audiencia.juez) : undefined;
     this.audiencia.fiscal = this.audiencia.fiscal ? Number(this.audiencia.fiscal) : undefined;
     this.audiencia.defensor = this.audiencia.defensor ? Number(this.audiencia.defensor) : undefined;
+
+    // Asegurar que sal_id sea un número
+  if (this.audiencia.sala.sal_id && typeof this.audiencia.sala.sal_id === 'object') {
+    this.audiencia.sala.sal_id = this.audiencia.sala.sal_id;
+  }
 
     // Para reiniciar el ID: ALTER TABLE audiencia AUTO_INCREMENT = 5; Primero se deben borrar todas las audiencias no deseas y luego setear el id que queremos que arranque desde.
     // Hacer lo mismo en audiencia_ext ALTER TABLE audiencia_ext AUTO_INCREMENT = 13;

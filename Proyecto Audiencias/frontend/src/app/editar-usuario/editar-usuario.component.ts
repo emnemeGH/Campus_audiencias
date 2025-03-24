@@ -16,7 +16,7 @@ export interface Usuario {
 export interface Autoridad {
   aut_id?: number,
   aut_nombre?: string,
-  aut_mail?:string,
+  autMail?:string,
   distrito: {
     dis_nombre?: string
   }

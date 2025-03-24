@@ -110,8 +110,8 @@
                 <tbody>
                     <tr *ngFor="let audiencia of audienciasFiltradas">
                         <td>{{ audiencia.aud_hora | hora }}</td>
-                        <td>{{ audiencia.sal_id.distrito.dis_nombre }}</td>
-                        <td>{{ audiencia.sal_id.sal_nombre }}</td>
+                        <td>{{ audiencia.sala.distrito.dis_nombre }}</td>
+                        <td>{{ audiencia.sala.sal_nombre }}</td>
                         <td>{{ audiencia.aud_nombre }}</td>
                         <!--  Solo se muestra si tieneCuij() es true. -->
                         <td *ngIf="tieneCuij()">{{ audiencia.aud_cuij ? audiencia.aud_cuij: '-'  }}</td>

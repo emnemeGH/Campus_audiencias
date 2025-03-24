@@ -11,7 +11,7 @@ export interface Audiencia {
   aud_fecmod?: string;
   aud_estado?: boolean;
   aud_tipo?: 'Demorada' | 'Programada' | 'Realziada' | 'Suspendida';
-  sal_id:  {
+  sala:  {
     sal_id: undefined | number,
     sal_nombre?: string,
     distrito: {
@@ -39,7 +39,7 @@ export interface AudienciaForm extends Audiencia {
 })
 export class EditarAudienciaComponent implements OnInit {
   audiencia: AudienciaForm = {
-      sal_id: {
+      sala: {
         sal_id: undefined,
         sal_nombre: undefined,
         distrito: {
