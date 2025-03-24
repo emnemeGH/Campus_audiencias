@@ -104,20 +104,17 @@ export class ListaAudienciasComponent implements OnInit {
   }
 
   filtrarAudiencias() {
+  
     this.audienciasFiltradas = this.audiencias.filter((audiencia) => {
       // Verificar si 'sal_id' y 'distrito' están definidos antes de acceder a ellos
       const coincideDistrito = this.distritoSeleccionado
-        ? audiencia.sal_id && audiencia.sal_id.distrito && audiencia.sal_id.distrito.dis_id
-          ? audiencia.sal_id.distrito.dis_nombre.trim() === this.distritoSeleccionado.trim()
-          : false
-        : true;
+      ? audiencia.sala?.distrito?.dis_nombre?.trim() === this.distritoSeleccionado.trim()
+      : true;
 
       // Verificar si 'sal_nombre' está definido antes de acceder
       const coincideSala = this.salaSeleccionada
-        ? audiencia.sal_id && audiencia.sal_id.sal_nombre
-          ? audiencia.sal_id.sal_nombre.trim() === this.salaSeleccionada.trim()
-          : false
-        : true;
+      ? audiencia.sala?.sal_nombre?.trim() === this.salaSeleccionada.trim()
+      : true;
 
       // Filtrado por fecha
       const coincideFecha = this.fechaSeleccionada
