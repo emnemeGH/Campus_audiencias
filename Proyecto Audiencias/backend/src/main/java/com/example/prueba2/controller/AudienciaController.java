@@ -1,9 +1,8 @@
 package com.example.prueba2.controller;
 
 import java.util.List;
-
+import java.util.Map;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.prueba2.dto.CrearAudienciaDTO;
 import com.example.prueba2.models.Audiencia;
 import com.example.prueba2.models.Audiencia_ext;
-//import com.example.prueba2.models.Usuario;
 import com.example.prueba2.services.AudienciaService;
 
 @RestController
@@ -31,9 +29,16 @@ public class AudienciaController extends BaseController<Audiencia, Integer> {
         this.audienciaService = audienciaService;
     }
 
-    @DeleteMapping(("/{id}"))
-    public void eliminarPorId(@PathVariable Integer id) {
-        audienciaService.borradoLogico(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, String>> eliminarPorId(@PathVariable Integer id) {
+        try {
+            audienciaService.borradoLogico(id);
+            return ResponseEntity.ok(Map.of("mensaje", "Audiencia eliminada correctamente."));
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(Map.of("error", "Error al eliminar la audiencia."));
+        }
     }
 
     @GetMapping("/{id}/autoridades")
@@ -45,15 +50,15 @@ public class AudienciaController extends BaseController<Audiencia, Integer> {
     // @PreAuthorize("hasRole('OPERADOR')")
     @PostMapping("/crear")
     public ResponseEntity<?> crearAudiencia(@RequestBody CrearAudienciaDTO request) {
-    try {
-        // Verifica si el request contiene valores válidos
-        System.out.println("Recepción del request: " + request);
-        
-        Audiencia nuevaAudiencia = audienciaService.guardarAudiencia(request);
-        return ResponseEntity.ok(nuevaAudiencia);
-    } catch (IllegalArgumentException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
+        try {
+            // Verifica si el request contiene valores válidos
+            System.out.println("Recepción del request: " + request);
+
+            Audiencia nuevaAudiencia = audienciaService.guardarAudiencia(request);
+            return ResponseEntity.ok(nuevaAudiencia);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
-}
 
 }

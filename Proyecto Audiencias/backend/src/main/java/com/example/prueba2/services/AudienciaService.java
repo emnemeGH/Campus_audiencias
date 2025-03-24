@@ -18,8 +18,6 @@ import com.example.prueba2.models.Sala;
 import com.example.prueba2.models.Usuario;
 import com.example.prueba2.repository.AudienciaRepository;
 import com.example.prueba2.repository.Audiencia_extRepository;
-import com.example.prueba2.repository.AutoridadRepository;
-// import com.example.prueba2.repository.SalaRepository;
 import com.example.prueba2.repository.UsuarioRepository;
 
 @Service
@@ -31,39 +29,30 @@ public class AudienciaService extends BaseServiceImpl<Audiencia, Integer> {
     @Autowired
     private Audiencia_extRepository audienciaExtRepository;
 
-    // @Autowired
-    // private SalaRepository salaRepository;
-
     @Autowired
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private AutoridadRepository autoridadRepository;
-
-    @Autowired
     public AudienciaService(AudienciaRepository audienciaRepository, Audiencia_extRepository audienciaExtRepository,
-            // SalaRepository salaRepository,
-            AutoridadRepository autoridadRepository, UsuarioRepository usuarioRepository) {
+            UsuarioRepository usuarioRepository) {
         this.audienciaRepository = audienciaRepository;
         this.audienciaExtRepository = audienciaExtRepository;
-        // this.salaRepository = salaRepository;
-        this.autoridadRepository = autoridadRepository;
     }
 
     @Transactional
     public void borradoLogico(Integer id) {
-
         // Buscar la audiencia por su ID
         Audiencia audiencia = audienciaRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Audiencia no encontrada"));
 
         // Verificar si la audiencia está programada o demorada
         if (audiencia.getAud_tipo() == EstadoEntidad.Programada ||
-            audiencia.getAud_tipo() == EstadoEntidad.Demorada) {
+                audiencia.getAud_tipo() == EstadoEntidad.Demorada) {
             throw new IllegalStateException("No se puede eliminar una audiencia programada o demorada.");
         }
 
-        autoridadRepository.borrarLogico(id);
+        // Marcar la audiencia como inactiva
+        audienciaRepository.borrarLogico(id);
     }
 
     public List<Audiencia> obtenerAudienciasActivas() {

@@ -174,13 +174,29 @@ export class ListaAudienciasComponent implements OnInit {
   }
 
   eliminarAudiencia(id: number) {
-    if (confirm("¿Estás seguro de que deseas eliminar esta audiencia?")) {
-      this.audienciaService.borrarAudiencia(id).subscribe(() => {
+    if (!confirm("¿Estás seguro de que deseas eliminar esta audiencia?")) {
+      return;
+    }
+  
+    this.audienciaService.borrarAudiencia(id).subscribe(
+      (response: any) => {  // ✅ Asegura que 'response' sea un objeto JSON
+        console.log(response.mensaje);  // ✅ Ahora no dará error
         this.audiencias = this.audiencias.filter(a => a.aud_id !== id);
         this.audienciasFiltradas = [...this.audiencias];
-      });
-    }
+        alert(response.mensaje);  // ✅ Muestra el mensaje correcto
+      },
+      (error) => {
+        console.error("Error al eliminar la audiencia:", error);
+  
+        if (error.status === 400) {
+          alert(error.error.error);  // ✅ Muestra el mensaje del backend
+        } else {
+          alert("Ocurrió un error al eliminar la audiencia.");
+        }
+      }
+    );
   }
-
-
+  
+  
+  
 }
