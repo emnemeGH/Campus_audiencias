@@ -95,21 +95,26 @@ export class EditarUsuarioComponent implements OnInit {
   }
 
   guardarCambios() { 
-    if(this.rol == 'Autoridad') {
+    if (this.rol === 'Autoridad') {
       this.usuariosService.editarAutoridad(this.autoridad).subscribe(
         (response) => {
           console.log('Autoridad editada con éxito', response);
-          this.router.navigate(['/lista-usuarios']); // Redirige solo si la actualización es exitosa
+          this.router.navigate(['/lista-usuarios']);
         },
         (error) => {
           console.error('Error al editar autoridad:', error);
         }
       );
     } else {
+      // ✅ Convertir rol a booleano antes de enviarlo
+      this.usuario.usrIsAdmin = (this.rol === 'Administrador');
+  
+      console.log("➡️ Datos enviados al backend para editar usuario:", this.usuario); // 🛠️ DEBUG
+  
       this.usuariosService.editarUsuario(this.usuario).subscribe(
         (response) => {
           console.log('Usuario editado con éxito', response);
-          this.router.navigate(['/lista-usuarios']); // Redirige solo si la actualización es exitosa
+          this.router.navigate(['/lista-usuarios']);
         },
         (error) => {
           console.error('Error al editar usuario:', error);
@@ -117,6 +122,7 @@ export class EditarUsuarioComponent implements OnInit {
       );
     }
   }
+  
   
 }
 

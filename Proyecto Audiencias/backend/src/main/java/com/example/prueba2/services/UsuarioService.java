@@ -37,14 +37,21 @@ public class UsuarioService extends BaseServiceImpl<Usuario, Integer>{
 
     // Cambiar el estado admin de un usuario
     public Usuario cambiarEstadoAdmin(Integer id, Boolean isAdmin) {
-        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
-        if (usuarioOptional.isPresent()) {
-            Usuario usuario = usuarioOptional.get();
-            usuario.setUsrIsAdmin(isAdmin);
-            return usuarioRepository.save(usuario);
-        }
-        throw new IllegalArgumentException("Usuario no encontrado");
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+    
+        System.out.println("🔍 Antes de actualizar: ID " + usuario.getUsr_id() + " - isAdmin: " + usuario.getUsrIsAdmin()); // 🛠️ DEBUG
+    
+        usuario.setUsrIsAdmin(isAdmin);
+        usuarioRepository.save(usuario); // 🔥 Asegura que se guarda el cambio en la BD
+    
+        System.out.println("✅ Después de actualizar: ID " + usuario.getUsr_id() + " - isAdmin: " + usuario.getUsrIsAdmin()); // 🛠️ DEBUG
+    
+        return usuario;
     }
+    
+    
+    
 
     // Método para obtener un usuario por ID
     public Optional<Usuario> obtenerPorId(Integer id) {

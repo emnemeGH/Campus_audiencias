@@ -25,6 +25,8 @@ Opciones para consultar audiencias por fecha, sala, juez-fiscal o tipo de causa.
 
 + Una audiencia no puede ser eliminada si esta en horario. ✅
 
++ BOTON VOLVER AL REGISTRO PRINCIPAL, si tocas sin querer "registarse como autoridad" no podes volver al registro principal ✅
+
 TAREAS EN PROCESO
 
 
@@ -34,8 +36,7 @@ TAREAS FALTANTES
 - Módulo administración de usuarios:
 Posibilidad de gestionar los perfiles de usuario, incluyendo operadores y autoridades. 
 
-
-- BOTON VOLVER AL REGISTRO PRINCIPAL, si tocas sin querer "registarse como autoridad" no podes volver al registro principal
+EDITAR AUDIENCIAS Y USUARIOS NO ANDA
 
 -SSE event de angular
 

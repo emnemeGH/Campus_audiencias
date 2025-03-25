@@ -2,6 +2,7 @@ package com.example.prueba2.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 
 import com.example.prueba2.dto.RegistroUsuarioDTO;
 import com.example.prueba2.models.Usuario;
@@ -28,9 +29,15 @@ public class UsuarioController extends BaseController<Usuario, Integer> {
     // @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}/cambiar-admin")
     public ResponseEntity<?> cambiarEstadoAdmin(@PathVariable Integer id, @RequestParam Boolean isAdmin) {
+    try {
+        System.out.println("➡️ Cambio de rol solicitado para usuario ID: " + id + " - Nuevo estado: " + isAdmin); // 🛠️ DEBUG
         Usuario usuarioActualizado = usuarioService.cambiarEstadoAdmin(id, isAdmin);
-        return ResponseEntity.ok(usuarioActualizado);
+        return ResponseEntity.ok(Map.of("mensaje", "Rol actualizado correctamente.", "usuario", usuarioActualizado));
+    } catch (IllegalArgumentException e) {
+        return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
     }
+    }
+
 
     // @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/registrarUsu")

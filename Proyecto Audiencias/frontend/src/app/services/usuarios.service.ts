@@ -32,10 +32,19 @@ export class UsuariosService {
 
   editarUsuario(usuario: any): Observable<any> {
     if (!usuario.usr_id) {
-      console.error("Error: El usuario no tiene un ID definido.");
+      console.error("❌ Error: El usuario no tiene un ID definido.");
+      return new Observable();
     }
-    return this.http.put<any>(`${this.apiUrl}/${usuario.usr_id}`, usuario);
+    
+    console.log("➡️ Enviando petición PUT a:", `${this.apiUrl}/${usuario.usr_id}/cambiar-admin?isAdmin=${usuario.usrIsAdmin}`);
+    
+    return this.http.put<any>(
+      `${this.apiUrl}/${usuario.usr_id}/cambiar-admin?isAdmin=${usuario.usrIsAdmin}`, 
+      {}
+    );
   }
+  
+  
 
   editarAutoridad(autoridad: any): Observable<any> {
     if (!autoridad.aut_id) {
