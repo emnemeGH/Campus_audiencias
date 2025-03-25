@@ -59,15 +59,23 @@ export class EditarUsuarioComponent implements OnInit {
     // Obtener el tipo y el ID desde la URL
     this.rol = this.route.snapshot.paramMap.get('tipo')!;
 
-    if(this.rol == 'Autoridad') {
-      this.autoridad.aut_id = Number(this.route.snapshot.paramMap.get('id'));
-      this.usuariosService.getAutoridadesPorId(this.autoridad.aut_id).subscribe(
-        (data) => { 
-          this.autoridad = data;
-          console.log('La autoridad es', this.autoridad)
+    if (this.rol == 'Autoridad') {
+      if (!this.autoridad.distrito) {
+        this.autoridad.distrito = { dis_nombre: "Sin distrito" }; 
+      }
+  
+      console.log("➡️ Datos enviados al backend para editar autoridad:", this.autoridad);
+  
+      this.usuariosService.editarAutoridad(this.autoridad).subscribe(
+        (response) => {
+          console.log("✅ Autoridad editada con éxito", response);
+          this.router.navigate(['/lista-usuarios']);
         },
-        (error) => console.error('Error al obtener autoridad:', error)
+        (error) => {
+          console.error("❌ Error al editar autoridad:", error);
+        }
       );
+      
     } else {
       this.usuario.usr_id = Number(this.route.snapshot.paramMap.get('id'));
       this.usuariosService.getUsuarioPorId(this.usuario.usr_id).subscribe(
@@ -96,13 +104,20 @@ export class EditarUsuarioComponent implements OnInit {
 
   guardarCambios() { 
     if (this.rol === 'Autoridad') {
+      // ✅ Evitar errores con distrito null
+      if (!this.autoridad.distrito) {
+        this.autoridad.distrito = { dis_nombre: "Sin distrito" };
+      }
+  
+      console.log("➡️ Enviando autoridad editada:", this.autoridad);
+  
       this.usuariosService.editarAutoridad(this.autoridad).subscribe(
         (response) => {
-          console.log('Autoridad editada con éxito', response);
+          console.log('✅ Autoridad editada con éxito', response);
           this.router.navigate(['/lista-usuarios']);
         },
         (error) => {
-          console.error('Error al editar autoridad:', error);
+          console.error('❌ Error al editar autoridad:', error);
         }
       );
     } else {

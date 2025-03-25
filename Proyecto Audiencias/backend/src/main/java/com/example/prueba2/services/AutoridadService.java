@@ -39,4 +39,27 @@ public class AutoridadService extends BaseServiceImpl<Autoridad, Integer> {
 
         return autoridadRepository.save(autoridad);
     }
+
+    public Autoridad actualizarAutoridad(Integer id, Autoridad nuevaAutoridad) {
+        Autoridad autoridad = autoridadRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Autoridad no encontrada"));
+    
+        // Validamos que los valores no sean nulos antes de asignarlos
+        if (nuevaAutoridad.getAut_nombre() != null) {
+            autoridad.setAut_nombre(nuevaAutoridad.getAut_nombre());
+        }
+        if (nuevaAutoridad.getAutMail() != null) {
+            autoridad.setAutMail(nuevaAutoridad.getAutMail());
+        }
+        if (nuevaAutoridad.getAut_tipo() != null) {
+            autoridad.setAut_tipo(nuevaAutoridad.getAut_tipo());
+        }
+        if (nuevaAutoridad.getDistrito() != null) { 
+            autoridad.setDistrito(nuevaAutoridad.getDistrito());
+        }
+    
+        return autoridadRepository.save(autoridad);
+    }
+    
+    
 }
