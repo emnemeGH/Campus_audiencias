@@ -59,17 +59,12 @@ export class EditarUsuarioComponent implements OnInit {
     // Obtener el tipo y el ID desde la URL
     this.rol = this.route.snapshot.paramMap.get('tipo')!;
 
-    if (this.rol == 'Autoridad') {
-      if (!this.autoridad.distrito) {
-        this.autoridad.distrito = { dis_nombre: "Sin distrito" }; 
-      }
-  
-      console.log("➡️ Datos enviados al backend para editar autoridad:", this.autoridad);
-  
-      this.usuariosService.editarAutoridad(this.autoridad).subscribe(
-        (response) => {
-          console.log("✅ Autoridad editada con éxito", response);
-          this.router.navigate(['/lista-usuarios']);
+    if(this.rol === 'Autoridad') {
+      this.autoridad.aut_id = Number(this.route.snapshot.paramMap.get('id'));
+      this.usuariosService.getAutoridadesPorId(this.autoridad.aut_id).subscribe(
+        (data) => { 
+          this.autoridad = data;
+          console.log('La autoridad es', this.autoridad)
         },
         (error) => {
           console.error("❌ Error al editar autoridad:", error);
@@ -103,14 +98,7 @@ export class EditarUsuarioComponent implements OnInit {
   }
 
   guardarCambios() { 
-    if (this.rol === 'Autoridad') {
-      // ✅ Evitar errores con distrito null
-      if (!this.autoridad.distrito) {
-        this.autoridad.distrito = { dis_nombre: "Sin distrito" };
-      }
-  
-      console.log("➡️ Enviando autoridad editada:", this.autoridad);
-  
+    if(this.rol === 'Autoridad') {
       this.usuariosService.editarAutoridad(this.autoridad).subscribe(
         (response) => {
           console.log('✅ Autoridad editada con éxito', response);
@@ -121,19 +109,17 @@ export class EditarUsuarioComponent implements OnInit {
         }
       );
     } else {
-      // ✅ Convertir rol a booleano antes de enviarlo
-      this.usuario.usrIsAdmin = (this.rol === 'Administrador');
-  
-      console.log("➡️ Datos enviados al backend para editar usuario:", this.usuario); // 🛠️ DEBUG
-  
-      this.usuariosService.editarUsuario(this.usuario).subscribe(
-        (response) => {
-          console.log('Usuario editado con éxito', response);
-          this.router.navigate(['/lista-usuarios']);
-        },
-        (error) => {
-          console.error('Error al editar usuario:', error);
-        }
+        // Establece usrIsAdmin según el valor de rol
+        this.usuario.usrIsAdmin = this.rol === 'Administrador';
+    
+        this.usuariosService.editarUsuario(this.usuario).subscribe(
+          (response) => {
+            console.log('Usuario editado con éxito', response);
+            this.router.navigate(['/lista-usuarios']); // Redirige solo si la actualización es exitosa
+          },
+          (error) => {
+            console.error('Error al editar usuario:', error);
+          }
       );
     }
   }

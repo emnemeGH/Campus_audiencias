@@ -1,5 +1,7 @@
 package com.example.prueba2.controller;
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
@@ -27,17 +29,18 @@ public class UsuarioController extends BaseController<Usuario, Integer> {
     }
 
     // @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/{id}/cambiar-admin")
-    public ResponseEntity<?> cambiarEstadoAdmin(@PathVariable Integer id, @RequestParam Boolean isAdmin) {
+    @PutMapping("/{id}/actualizar")
+public ResponseEntity<?> actualizarUsuario(
+        @PathVariable Integer id,
+        @RequestBody Usuario usuarioActualizado) { // Cambiado para usar @RequestBody
     try {
-        System.out.println("➡️ Cambio de rol solicitado para usuario ID: " + id + " - Nuevo estado: " + isAdmin); // 🛠️ DEBUG
-        Usuario usuarioActualizado = usuarioService.cambiarEstadoAdmin(id, isAdmin);
-        return ResponseEntity.ok(Map.of("mensaje", "Rol actualizado correctamente.", "usuario", usuarioActualizado));
+        Usuario usuarioModificado = usuarioService.actualizarUsuario(id, usuarioActualizado);
+        return ResponseEntity
+                .ok(Map.of("mensaje", "Usuario actualizado correctamente.", "usuario", usuarioModificado));
     } catch (IllegalArgumentException e) {
         return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
     }
-    }
-
+}
 
     // @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/registrarUsu")

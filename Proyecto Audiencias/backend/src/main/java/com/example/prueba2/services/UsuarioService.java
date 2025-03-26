@@ -11,45 +11,53 @@ import com.example.prueba2.services.impl.BaseServiceImpl;
 import jakarta.transaction.Transactional;
 
 @Service
-public class UsuarioService extends BaseServiceImpl<Usuario, Integer>{
-    
+public class UsuarioService extends BaseServiceImpl<Usuario, Integer> {
+
     private final UsuarioRepository usuarioRepository;
 
     @Autowired
     public UsuarioService(UsuarioRepository usuarioRepository) {
-    this.usuarioRepository = usuarioRepository;
-}
+        this.usuarioRepository = usuarioRepository;
+    }
 
     // Método para registrar un nuevo usuario
     public Usuario registrarUsuario(Usuario usuario) {
         if (usuarioRepository.existsByUsrMail(usuario.getUsrMail())) {
             throw new IllegalArgumentException("El correo electrónico ya está en uso.");
         }
-    
+
         if (usuarioRepository.existsByUsrUsername(usuario.getUsrUsername())) {
             throw new IllegalArgumentException("El nombre de usuario ya existe.");
         }
-    
+
         return usuarioRepository.save(usuario); // ✅ Guarda y devuelve el usuario creado
     }
-    
-    
 
-    // Cambiar el estado admin de un usuario
-    public Usuario cambiarEstadoAdmin(Integer id, Boolean isAdmin) {
-        Usuario usuario = usuarioRepository.findById(id)
+    public Usuario actualizarUsuario(Integer id, Usuario usuarioActualizado) {
+        Usuario usuarioExistente = usuarioRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
-    
-        System.out.println("🔍 Antes de actualizar: ID " + usuario.getUsr_id() + " - isAdmin: " + usuario.getUsrIsAdmin()); // 🛠️ DEBUG
-    
-        usuario.setUsrIsAdmin(isAdmin);
-        usuarioRepository.save(usuario); // 🔥 Asegura que se guarda el cambio en la BD
-    
-        System.out.println("✅ Después de actualizar: ID " + usuario.getUsr_id() + " - isAdmin: " + usuario.getUsrIsAdmin()); // 🛠️ DEBUG
-    
-        return usuario;
+        
+        // Verificar si el nuevo correo ya está en uso por otro usuario
+        if (!usuarioExistente.getUsrMail().equals(usuarioActualizado.getUsrMail()) &&
+            usuarioRepository.existsByUsrMail(usuarioActualizado.getUsrMail())) {
+            throw new IllegalArgumentException("El correo electrónico ya está en uso.");
+        }
+        
+        // Verificar si el nuevo nombre de usuario ya existe en otro usuario
+        if (!usuarioExistente.getUsrUsername().equals(usuarioActualizado.getUsrUsername()) &&
+            usuarioRepository.existsByUsrUsername(usuarioActualizado.getUsrUsername())) {
+            throw new IllegalArgumentException("El nombre de usuario ya existe.");
+        }
+        
+        // Actualizar datos del usuario
+        usuarioExistente.setUsrUsername(usuarioActualizado.getUsrUsername());
+        usuarioExistente.setUsrMail(usuarioActualizado.getUsrMail());
+        usuarioExistente.setUsrUsername(usuarioActualizado.getUsrUsername());
+        usuarioExistente.setUsrPassword(usuarioActualizado.getUsrPassword()); // ⚠️ Considera encriptación si es necesario
+        usuarioExistente.setUsrIsAdmin(usuarioActualizado.getUsrIsAdmin());  // Actualizamos el valor de isAdmin
+        
+        return usuarioRepository.save(usuarioExistente);
     }
-    
     
     
 
