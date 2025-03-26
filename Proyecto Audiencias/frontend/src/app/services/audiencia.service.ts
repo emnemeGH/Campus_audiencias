@@ -34,6 +34,10 @@ export class AudienciaService {
     return this.http.get<any[]>(`${this.apiUrl}/${id}/autoridades`);
   }
 
+  getAudienciasPorAutoridad(id: number): Observable<any> {
+    return this.http.get<any>(`http://localhost:8080/api/audienciasExt/${id}`);
+  }
+
   agregarAudienciaExt(audienciaExt: any): Observable<any> {
     return this.http.post<any>(`http://localhost:8080/api/audienciasExt`, audienciaExt);
   }
