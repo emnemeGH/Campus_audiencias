@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.Map;
 
 import com.example.prueba2.dto.RegistroUsuarioDTO;
 import com.example.prueba2.models.Usuario;
