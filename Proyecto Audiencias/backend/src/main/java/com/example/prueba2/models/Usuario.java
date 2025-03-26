@@ -24,6 +24,14 @@ public class Usuario {
     @JoinColumn(name="dis_id")
     private Distrito_judicial distrito;
 
+    public Distrito_judicial getDistrito() {
+        return distrito;
+    }
+
+    public void setDistrito(Distrito_judicial distrito) {
+        this.distrito = distrito;
+    }
+
     @Column(name = "usr_estado")
     private Boolean usrEstado = true;
 

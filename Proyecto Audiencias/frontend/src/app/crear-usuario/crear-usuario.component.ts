@@ -51,17 +51,14 @@ export class CrearUsuarioComponent {
 
   guardarUsuario() {
     // Asegúrate de que dis_id sea un número (aunque si el campo en la base de datos puede ser null, puedes dejarlo como 0)
-    this.nuevoUsuario.dis_id = Number(this.nuevoUsuario.dis_id || 0);
-  
-    console.log("Datos que se enviarán al backend:", this.nuevoUsuario);
-  
+    console.log("Datos antes de enviar:", this.nuevoUsuario);
+
     if (this.nuevoUsuario.rol === 'Autoridad') {
-      // Si es autoridad, enviar los datos, incluyendo dis_id
       this.usuariosService.agregarAutoridad({
         aut_nombre: this.nuevoUsuario.nombre,
         autMail: this.nuevoUsuario.correo,
         aut_tipo: this.nuevoUsuario.tipoAutoridad,
-        dis_id: this.nuevoUsuario.dis_id // Esto relacionará la autoridad con el distrito
+        distrito: { dis_id: Number(this.nuevoUsuario.dis_id) }
       }).subscribe(
         () => {
           alert('Autoridad agregada correctamente.');
@@ -80,7 +77,8 @@ export class CrearUsuarioComponent {
           usrUsername: this.nuevoUsuario.username,
           usrMail: this.nuevoUsuario.correo,
           usrPassword: this.nuevoUsuario.password,
-          usrIsAdmin: this.nuevoUsuario.rol === 'Administrador' ? true : false
+          usrIsAdmin: this.nuevoUsuario.rol === 'Administrador' ? true : false,
+          distrito: this.nuevoUsuario.dis_id ? { dis_id: Number(this.nuevoUsuario.dis_id) } : null // ✅ Agregar distrito si existe
         }
       }).subscribe(
         () => {

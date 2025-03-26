@@ -4,6 +4,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.prueba2.models.Distrito_judicial;
+import com.example.prueba2.repository.Distrito_judicialRepository;
 import com.example.prueba2.models.Usuario;
 import com.example.prueba2.repository.UsuarioRepository;
 import com.example.prueba2.services.impl.BaseServiceImpl;
@@ -15,12 +18,15 @@ public class UsuarioService extends BaseServiceImpl<Usuario, Integer> {
 
     private final UsuarioRepository usuarioRepository;
 
+    private final Distrito_judicialRepository distritoRepository;
+
     @Autowired
-    public UsuarioService(UsuarioRepository usuarioRepository) {
+    public UsuarioService(UsuarioRepository usuarioRepository, Distrito_judicialRepository distritoRepository) {
         this.usuarioRepository = usuarioRepository;
+        this.distritoRepository = distritoRepository;
     }
 
-    // Método para registrar un nuevo usuario
+    // Método para POST registrar un nuevo usuario
     public Usuario registrarUsuario(Usuario usuario) {
         if (usuarioRepository.existsByUsrMail(usuario.getUsrMail())) {
             throw new IllegalArgumentException("El correo electrónico ya está en uso.");
@@ -30,9 +36,17 @@ public class UsuarioService extends BaseServiceImpl<Usuario, Integer> {
             throw new IllegalArgumentException("El nombre de usuario ya existe.");
         }
 
+        // Si tiene distrito, buscarlo y asignarlo
+    if (usuario.getDistrito() != null && usuario.getDistrito().getDis_id() != null) {
+        Distrito_judicial distrito = distritoRepository.findById(usuario.getDistrito().getDis_id())
+            .orElseThrow(() -> new IllegalArgumentException("El distrito no existe."));
+        usuario.setDistrito(distrito);
+    }
+
         return usuarioRepository.save(usuario); // ✅ Guarda y devuelve el usuario creado
     }
 
+    // Método para PUT ACTUALIZAR USUARIOS
     public Usuario actualizarUsuario(Integer id, Usuario usuarioActualizado) {
         Usuario usuarioExistente = usuarioRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
@@ -48,7 +62,7 @@ public class UsuarioService extends BaseServiceImpl<Usuario, Integer> {
             usuarioRepository.existsByUsrUsername(usuarioActualizado.getUsrUsername())) {
             throw new IllegalArgumentException("El nombre de usuario ya existe.");
         }
-        
+
         // Actualizar datos del usuario
         usuarioExistente.setUsrUsername(usuarioActualizado.getUsrUsername());
         usuarioExistente.setUsrMail(usuarioActualizado.getUsrMail());

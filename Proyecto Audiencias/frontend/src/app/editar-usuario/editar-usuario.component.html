@@ -19,8 +19,9 @@
                     <label class="form-label">Rol</label>
                     <select [(ngModel)]="rol" name="rol" class="form-control" required>
                         <option disabled selected value="">Seleccione</option>
-                        <option value="Operador">Operador</option>
-                        <option value="Administrador">Administrador</option>
+                        <option *ngIf="!esAutoridad()" value="Operador">Operador</option>
+                        <option *ngIf="!esAutoridad()" value="Administrador">Administrador</option>
+                        <option *ngIf="esAutoridad()" disabled selected value="Autoridad">Autoridad</option>
                     </select>
                 </div>
                 <div *ngIf="!esAutoridad()" class="col-md-6">

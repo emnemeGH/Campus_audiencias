@@ -43,19 +43,18 @@ public ResponseEntity<?> actualizarUsuario(
 
     // @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/registrarUsu")
-    public ResponseEntity<?> registrarUsuario(@RequestBody RegistroUsuarioDTO request) {
-        if (request.getUsuario() == null) {
-            return ResponseEntity.badRequest().body("Error: No se recibió información del usuario.");
-        }
-
-        Usuario nuevoUsuario = request.getUsuario();
-
-        try {
-            Usuario usuarioRegistrado = usuarioService.registrarUsuario(nuevoUsuario);
-            return ResponseEntity.ok(usuarioRegistrado);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+public ResponseEntity<?> registrarUsuario(@RequestBody RegistroUsuarioDTO request) {
+    if (request.getUsuario() == null) {
+        return ResponseEntity.badRequest().body("Error: No se recibió información del usuario.");
     }
+
+    try {
+        Usuario usuarioRegistrado = usuarioService.registrarUsuario(request.getUsuario());
+        return ResponseEntity.ok(usuarioRegistrado);
+    } catch (IllegalArgumentException e) {
+        return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+    }
+}
+
 
 }

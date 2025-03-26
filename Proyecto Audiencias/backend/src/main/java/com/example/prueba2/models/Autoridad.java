@@ -30,6 +30,14 @@ public class Autoridad {
     @JoinColumn(name="dis_id")
     private Distrito_judicial distrito;
 
+    public Distrito_judicial getDistrito() {
+        return distrito;
+    }
+
+    public void setDistrito(Distrito_judicial distrito) {
+        this.distrito = distrito;
+    }
+
     @Enumerated(EnumType.STRING) // Guarda el nombre del enum en la BD
     @Column(name = "aut_tipo")
     private EstadoEntidad aut_tipo;

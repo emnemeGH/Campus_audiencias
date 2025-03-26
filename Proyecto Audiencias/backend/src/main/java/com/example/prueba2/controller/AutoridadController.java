@@ -1,5 +1,7 @@
 package com.example.prueba2.controller;
 
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,24 +29,24 @@ public class AutoridadController extends BaseController<Autoridad, Integer> {
 
     @PostMapping("/registrarAut")
     public ResponseEntity<?> registrarAutoridad(@RequestBody Autoridad autoridad) {
-    try {
-        Autoridad nuevaAutoridad = autoridadService.guardarAutoridad(autoridad);
-        return ResponseEntity.ok(nuevaAutoridad);
-    } catch (IllegalArgumentException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());  // ⚠️ Respuesta 400 con el mensaje del error
-    }
+        try {
+            Autoridad nuevaAutoridad = autoridadService.guardarAutoridad(autoridad);
+            return ResponseEntity.ok(nuevaAutoridad);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
     }
 
     @PutMapping("editarAut/{id}")
     public ResponseEntity<?> actualizarAutoridad(@PathVariable Integer id, @RequestBody Autoridad autoridad) {
-    try {
-        Autoridad autoridadActualizada = autoridadService.actualizarAutoridad(id, autoridad);
-        return ResponseEntity.ok(autoridadActualizada);
-    } catch (IllegalArgumentException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
-    } catch (Exception e) {
-        return ResponseEntity.internalServerError().body("Error al actualizar la autoridad.");
-    }
+        try {
+            Autoridad autoridadActualizada = autoridadService.actualizarAutoridad(id, autoridad);
+            return ResponseEntity.ok(autoridadActualizada);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Error al actualizar la autoridad.");
+        }
     }
 
     @DeleteMapping(("/{id}"))

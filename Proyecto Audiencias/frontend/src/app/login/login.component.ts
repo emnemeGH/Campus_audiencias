@@ -34,7 +34,7 @@ export class LoginComponent {
   }
 
   onLogin() {
-    const user = this.usuarios.find(u => u.usrMail === this.email && u.usrPassword === this.password);
+    const user = this.usuarios.find(u => u.usrMail === this.email && u.usrPassword === this.password && u.usrEstado);
     if (user) {
       if (user.usrIsAdmin) {
         this.router.navigate(['/lista-usuarios']);

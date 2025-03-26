@@ -25,6 +25,14 @@
                         <option value="Administrador">Administrador</option>
                     </select>
                 </div>
+                <div class="col-md-6">
+                    <label>Distrito Judicial</label>
+                    <select class="form-select" [(ngModel)]="nuevoUsuario.dis_id" name="distrito" required>
+                        <option disabled selected>Seleccione un tipo</option>
+                        <option *ngFor="let distrito of distritos" [value]="distrito.dis_id">{{ distrito.dis_nombre }}
+                        </option>
+                    </select>
+                </div>
             </div>
 
             <!-- Datos generales -->
