@@ -55,65 +55,47 @@
             <div class="row mb-4">
                 <div class="col-md-4">
                     <label class="form-label">Juez</label>
-                    <select [(ngModel)]="audiencia.aud_juez" name="juez" class="form-control" required>
+                    <select [(ngModel)]="audiencia.juez" name="juez" class="form-control" required>
                         <option disabled selected value="">Seleccione</option>
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Capital'" value="1">Juez1 Dist1
-                        </option>
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Capital'" value="2">Juez2 Dist1
-                        </option>
-    
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Sur'" value="7">Juez1 Dist2
-                        </option>
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Sur'" value="8">Juez2 Dist2
-                        </option>
-    
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Norte'" value="13">Juez1 Dist3
-                        </option>
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Norte'" value="14">Juez2 Dist3
-                        </option>
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Capital'" value="Juez1 Dist1">Juez1 Dist1</option>
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Capital'" value="Juez2 Dist1">Juez2 Dist1</option>
+            
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Sur'" value="Juez1 Dist2">Juez1 Dist2</option>
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Sur'" value="Juez2 Dist2">Juez2 Dist2</option>
+            
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Norte'" value="Juez1 Dist3">Juez1 Dist3</option>
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Norte'" value="Juez2 Dist3">Juez2 Dist3</option>
                     </select>
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Fiscal</label>
-                    <select [(ngModel)]="audiencia.aud_fiscal" name="fiscal" class="form-control" required>
+                    <select [(ngModel)]="audiencia.fiscal" name="fiscal" class="form-control" required>
                         <option disabled selected value="">Seleccione</option>
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Capital'" value="3">Fiscal1 Dist1
-                        </option>
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Capital'" value="4">Fiscal2 Dist1
-                        </option>
-    
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Sur'" value="9">Fiscal1 Dist2
-                        </option>
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Sur'" value="10">Fiscal2 Dist2
-                        </option>
-    
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Norte'" value="15">Fiscal1 Dist3
-                        </option>
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Norte'" value="16">Fiscal2 Dist3
-                        </option>
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Capital'" value="Fiscal1 Dist1">Fiscal1 Dist1</option>
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Capital'" value="Fiscal2 Dist1">Fiscal2 Dist1</option>
+            
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Sur'" value="Fiscal1 Dist2">Fiscal1 Dist2</option>
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Sur'" value="Fiscal2 Dist2">Fiscal2 Dist2</option>
+            
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Norte'" value="Fiscal1 Dist3">Fiscal1 Dist3</option>
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Norte'" value="Fiscal2 Dist3">Fiscal2 Dist3</option>
                     </select>
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Defensor</label>
-                    <select [(ngModel)]="audiencia.aud_defensor" name="defensor" class="form-control" required>
+                    <select [(ngModel)]="audiencia.defensor" name="defensor" class="form-control" required>
                         <option disabled selected value="">Seleccione</option>
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Capital'" value="5">Defensor1 Dist1
-                        </option>
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Capital'" value="6">Defensor2 Dist1
-                        </option>
-    
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Sur'" value="11">Defensor1 Dist2
-                        </option>
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Sur'" value="12">Defensor2 Dist2
-                        </option>
-    
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Norte'" value="17">Defensor1 Dist3
-                        </option>
-                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Norte'" value="18">Defensor2 Dist3
-                        </option>
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Capital'" value="Defensor1 Dist1">Defensor1 Dist1</option>
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Capital'" value="Defensor2 Dist1">Defensor2 Dist1</option>
+            
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Sur'" value="Defensor1 Dist2">Defensor1 Dist2</option>
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Sur'" value="Defensor2 Dist2">Defensor2 Dist2</option>
+            
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Norte'" value="Defensor1 Dist3">Defensor1 Dist3</option>
+                        <option *ngIf="audiencia.sala.distrito.dis_nombre === 'Distrito Norte'" value="Defensor2 Dist3">Defensor2 Dist3</option>
                     </select>
                 </div>
-            </div>
+            </div>            
             
             <div class="row mb-4">
                 <div class="col-md-6">
