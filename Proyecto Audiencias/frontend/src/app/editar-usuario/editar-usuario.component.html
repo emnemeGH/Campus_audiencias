@@ -43,12 +43,21 @@
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Nombre de usuario</label>
-                    <input type="text" [(ngModel)]="usuario.usrUsername" name="usrUsername" class="form-control" required>
+                    <input type="text" [(ngModel)]="usuario.usrUsername" name="usrUsername" class="form-control"
+                        required>
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Contraseña</label>
                     <input type="text" [(ngModel)]="usuario.usrPassword" name="usrPassword" class="form-control"
                         required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Distrito Judicial</label>
+                    <select [(ngModel)]="usuario.distrito.dis_id" name="distrito" class="form-control">
+                        <option *ngFor="let distrito of listaDistritos" [value]="distrito.dis_id">
+                            {{ distrito.dis_nombre }}
+                        </option>
+                    </select>
                 </div>
             </div>
 
@@ -68,11 +77,12 @@
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Distrito Judicial</label>
-                    <select [(ngModel)]="autoridad.distrito.dis_nombre" name="distrito" class="form-control" required>
-                        <option value="Distrito Capital">Distrito Capital</option>
-                        <option value="Distrito Sur">Distrito Sur</option>
-                        <option value="Distrito Norte">Distrito Norte</option>
-                    </select>
+                    <select [(ngModel)]="autoridad.distrito.dis_id" name="distrito" class="form-control" required>
+                        <option *ngFor="let distrito of listaDistritos" [value]="distrito.dis_id">
+                          {{ distrito.dis_nombre }}
+                        </option>
+                      </select>
+                      
                 </div>
             </div>
 
@@ -83,4 +93,5 @@
         </form>
     </div>
 </body>
+
 </html>

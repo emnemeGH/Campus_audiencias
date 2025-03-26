@@ -5,22 +5,24 @@ import { UsuariosService } from '../services/usuarios.service';
 
 // Declaramos una estructura para los objetos
 export interface Usuario {
-  usr_id?:number,
+  usr_id?: number,
   usr_nombre?: string,
   usrMail?: string,
   usrUsername?: string,
   usrPassword?: string,
-  usrIsAdmin?: boolean
+  usrIsAdmin?: boolean,
+  distrito: { dis_id: undefined };
 }
 
 export interface Autoridad {
-  aut_id?: number,
-  aut_nombre?: string,
-  autMail?:string,
+  aut_id?: number;
+  aut_nombre?: string;
+  autMail?: string;
   distrito: {
-    dis_nombre?: string
-  }
-  aut_tipo?: 'juez' | 'fiscal' | 'defensor',
+    dis_id?: number;   // ✅ Asegura que tiene dis_id
+    dis_nombre?: string;
+  };
+  aut_tipo?: 'juez' | 'fiscal' | 'defensor';
 }
 
 
@@ -37,60 +39,65 @@ export class EditarUsuarioComponent implements OnInit {
     usrMail: '',
     usrUsername: '',
     usrPassword: '',
+    distrito: { dis_id: undefined }//  Inicializa el distrito
   };
 
   // Inicializamos como un objeto vacío. Si tiene un objeto adentro tambien hay que inicializarlo
-  autoridad: Autoridad = {
-    distrito: {
-      dis_nombre: undefined
-    }
-  };
+  autoridad: Autoridad = { distrito: { dis_nombre: undefined } };
+  listaDistritos = [
+    { dis_id: 1, dis_nombre: 'Distrito Capital' },
+    { dis_id: 2, dis_nombre: 'Distrito Sur' },
+    { dis_id: 3, dis_nombre: 'Distrito Norte' }
+  ];
 
   constructor(
-      private route: ActivatedRoute,
-      private usuariosService: UsuariosService,
-      private router: Router,
-    ) {}
+    private route: ActivatedRoute,
+    private usuariosService: UsuariosService,
+    private router: Router,
+  ) { }
 
-  rol:string | undefined;
+  rol: string | undefined;
 
 
   ngOnInit() {
     // Obtener el tipo y el ID desde la URL
     this.rol = this.route.snapshot.paramMap.get('tipo')!;
 
-    if(this.rol === 'Autoridad') {
+    if (this.rol === 'Autoridad') {
       this.autoridad.aut_id = Number(this.route.snapshot.paramMap.get('id'));
       this.usuariosService.getAutoridadesPorId(this.autoridad.aut_id).subscribe(
-        (data) => { 
+        (data) => {
           this.autoridad = data;
           console.log('La autoridad es', this.autoridad)
         },
         (error) => {
-          console.error("❌ Error al editar autoridad:", error);
+          console.error("Error al editar autoridad:", error);
         }
       );
-      
+
     } else {
       this.usuario.usr_id = Number(this.route.snapshot.paramMap.get('id'));
       this.usuariosService.getUsuarioPorId(this.usuario.usr_id).subscribe(
-        (data) => { 
+        (data) => {
           this.usuario = data;
-
-          if(this.usuario.usrIsAdmin == true) {
+          if (this.usuario.usrIsAdmin == true) {
             this.rol = 'Administrador';
           } else {
             this.rol = 'Operador';
+          }
+          //✅ Asegurar que distrito nunca sea undefined
+          if (!this.usuario.distrito) {
+            this.usuario.distrito = { dis_id: undefined };
           }
         },
         (error) => console.error('Error al obtener usuario:', error)
       );
     }
-    
+
   }
 
-  esAutoridad():boolean {
-    if(this.rol == 'Autoridad') {
+  esAutoridad(): boolean {
+    if (this.rol == 'Autoridad') {
       return true;
     } else {
       return false;
@@ -98,32 +105,43 @@ export class EditarUsuarioComponent implements OnInit {
   }
 
   guardarCambios() { 
-    if(this.rol === 'Autoridad') {
-      this.usuariosService.editarAutoridad(this.autoridad).subscribe(
-        (response) => {
-          console.log('✅ Autoridad editada con éxito', response);
-          this.router.navigate(['/lista-usuarios']);
-        },
-        (error) => {
-          console.error('❌ Error al editar autoridad:', error);
-        }
-      );
+    if (this.rol === 'Autoridad') {
+        const autoridadEditada = {
+            ...this.autoridad,
+            distrito: this.autoridad.distrito?.dis_id
+                ? { dis_id: Number(this.autoridad.distrito.dis_id) }
+                : null
+        };
+
+        console.log("📤 Datos de Autoridad enviados al backend:", autoridadEditada);
+
+        this.usuariosService.editarAutoridad(autoridadEditada).subscribe(
+            (response) => {
+                console.log('✅ Autoridad editada con éxito', response);
+                this.router.navigate(['/lista-usuarios']);
+            },
+            (error) => console.error('❌ Error al editar autoridad:', error)
+        );
     } else {
-        // Establece usrIsAdmin según el valor de rol
-        this.usuario.usrIsAdmin = this.rol === 'Administrador';
-    
-        this.usuariosService.editarUsuario(this.usuario).subscribe(
-          (response) => {
-            console.log('Usuario editado con éxito', response);
-            this.router.navigate(['/lista-usuarios']); // Redirige solo si la actualización es exitosa
-          },
-          (error) => {
-            console.error('Error al editar usuario:', error);
-          }
-      );
+        const usuarioEditado = {
+            ...this.usuario,
+            usrIsAdmin: this.rol === 'Administrador', // ✅ Se asegura de que el campo cambie
+            distrito: this.usuario.distrito?.dis_id
+                ? { dis_id: Number(this.usuario.distrito.dis_id) }
+                : null
+        };
+
+        console.log("📤 Datos de Usuario enviados al backend:", usuarioEditado);
+
+        this.usuariosService.editarUsuario(usuarioEditado).subscribe(
+            (response) => {
+                console.log("✅ Usuario editado con éxito:", response);
+                this.router.navigate(['/lista-usuarios']);
+            },
+            (error) => console.error("❌ Error al editar usuario:", error)
+        );
     }
-  }
-  
-  
 }
 
+
+}
