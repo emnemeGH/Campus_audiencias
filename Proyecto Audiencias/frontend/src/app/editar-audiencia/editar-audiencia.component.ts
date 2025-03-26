@@ -28,9 +28,6 @@ export interface Audiencia {
 };
 
 export interface AudienciaForm extends Audiencia {
-  aud_juez?: number;
-  aud_fiscal?: number;
-  aud_defensor?: number;
   juez?: number;
   fiscal?: number;
   defensor?: number;
