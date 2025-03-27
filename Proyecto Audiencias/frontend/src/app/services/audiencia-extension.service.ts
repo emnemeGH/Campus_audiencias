@@ -11,13 +11,6 @@ export class AudienciaExtensionService {
 
   constructor(private http: HttpClient) { }
 
-  editarAudienciaExtension(audienciaExt: any): Observable<any> {
-    if (!audienciaExt.eau_id) {
-      console.error("Error: La audienciaExtension no tiene un ID definido.");
-    }
-    return this.http.put<any>(`${this.apiUrl}/${audienciaExt.eau_id}`, audienciaExt);
-  }
-
   // Obtener audiencias_ext por aud_id. Para probar en postman: http://localhost:8080/api/audienciasExt/audiencia/4
   getByAudiencia(audId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/audiencia/${audId}`);
