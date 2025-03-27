@@ -37,5 +37,6 @@ public interface Audiencia_extRepository extends JpaRepository<Audiencia_ext, In
            "AND ae.audiencia.audEstado = true")
     boolean tieneAudienciasActivas(@Param("autoridadId") Integer autoridadId);
 
-
+    @Query("SELECT a FROM Audiencia_ext a WHERE a.audiencia.aud_id = :audId")
+    List<Audiencia_ext> findByAudienciaIds(@Param("audId") Integer audId);
 }

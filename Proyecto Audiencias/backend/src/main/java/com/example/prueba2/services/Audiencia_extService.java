@@ -4,6 +4,8 @@ import com.example.prueba2.services.impl.BaseServiceImpl;
 
 import jakarta.transaction.Transactional;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,16 @@ public class Audiencia_extService extends BaseServiceImpl<Audiencia_ext, Integer
     @Transactional
     public void borradoLogico(Integer id) {
     audienciaExtRepository.borrarLogico(id);
+    }
+
+    public List<Audiencia_ext> getByAudiencia(Integer audId) {
+        return audienciaExtRepository.findByAudienciaIds(audId);
+    }
+
+    public Audiencia_ext actualizar(Integer id, Audiencia_ext audienciaExt) {
+        Audiencia_ext existente = audienciaExtRepository.findById(id).orElseThrow(() -> new RuntimeException("No encontrado"));
+        existente.setAutoridad(audienciaExt.getAutoridad()); // Actualiza la autoridad
+        return audienciaExtRepository.save(existente);
     }
 
 }
