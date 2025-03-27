@@ -25,7 +25,7 @@
                         <option value="Administrador">Administrador</option>
                     </select>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" *ngIf="!esAutoridad">
                     <label>Distrito Judicial</label>
                     <select class="form-select" [(ngModel)]="nuevoUsuario.dis_id" name="distrito" required>
                         <option disabled selected>Seleccione un tipo</option>
