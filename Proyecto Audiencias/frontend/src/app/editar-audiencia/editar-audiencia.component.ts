@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AudienciaService } from '../services/audiencia.service';
 import { AudienciaExtensionService } from '../services/audiencia-extension.service';
+import { AutoridadesService } from '../services/autoridades.service'
 
 export interface Audiencia {
   aud_id: number;  // ID autoincremental
@@ -13,11 +14,11 @@ export interface Audiencia {
   aud_estado?: boolean;
   aud_tipo?: 'Demorada' | 'Programada' | 'Realizada' | 'Suspendida';
   sala: {
-    sal_id: undefined | number,
+    sal_id?: undefined | number,
     sal_nombre?: string,
     distrito: {
-      dis_id: undefined | number,
-      dis_nombre: undefined | string,
+      dis_id?: undefined | number,
+      dis_nombre?: undefined | string,
     }
   };
   aud_fecha?: string;
@@ -27,10 +28,28 @@ export interface Audiencia {
   aud_caratula?: string;
 };
 
-export interface AudienciaForm extends Audiencia {
-  juez?: number;
-  fiscal?: number;
-  defensor?: number;
+export interface Autoridad {
+  autEstado?: boolean;
+  autMail?: string;
+  aut_id?: number;
+  aut_nombre?: string;
+  aut_tipo?: string;
+  distrito: {
+    dis_id?: number,
+    dis_nombre?: string,
+  },
+}
+
+export interface AudienciaExt {
+  eau_id?: number;
+  eau_nombre?: string;
+  eau_usrins?: string;
+  eau_fecins?: string;
+  eau_usrmod?: number;
+  eau_fecmod?: string;
+  eauEstado?: boolean;
+  autoridad: Autoridad;
+  audiencia: Audiencia;
 }
 
 @Component({
@@ -39,7 +58,7 @@ export interface AudienciaForm extends Audiencia {
   styleUrls: ['./editar-audiencia.component.css']
 })
 export class EditarAudienciaComponent implements OnInit {
-  audiencia: AudienciaForm = {
+  audiencia: Audiencia = {
     aud_id: 0,
     sala: {
       sal_id: undefined,
@@ -49,15 +68,35 @@ export class EditarAudienciaComponent implements OnInit {
         dis_nombre: undefined
       }
     },
-    juez: undefined,
-    fiscal: undefined,
-    defensor: undefined
   };
+
+  juez?: number ;
+  fiscal?: number ;
+  defensor?: number ;
+
+  audienciaExt: AudienciaExt = {
+    autoridad: {
+      distrito: {}
+    },
+    audiencia: {
+      aud_id: 0,
+      sala: {
+        distrito: {}
+      }
+    }
+  };
+  // Aquí guardaremos todas las autoridades
+  audienciasExt: AudienciaExt[] = []
+  autoridades: Autoridad[] = [];
+  autoridadesJuez: Autoridad[] = [];
+  autoridadesFiscal: Autoridad[] = [];
+  autoridadesDefensor: Autoridad[] = [];
 
   constructor(
     private audienciaService: AudienciaService,
     private audienciaExtensionService: AudienciaExtensionService,
     private route: ActivatedRoute,
+    private autoridadesService: AutoridadesService,
     private router: Router
   ) { }
 
@@ -65,12 +104,12 @@ export class EditarAudienciaComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       const audId = Number(id); // Convertir a número
-      console.log('ID obtenido de la URL:', audId);
       this.audienciaService.obtenerAudienciaPorId(audId).subscribe(
         data => {
-          console.log('Audiencia recibida:', data); 
-          this.audiencia = data;
-          this.obtenerAutoridades();
+          this.audiencia = data;  // Verifica que esta asignación sea correcta
+          // Este metodo es para obtener el juez, fiscal y defensor seleccionado
+          this.obtenerAudienciasExtension()
+          this.obtenerAutoridades(); // Ahora que la audiencia está cargada, llamamos obtenerAutoridades
         },
         error => {
           console.error('Error al obtener la audiencia:', error);
@@ -78,39 +117,66 @@ export class EditarAudienciaComponent implements OnInit {
       );
     }
   }
-
+  
   obtenerAutoridades() {
-    this.audienciaService.getAutoridadesPorAudiencia(this.audiencia.aud_id).subscribe(
-      autoridades => {
-        this.audiencia.juez = autoridades.find(a => a.autoridad.aut_tipo === 'juez')?.autoridad.aut_nombre || '-';
-        this.audiencia.fiscal = autoridades.find(a => a.autoridad.aut_tipo === 'fiscal')?.autoridad.aut_nombre || '-';
-        this.audiencia.defensor = autoridades.find(a => a.autoridad.aut_tipo === 'defensor')?.autoridad.aut_nombre || '-';
-      },
-      error => console.error('Error obteniendo autoridades:', error)
-    );
+    if (this.audiencia.sala?.distrito?.dis_nombre) {
+      this.autoridadesService.getAutoridades().subscribe(
+        (data: Autoridad[]) => {
+          console.log('Autoridades cargadas: ', data);  // Agregar este log para ver las autoridades
+          this.autoridades = data.filter(a => a.distrito?.dis_nombre === this.audiencia.sala.distrito.dis_nombre);
+          this.autoridadesJuez = this.autoridades.filter(a => a.aut_tipo === 'juez');
+          this.autoridadesFiscal = this.autoridades.filter(a => a.aut_tipo === 'fiscal');
+          this.autoridadesDefensor = this.autoridades.filter(a => a.aut_tipo === 'defensor');
+          // this.asignarAutoridadesSeleccionadas();  // Llamamos después de cargar las autoridades
+        },
+        error => {
+          console.error('Error al obtener autoridades:', error);
+        }
+      );
+    } else {
+      console.error('No se ha definido el distrito de la audiencia.');
+    }
   }
 
 
+  obtenerAudienciasExtension() {
+    this.audienciaExtensionService.getByAudiencia(this.audiencia.aud_id)
+      .subscribe((audiencias: AudienciaExt[]) => {
+        this.audienciasExt = audiencias; // Guardamos los datos en el array
+        console.log('Audiencias obtenidas:', this.audienciasExt);
+
+        // Recorrer el array audienciasExt
+      for (let audienciaExt of this.audienciasExt) {
+        // Verificar si el tipo de autoridad es 'juez'
+        if (audienciaExt.autoridad.aut_tipo === 'juez') {
+          // Asignar el aut_id a la variable juez
+          this.juez = audienciaExt.autoridad.aut_id;
+          console.log('Juez asignado: ', this.juez);
+        }
+
+        if (audienciaExt.autoridad.aut_tipo === 'fiscal') {
+          // Asignar el aut_id a la variable juez
+          this.fiscal = audienciaExt.autoridad.aut_id;
+          console.log('Fiscal asignado: ', this.fiscal);
+        }
+
+        if (audienciaExt.autoridad.aut_tipo === 'defensor') {
+          // Asignar el aut_id a la variable juez
+          this.defensor = audienciaExt.autoridad.aut_id;
+          console.log('Defensor asignado: ', this.defensor);
+        }
+      }
+      });
+  }
+
   guardarCambios() {
+    this.obtenerAudienciasExtension()
+
     // Para reiniciar el ID: ALTER TABLE audiencia AUTO_INCREMENT = 5; Primero se deben borrar todas las audiencias no deseas y luego setear el id que queremos que arranque desde.
-    console.log('Datos a enviar:', this.audiencia);
-    this.audienciaService.editarAudiencia(this.audiencia).subscribe(() => {
+    // this.audienciaExtensionService.updateAutoridad().subscribe(() => {
 
-      // Crear relaciones en AUDIENCIA_EXT para juez, fiscal y defensor
-      if (this.audiencia.juez) {
-        this.audienciaService.agregarRelacionAudienciaAutoridad(this.audiencia.aud_id, this.audiencia.juez)
-          .subscribe();
-      }
-      if (this.audiencia.fiscal) {
-        this.audienciaService.agregarRelacionAudienciaAutoridad(this.audiencia.aud_id, this.audiencia.fiscal)
-          .subscribe();
-      }
-      if (this.audiencia.defensor) {
-        this.audienciaService.agregarRelacionAudienciaAutoridad(this.audiencia.aud_id, this.audiencia.defensor)
-          .subscribe();
-      }
 
-      this.router.navigate(['/lista-audiencias']);
-    });
+    //   this.router.navigate(['/lista-audiencias']);
+    // });
   }
 }
