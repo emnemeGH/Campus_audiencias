@@ -106,7 +106,7 @@ export class EditarAudienciaComponent implements OnInit {
       const audId = Number(id); // Convertir a número
       this.audienciaService.obtenerAudienciaPorId(audId).subscribe(
         data => {
-          this.audiencia = data;  // Verifica que esta asignación sea correcta
+          this.audiencia = data; 
           // Este metodo es para obtener el juez, fiscal y defensor seleccionado
           this.obtenerAudienciasExtension()
           this.obtenerAutoridades(); // Ahora que la audiencia está cargada, llamamos obtenerAutoridades

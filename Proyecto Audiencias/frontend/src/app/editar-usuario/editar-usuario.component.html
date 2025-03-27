@@ -15,7 +15,8 @@
 
         <form (ngSubmit)="guardarCambios()" class="p-4 bg-light border rounded">
             <div class="row mb-4">
-                <div class="col-md-6">
+
+                <div *ngIf="esAutoridad()" class="col-md-6">
                     <label class="form-label">Rol</label>
                     <select [(ngModel)]="rol" name="rol" class="form-control" required>
                         <option disabled selected value="">Seleccione</option>
@@ -24,14 +25,35 @@
                         <option *ngIf="esAutoridad()" disabled selected value="Autoridad">Autoridad</option>
                     </select>
                 </div>
-                <div *ngIf="!esAutoridad()" class="col-md-6">
+
+                <div *ngIf="!esAutoridad()" class="col-md-4">
+                    <label class="form-label">Rol</label>
+                    <select [(ngModel)]="rol" name="rol" class="form-control" required>
+                        <option disabled selected value="">Seleccione</option>
+                        <option *ngIf="!esAutoridad()" value="Operador">Operador</option>
+                        <option *ngIf="!esAutoridad()" value="Administrador">Administrador</option>
+                        <option *ngIf="esAutoridad()" disabled selected value="Autoridad">Autoridad</option>
+                    </select>
+                </div>
+
+                <div *ngIf="!esAutoridad()" class="col-md-4">
                     <label class="form-label">Nombre</label>
                     <input type="text" [(ngModel)]="usuario.usr_nombre" name="usr_nombre" class="form-control" required>
                 </div>
+
                 <div *ngIf="esAutoridad()" class="col-md-6">
                     <label class="form-label">Nombre de Autoridad</label>
                     <input type="text" [(ngModel)]="autoridad.aut_nombre" name="aut_nombre" class="form-control"
                         required>
+                </div>
+
+                <div *ngIf="!esAutoridad()" class="col-md-4">
+                    <label class="form-label">Distrito Judicial</label>
+                    <select [(ngModel)]="usuario.distrito.dis_id" name="distrito" class="form-control">
+                        <option *ngFor="let distrito of listaDistritos" [value]="distrito.dis_id">
+                            {{ distrito.dis_nombre }}
+                        </option>
+                    </select>
                 </div>
             </div>
 
@@ -50,14 +72,6 @@
                     <label class="form-label">Contraseña</label>
                     <input type="text" [(ngModel)]="usuario.usrPassword" name="usrPassword" class="form-control"
                         required>
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Distrito Judicial</label>
-                    <select [(ngModel)]="usuario.distrito.dis_id" name="distrito" class="form-control">
-                        <option *ngFor="let distrito of listaDistritos" [value]="distrito.dis_id">
-                            {{ distrito.dis_nombre }}
-                        </option>
-                    </select>
                 </div>
             </div>
 
@@ -79,10 +93,10 @@
                     <label class="form-label">Distrito Judicial</label>
                     <select [(ngModel)]="autoridad.distrito.dis_id" name="distrito" class="form-control" required>
                         <option *ngFor="let distrito of listaDistritos" [value]="distrito.dis_id">
-                          {{ distrito.dis_nombre }}
+                            {{ distrito.dis_nombre }}
                         </option>
-                      </select>
-                      
+                    </select>
+
                 </div>
             </div>
 

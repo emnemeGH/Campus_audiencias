@@ -47,7 +47,7 @@
                     <select [(ngModel)]="juezSeleccionado" class="form-control">
                         <option value="">Seleccione</option>
                         <!-- {{ juez }} es Interpolación, Angular insertará el valor de juez dentro de la etiqueta <option>.La interpolación en Angular es una forma de mostrar valores dinámicos en el HTML desde el TypeScript. Se usa con {{ }} (doble llave) para insertar valores dentro del código HTML.-->
-                        <option *ngFor="let juez of juecesDisponibles" [value]="juez">{{ juez }}</option>
+                        <option *ngFor="let juez of autoridadesJuez" [value]="juez.aut_nombre">{{ juez.aut_nombre }}</option>
                     </select>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                     <label>Fiscal</label>
                     <select [(ngModel)]="fiscalSeleccionado" class="form-control">
                         <option value="">Seleccione</option>
-                        <option *ngFor="let fiscal of fiscalesDisponibles" [value]="fiscal">{{ fiscal }}</option>
+                        <option *ngFor="let fiscal of autoridadesFiscal" [value]="fiscal.aut_nombre">{{ fiscal.aut_nombre }}</option>
                     </select>
                 </div>
                 <div class="col-md-6">
