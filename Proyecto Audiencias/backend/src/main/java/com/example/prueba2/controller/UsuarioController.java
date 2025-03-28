@@ -55,6 +55,5 @@ public ResponseEntity<?> registrarUsuario(@RequestBody RegistroUsuarioDTO reques
         return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
     }
 }
-
-
+    
 }

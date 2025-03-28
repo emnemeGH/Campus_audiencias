@@ -43,12 +43,10 @@
             <div class="row mb-3">
                 <div class="col-md-4">
                     <label>Distrito Judicial</label>
-                    <select [(ngModel)]="audiencia.sala.distrito.dis_nombre"
-                        name="audiencia.sala.distrito.dis_nombre" class="form-control" required (change)="actualizarDatos()">
+                    <select [(ngModel)]="audiencia.sala.distrito.dis_nombre" name="audiencia.sala.distrito.dis_nombre"
+                        class="form-control" required (change)="actualizarDatos()">
                         <option disabled selected value="">Seleccione</option>
-                        <option value="Distrito Capital">Distrito Capital</option>
-                        <option value="Distrito Sur">Distrito Sur</option>
-                        <option value="Distrito Norte">Distrito Norte</option>
+                        <option *ngFor="let distrito of distritos" [value]="audiencia.sala.distrito.dis_nombre">{{distrito}}</option>
                     </select>
                 </div>
                 <div class="col-md-4">
@@ -101,7 +99,7 @@
                 <div class="col-md-4">
                     <label class="form-label">Fiscal</label>
                     <select [(ngModel)]="fiscal" name="fiscal" class="form-control" required>
-                        <option selected value="0" disabled >Seleccione</option>
+                        <option selected value="0" disabled>Seleccione</option>
                         <option *ngFor="let fiscal of autoridadesFiscal" [value]="fiscal.aut_id">{{ fiscal.aut_nombre }}
                         </option>
                     </select>
