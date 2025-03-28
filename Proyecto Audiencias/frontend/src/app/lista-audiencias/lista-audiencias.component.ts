@@ -29,9 +29,7 @@ export class ListaAudienciasComponent implements OnInit {
   salaSeleccionada: string = '';
   salasDisponibles: string[] = [];
   fiscalSeleccionado: string = '';
-  fiscalesDisponibles: string[] = [];
   juezSeleccionado: string = '';
-  juecesDisponibles: string[] = [];
   audienciasFiltradas: any[] = [];
   fechaSeleccionada: string = '';
   estadoSeleccionado: string = '';

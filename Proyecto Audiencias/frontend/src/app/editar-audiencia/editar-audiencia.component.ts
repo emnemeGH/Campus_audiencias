@@ -70,9 +70,9 @@ export class EditarAudienciaComponent implements OnInit {
     },
   };
 
-  juez?: number ;
-  fiscal?: number ;
-  defensor?: number ;
+  juez?: number;
+  fiscal?: number;
+  defensor?: number;
 
   audienciaExt: AudienciaExt = {
     autoridad: {
@@ -106,7 +106,7 @@ export class EditarAudienciaComponent implements OnInit {
       const audId = Number(id); // Convertir a número
       this.audienciaService.obtenerAudienciaPorId(audId).subscribe(
         data => {
-          this.audiencia = data; 
+          this.audiencia = data;
           // Este metodo es para obtener el juez, fiscal y defensor seleccionado
           this.obtenerAudienciasExtension()
           this.obtenerAutoridades(); // Ahora que la audiencia está cargada, llamamos obtenerAutoridades
@@ -117,7 +117,7 @@ export class EditarAudienciaComponent implements OnInit {
       );
     }
   }
-  
+
   obtenerAutoridades() {
     if (this.audiencia.sala?.distrito?.dis_nombre) {
       this.autoridadesService.getAutoridades().subscribe(
@@ -144,23 +144,23 @@ export class EditarAudienciaComponent implements OnInit {
         this.audienciasExt = audiencias; // Guardamos los datos en el array
 
         // Recorrer el array audienciasExt
-      for (let audienciaExt of this.audienciasExt) {
-        // Verificar si el tipo de autoridad es 'juez'
-        if (audienciaExt.autoridad.aut_tipo === 'juez') {
-          // Asignar el aut_id a la variable juez
-          this.juez = audienciaExt.autoridad.aut_id;
-        }
+        for (let audienciaExt of this.audienciasExt) {
+          // Verificar si el tipo de autoridad es 'juez'
+          if (audienciaExt.autoridad.aut_tipo === 'juez') {
+            // Asignar el aut_id a la variable juez
+            this.juez = audienciaExt.autoridad.aut_id;
+          }
 
-        if (audienciaExt.autoridad.aut_tipo === 'fiscal') {
-          // Asignar el aut_id a la variable juez
-          this.fiscal = audienciaExt.autoridad.aut_id;
-        }
+          if (audienciaExt.autoridad.aut_tipo === 'fiscal') {
+            // Asignar el aut_id a la variable juez
+            this.fiscal = audienciaExt.autoridad.aut_id;
+          }
 
-        if (audienciaExt.autoridad.aut_tipo === 'defensor') {
-          // Asignar el aut_id a la variable juez
-          this.defensor = audienciaExt.autoridad.aut_id;
+          if (audienciaExt.autoridad.aut_tipo === 'defensor') {
+            // Asignar el aut_id a la variable juez
+            this.defensor = audienciaExt.autoridad.aut_id;
+          }
         }
-      }
       });
   }
 
@@ -170,35 +170,47 @@ export class EditarAudienciaComponent implements OnInit {
       console.error('Faltan autoridades seleccionadas');
       return;
     }
-  
-    // Primero recorremos todas las audienciasExt para actualizar las autoridades correspondientes
-    for (let audienciaExt of this.audienciasExt) {
-      if (audienciaExt.autoridad.aut_tipo === 'juez') {
-        // Si el tipo de autoridad es 'juez', actualizamos el ID de la autoridad
-        audienciaExt.autoridad.aut_id = this.juez;
-      }
-      if (audienciaExt.autoridad.aut_tipo === 'fiscal') {
-        // Si el tipo de autoridad es 'fiscal', actualizamos el ID de la autoridad
-        audienciaExt.autoridad.aut_id = this.fiscal;
-      }
-      if (audienciaExt.autoridad.aut_tipo === 'defensor') {
-        // Si el tipo de autoridad es 'defensor', actualizamos el ID de la autoridad
-        audienciaExt.autoridad.aut_id = this.defensor;
-      }
-  
-      // Actualizar la autoridad en el servidor mediante la API
-      this.audienciaExtensionService.updateAutoridad(audienciaExt.eau_id!, audienciaExt).subscribe(
-        response => {
-          console.log('Autoridad actualizada: ', response);
-        },
-        error => {
-          console.error('Error al actualizar la autoridad: ', error);
+
+    this.audienciaService.editarAudiencia(this.audiencia).subscribe(() => {
+      // Primero recorremos todas las audienciasExt para actualizar las autoridades correspondientes
+      for (let audienciaExt of this.audienciasExt) {
+        if (audienciaExt.autoridad.aut_tipo === 'juez') {
+          audienciaExt.autoridad.aut_id = this.juez;
         }
-      );
-    }
-  
-    // Después de realizar las actualizaciones, redirigimos a la lista de audiencias
-    this.router.navigate(['/lista-audiencias']);
+        if (audienciaExt.autoridad.aut_tipo === 'fiscal') {
+          audienciaExt.autoridad.aut_id = this.fiscal;
+        }
+        if (audienciaExt.autoridad.aut_tipo === 'defensor') {
+          audienciaExt.autoridad.aut_id = this.defensor;
+        }
+
+        this.audienciaExtensionService.updateAutoridad(audienciaExt.eau_id!, audienciaExt).subscribe(
+          response => {
+            console.log('Autoridad actualizada: ', response);
+          },
+          error => {
+            console.error('Error al actualizar la autoridad: ', error);
+          }
+        );
+      }
+
+      this.router.navigate(['/lista-audiencias']);
+    });
   }
-  
+
+  actualizarDatos() {
+    // Reiniciar selecciones para mostrar "Seleccione" por defecto
+    this.juez = 0
+    this.fiscal = 0
+    this.defensor = 0
+    this.audiencia.sala.sal_id = 0;
+    this.obtenerAutoridades();
+  }
 }
+
+
+
+
+
+
+
