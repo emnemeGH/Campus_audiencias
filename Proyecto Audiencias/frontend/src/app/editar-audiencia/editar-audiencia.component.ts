@@ -85,6 +85,10 @@ export class EditarAudienciaComponent implements OnInit {
       }
     }
   };
+
+  // Esta propiedad contendrá el distrito del usuario
+  distritoUsuario: string | undefined;
+
   // Aquí guardaremos todas las autoridades
   audienciasExt: AudienciaExt[] = []
   autoridades: Autoridad[] = [];
@@ -107,6 +111,7 @@ export class EditarAudienciaComponent implements OnInit {
       this.audienciaService.obtenerAudienciaPorId(audId).subscribe(
         data => {
           this.audiencia = data;
+          this.distritoUsuario = this.audiencia.sala?.distrito?.dis_nombre;
           // Este metodo es para obtener el juez, fiscal y defensor seleccionado
           this.obtenerAudienciasExtension()
           this.obtenerAutoridades(); // Ahora que la audiencia está cargada, llamamos obtenerAutoridades

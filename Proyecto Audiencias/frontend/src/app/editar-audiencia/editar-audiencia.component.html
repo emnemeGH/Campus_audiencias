@@ -39,13 +39,10 @@
                 <div class="col-md-6">
                     <label>Distrito Judicial</label>
                     <select [(ngModel)]="audiencia.sala.distrito.dis_nombre" name="audiencia.sala.distrito.dis_nombre"
-                        class="form-control" required (change)="actualizarDatos()">
-                        <option disabled selected value="">Seleccione</option>
-                        <option value="Distrito Capital">Distrito Capital</option>
-                        <option value="Distrito Sur">Distrito Sur</option>
-                        <option value="Distrito Norte">Distrito Norte</option>
+                            class="form-control" required (change)="actualizarDatos()">
+                      <option *ngIf="distritoUsuario" [value]="distritoUsuario">{{ distritoUsuario }}</option>
                     </select>
-                </div>
+                </div>                  
                 <div class="col-md-6">
                     <label>Nombre</label>
                     <input type="text" [(ngModel)]="audiencia.aud_nombre" name="nombre" class="form-control" required>
