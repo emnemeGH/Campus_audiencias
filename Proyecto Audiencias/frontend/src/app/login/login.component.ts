@@ -34,8 +34,21 @@ export class LoginComponent {
   }
 
   onLogin() {
-    const user = this.usuarios.find(u => u.usrMail === this.email && u.usrPassword === this.password && u.usrEstado);
+    if (!this.email || !this.password) {
+      alert('Debe completar todos los campos.');
+      return;
+    }
+  
+    const user = this.usuarios.find(u => 
+      u.usrMail?.toString() === this.email?.toString() && 
+      u.usrPassword?.toString() === this.password?.toString() && 
+      u.usrEstado
+    );
+  
     if (user) {
+      console.log('Usuario autenticado:', user);
+      localStorage.setItem('usuario', JSON.stringify(user));
+  
       if (user.usrIsAdmin) {
         this.router.navigate(['/lista-usuarios']);
       } else {
@@ -45,5 +58,6 @@ export class LoginComponent {
       alert('Credenciales incorrectas');
     }
   }
+  
 }
 

@@ -2,6 +2,7 @@ package com.example.prueba2.controller;
 
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.prueba2.dto.CrearAudienciaDTO;
 import com.example.prueba2.models.Audiencia;
 import com.example.prueba2.models.Audiencia_ext;
+import com.example.prueba2.repository.AudienciaRepository;
 import com.example.prueba2.services.AudienciaService;
 
 @RestController
@@ -22,11 +24,13 @@ import com.example.prueba2.services.AudienciaService;
 @CrossOrigin(origins = "http://localhost:4200")
 public class AudienciaController extends BaseController<Audiencia, Integer> {
 
-    private AudienciaService audienciaService;
+    private final  AudienciaService audienciaService;
+    private final AudienciaRepository audienciaRepository;
 
-    public AudienciaController(AudienciaService audienciaService) {
+    public AudienciaController(AudienciaService audienciaService, AudienciaRepository audienciaRepository) {
         super(audienciaService);
         this.audienciaService = audienciaService;
+        this.audienciaRepository = audienciaRepository;
     }
 
     @DeleteMapping("/{id}")
@@ -60,5 +64,11 @@ public class AudienciaController extends BaseController<Audiencia, Integer> {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping("/audienciasPorDistrito/{distritoId}")
+    public List<Audiencia> getAudienciasPorDistrito(@PathVariable Long distritoId) {
+    return audienciaRepository.findByDistritoId(distritoId);
+}
+
 
 }

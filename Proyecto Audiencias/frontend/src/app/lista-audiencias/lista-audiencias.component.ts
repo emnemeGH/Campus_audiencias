@@ -33,6 +33,7 @@ export class ListaAudienciasComponent implements OnInit {
   audienciasFiltradas: any[] = [];
   fechaSeleccionada: string = '';
   estadoSeleccionado: string = '';
+  distritoId: number = 0;
 
   autoridades: Autoridad[] = [];
   autoridadesJuez: Autoridad[] = [];
@@ -57,17 +58,29 @@ export class ListaAudienciasComponent implements OnInit {
         this.esUsuario = false;
       }
     });
-    this.obtenerAudiencias();
+
+    const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+    if (usuario && usuario.distrito && usuario.distrito.dis_id) {
+      this.distritoId = usuario.distrito.dis_id;
+      this.obtenerAudiencias();
+    } else {
+      console.error('Error: No se encontró el distrito del usuario.');
+    }
+
+
   }
 
   obtenerAudiencias() {
     this.audienciaService.getAudiencias().subscribe(
       data => {
-        console.log(data); // Esto devuelve todas las audiencias
-        this.audiencias = data.filter(audiencia => audiencia.audEstado); // Filtra solo las activas
-        this.audienciasFiltradas = [...this.audiencias];  // ... Crea una copia nueva del array this.audiencias, en lugar de solo referenciarlo.
-
-        // Para cada audiencia, obtener sus autoridades
+        console.log(data); // Devuelve todas las audiencias
+  
+        // Filtrar audiencias por el distrito del operador
+        this.audiencias = data.filter(audiencia => audiencia.sala?.distrito?.dis_id === this.distritoId && audiencia.audEstado);
+  
+        this.audienciasFiltradas = [...this.audiencias]; // Copia las audiencias filtradas
+  
+        // Obtener autoridades por audiencia
         this.audiencias.forEach(audiencia => {
           this.audienciaService.getAutoridadesPorAudiencia(audiencia.aud_id).subscribe(
             autoridades => {
@@ -84,7 +97,7 @@ export class ListaAudienciasComponent implements OnInit {
       }
     );
   }
-
+  
 
   toggleFormulario() {
     this.mostrarFormulario = !this.mostrarFormulario;

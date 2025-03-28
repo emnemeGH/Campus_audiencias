@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
 import com.example.prueba2.models.Audiencia;
 import com.example.prueba2.models.Sala;
 
@@ -52,5 +53,9 @@ public interface AudienciaRepository extends JpaRepository<Audiencia, Integer> {
        boolean salaOcupada(@Param("salaId") Integer salaId,
                     @Param("fecha") LocalDate fecha,
                     @Param("hora") LocalTime hora);
+
+       @Query("SELECT a FROM Audiencia a WHERE a.sala.id IN (SELECT s.id FROM Sala s WHERE s.distrito.id = :distritoId)")
+       List<Audiencia> findByDistritoId(@Param("distritoId") Long distritoId);
+
 
 }
