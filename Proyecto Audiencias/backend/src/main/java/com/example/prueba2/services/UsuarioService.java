@@ -67,8 +67,7 @@ public class UsuarioService extends BaseServiceImpl<Usuario, Integer> {
         usuarioExistente.setUsrUsername(usuarioActualizado.getUsrUsername());
         usuarioExistente.setUsrMail(usuarioActualizado.getUsrMail());
         usuarioExistente.setUsrUsername(usuarioActualizado.getUsrUsername());
-        usuarioExistente.setUsrPassword(usuarioActualizado.getUsrPassword()); // ⚠️ Considera encriptación si es
-                                                                              // necesario
+        usuarioExistente.setUsrPassword(usuarioActualizado.getUsrPassword()); // ⚠️ Considera encriptación si es necesario
         usuarioExistente.setUsrIsAdmin(usuarioActualizado.getUsrIsAdmin()); // Actualizamos el valor de isAdmin
 
         // ✅ Actualizar el distrito si se proporciona
