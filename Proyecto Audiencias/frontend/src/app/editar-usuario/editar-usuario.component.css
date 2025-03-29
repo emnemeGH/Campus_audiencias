@@ -56,3 +56,39 @@ select {
     background-color: white;
     cursor: pointer;
 }
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 20px;
+    }
+    .container {
+        max-width: 95%;
+    }
+
+    h2 {
+        font-size: 18px;
+        padding: 10px;
+    }
+
+    label {
+        font-size: 13px;
+    }
+
+    .form-control {
+        font-size: 13px;
+        padding: 6px;
+        margin-bottom: 15px;
+    }
+
+    .mb-4 {
+        margin-bottom: 0 !important;
+    }
+
+    .mt-4 {
+        margin-top: -40px !important;
+    }
+
+    .btn {
+        font-size: 0.9em;
+    }
+}

@@ -2,6 +2,10 @@ body {
     padding: 10px 40px;
 }
 
+.table-responsive {
+    overflow: hidden;
+}
+
 @media (max-width: 768px) {
     body {
         padding: 10px;
@@ -62,19 +66,23 @@ body {
     }
 
     .table {
-        font-size: 8px;
+        font-size: 0.8em;
     }
 
     .btn__acciones {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 20px;
-        height: 20px;
+        width: 25px;
+        height: 25px;
         padding: 2px;
     }
 
     .btn__acciones i {
-        font-size: 10px;
+        font-size: 16px;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
     }
 }

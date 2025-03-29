@@ -15,7 +15,7 @@
         <form (ngSubmit)="guardarUsuario()" class="bg-light p-4 border rounded">
             <!-- Selección de Rol (Debe elegirse primero) -->
             <div class="row mb-3">
-                <div class="col-md-6">
+                <div class="col-md-6 select__rol">
                     <label>Rol</label>
                     <select class="form-select" [(ngModel)]="nuevoUsuario.rol" name="rol"
                         (change)="actualizarFormulario()">

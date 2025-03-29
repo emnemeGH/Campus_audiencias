@@ -15,7 +15,7 @@
         <div class="container-fluid d-flex justify-content-between position-relative">
             <button class="btn btn-primary" [routerLink]="''">Volver</button>
             <img src="../../assets/images/justicia.png" alt="" class="img-fluid justicia-logo position-absolute top-50 start-50 translate-middle">
-            <a href="#" class="btn btn-primary" [routerLink]="'/crear-audiencia'" *ngIf="esUsuario"><span>Agregar Audiencia</span></a>
+            <a href="#" class="btn btn-primary" [routerLink]="'/crear-audiencia'" *ngIf="esUsuario"><span>Agregar</span></a>
         </div>
     </nav>
     
@@ -88,7 +88,7 @@
         </div>
 
         <!-- Tabla de audiencias -->
-        <div class="consulta-box mt-3">
+        <div class="consulta-box mt-3 table-responsive">
             <table class="table table-bordered text-center">
                 <thead>
                     <tr>
