@@ -84,25 +84,28 @@ export class CrearAudienciaComponent {
   autoridadesFiscal: Autoridad[] = [];
   autoridadesDefensor: Autoridad[] = [];
   usuario: Usuario | undefined;
-  distritos: string[] = []; // Almacena los distritos obtenidos desde la API
+  distritos: any[] = []; 
+  distritoUsuario: any = null;
 
   constructor(
     private audienciaService: AudienciaService, 
     private router: Router,
     private autoridadesService: AutoridadesService,
     private usuariosService: UsuariosService,
-    private distritoService: DistritoService  // Para obtener el id del usuario logueado
+    private distritoService: DistritoService  
   ) { }
 
   ngOnInit() {
     this.obtenerUsuarioAutenticado();
+    this.obtenerAutoridades();
     this.obtenerDistritos();
   }
 
   obtenerDistritos() {
     this.distritoService.obtenerDistritos().subscribe(
-      (distritos: string[]) => {
+      (distritos: any[]) => {
         this.distritos = distritos; // Asignar los distritos a la variable
+        console.log("distritos obtenidos", distritos);
       },
       (error) => {
         console.error('Error al obtener los distritos:', error);
@@ -111,25 +114,23 @@ export class CrearAudienciaComponent {
   }
 
   obtenerUsuarioAutenticado() {
-    const usuarioId = parseInt(localStorage.getItem('usuarioId') || '0');
+    const usuarioString = localStorage.getItem('usuario'); 
+    console.log("Valor crudo de localStorage:", usuarioString);
 
-    if (usuarioId) {
-      this.usuariosService.getUsuarioPorId(usuarioId).subscribe(
-        (usuario: Usuario) => {
-          this.usuario = usuario;  // Aquí ya no es un arreglo
-          if (usuario?.distrito?.dis_nombre) {
-            this.audiencia.sala.distrito.dis_nombre = usuario.distrito.dis_nombre;
-            this.obtenerAutoridades();
-          }
-        },
-        (error: any) => {
-          console.error('Error al obtener el usuario autenticado:', error);
-        }
-      );
+    const usuario = usuarioString ? JSON.parse(usuarioString) : null;
+
+    if (usuario && usuario.distrito) {
+        this.distritoUsuario = usuario.distrito; // Guarda el distrito del usuario
+        console.log("Distrito del usuario autenticado:", this.distritoUsuario);
+        this.audiencia.sala.distrito.dis_nombre = this.distritoUsuario.dis_nombre; // Setea el distrito en la audiencia
+        console.log("Distrito de la audiencia:", this.audiencia.sala.distrito.dis_nombre);
     } else {
-      console.error('Usuario no autenticado o ID no encontrado.');
+        console.error("Usuario no autenticado o distrito no encontrado.");
     }
-  }
+}
+
+
+
 
   obtenerAutoridades() {
       if (this.audiencia.sala?.distrito?.dis_nombre) {
@@ -140,6 +141,7 @@ export class CrearAudienciaComponent {
             this.autoridadesFiscal = this.autoridades.filter(a => a.aut_tipo === 'fiscal');
             this.autoridadesDefensor = this.autoridades.filter(a => a.aut_tipo === 'defensor');
             // this.asignarAutoridadesSeleccionadas();  // Llamamos después de cargar las autoridades
+            console.log("autoridades:", this.autoridades);
           },
           error => {
             console.error('Error al obtener autoridades:', error);
@@ -186,7 +188,6 @@ export class CrearAudienciaComponent {
     this.fiscal = 0
     this.defensor = 0
     this.audiencia.sala.sal_id = 0;
-    this.obtenerAutoridades()
     // Lógica para actualizar los datos al cambiar el distrito
     console.log(this.audiencia.sala.distrito.dis_nombre);
   }
