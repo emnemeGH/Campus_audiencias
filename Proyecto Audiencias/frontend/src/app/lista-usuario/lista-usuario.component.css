@@ -1,3 +1,80 @@
 body {
     padding: 10px 40px;
 }
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .navbar .container-fluid {
+        flex-direction: row;
+        text-align: center;
+    }
+
+    .titulo {
+        font-size: 0.9em;
+    }
+
+    .navbar .btn {
+        width: 20%;
+        margin-bottom: 5px;
+        font-size: 0.7em;
+        white-space: nowrap;
+    }
+
+    .card {
+        font-size: 0.8em;
+        padding: 20px 10px !important;
+    }
+
+    .card-header {
+        font-size: 1em;
+    }
+
+    .row {
+        flex-direction: column;
+    }
+
+    .col-md-4 {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .d-flex {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .filtro__btn {
+        flex-direction: row;
+    }
+
+    .filtro__btn button {
+        width: 80%;
+        margin-bottom: 5px;
+        font-size: 1em;
+        margin: 10px;
+    }
+
+    .consulta-box {
+        overflow-x: auto;
+    }
+
+    .table {
+        font-size: 8px;
+    }
+
+    .btn__acciones {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        padding: 2px;
+    }
+
+    .btn__acciones i {
+        font-size: 10px;
+    }
+}

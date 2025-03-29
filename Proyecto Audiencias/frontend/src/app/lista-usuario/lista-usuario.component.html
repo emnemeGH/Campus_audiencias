@@ -12,7 +12,7 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <button class="btn btn-outline-secondary" [routerLink]="''">Volver</button>
-            <span class="navbar-brand mx-auto font-weight-bold text-dark">GESTIÓN DE USUARIOS</span>
+            <span class="navbar-brand mx-auto font-weight-bold text-dark titulo">GESTIÓN DE USUARIOS</span>
             <a class="btn btn-outline-success" [routerLink]="'/crear-usuario'">+ Nuevo</a>
         </div>
     </nav>
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-between mt-3">
+                <div class="d-flex justify-content-between mt-3 filtro__btn">
                     <button type="submit" class="btn btn-outline-primary" (click)="filtrarUsuarios()">Buscar</button>
                     <button type="button" class="btn btn-outline-secondary" (click)="reiniciarFiltros()">Reiniciar filtros</button>
                 </div>
@@ -63,7 +63,7 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Nombre de Usuario</th>
+                <th>Usuario</th>
                 <th>Correo</th>
                 <th>Rol</th>
                 <th class="text-center">Acción</th>
@@ -79,10 +79,10 @@
                 <td class="text-center">
                     <div class="d-flex justify-content-center gap-2">
                         <!-- Si usuario.rol es igual a 'autoridad', devuelve 'autoridad'. Si no, devuelve 'usuario'. -->
-                        <button class="btn btn-sm btn-outline-primary" [routerLink]="['/editar-usuario', usuario.rol === 'Autoridad' ? 'Autoridad' : 'Usuario', usuario.id]">
+                        <button class="btn btn-sm btn-outline-primary btn__acciones" [routerLink]="['/editar-usuario', usuario.rol === 'Autoridad' ? 'Autoridad' : 'Usuario', usuario.id]">
                             <i class="bi bi-pencil"></i>
                         </button>
-                        <button class="btn btn-sm btn-outline-danger" (click)="eliminarUsuario(usuario.id, usuario.rol)">
+                        <button class="btn btn-sm btn-outline-danger btn__acciones" (click)="eliminarUsuario(usuario.id, usuario.rol)">
                             <i class="bi bi-trash"></i>
                         </button>
                     </div>

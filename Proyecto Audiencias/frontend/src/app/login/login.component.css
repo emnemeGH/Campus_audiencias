@@ -38,3 +38,17 @@
 .btn-primary:hover {
     background-color: #115fb3d5;
 }
+
+@media (max-width: 768px) {
+    body {
+        background-size: contain;
+        background-position: top;
+    }
+    .container {
+        padding: 20px;
+    }
+    .card {
+        padding: 20px;
+        box-shadow: none;
+    }
+}
