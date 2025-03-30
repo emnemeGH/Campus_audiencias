@@ -82,7 +82,7 @@ export class ListaAudienciasComponent implements OnInit {
           this.audiencias = data.filter(audiencia => audiencia.sala?.distrito?.dis_id === this.distritoId && audiencia.audEstado);
           this.audienciasFiltradas = [...this.audiencias]; // Copia las audiencias filtradas
         } else {
-          this.audiencias = data;
+          this.audiencias = data.filter(audiencia => audiencia.audEstado);
         }
   
         // Obtener autoridades por audiencia
