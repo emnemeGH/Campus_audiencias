@@ -214,10 +214,19 @@ export class ListaAudienciasComponent implements OnInit {
     this.juezSeleccionado = '';
     this.fiscalSeleccionado = '';
     this.estadoSeleccionado = '';
-
-    // sacarle los filtros a la lista de audiencias
-    this.audienciasFiltradas = [...this.audiencias];
+  
+    if (this.esUsuario !== false) {
+      // Si es un operador, mostramos todas las audiencias de su distrito y con estado activo
+      this.audienciasFiltradas = this.audiencias.filter(audiencia => audiencia.sala?.distrito?.dis_id === this.distritoId && audiencia.audEstado);
+    } else {
+      // Si es autoridad, mostramos solo las audiencias en las que participa
+      this.audienciasFiltradas = [];
+      this.audiencias.forEach(audiencia => {
+        this.filtrarAudienciasPorAutoridadLogeada(audiencia);
+      });
+    }
   }
+  
 
 
   tieneCuij(): boolean {
