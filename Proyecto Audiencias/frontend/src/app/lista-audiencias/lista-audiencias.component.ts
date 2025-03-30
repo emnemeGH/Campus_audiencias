@@ -44,6 +44,7 @@ export class ListaAudienciasComponent implements OnInit {
     "Distrito Sur": ["Sala Penal 2", "Sala Civil 2", "Sala Familia 2", "Cámara Gessel 2"],
     "Distrito Norte": ["Sala Penal 3", "Sala Civil 3", "Sala Familia 3", "Cámara Gessel 3"]
   };
+  aut_nombre_log: string = '';
 
   constructor(
     private audienciaService: AudienciaService,
@@ -57,6 +58,9 @@ export class ListaAudienciasComponent implements OnInit {
       if (params['esUsuario']) {
         this.esUsuario = false;
       }
+
+      this.aut_nombre_log = params['idAut'];
+      console.log(this.aut_nombre_log)
     });
 
     const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
@@ -73,12 +77,13 @@ export class ListaAudienciasComponent implements OnInit {
   obtenerAudiencias() {
     this.audienciaService.getAudiencias().subscribe(
       data => {
-        console.log(data); // Devuelve todas las audiencias
-  
-        // Filtrar audiencias por el distrito del operador
-        this.audiencias = data.filter(audiencia => audiencia.sala?.distrito?.dis_id === this.distritoId && audiencia.audEstado);
-  
-        this.audienciasFiltradas = [...this.audiencias]; // Copia las audiencias filtradas
+        if (this.esUsuario !== false) {
+          // Filtrar audiencias por el distrito del operador
+          this.audiencias = data.filter(audiencia => audiencia.sala?.distrito?.dis_id === this.distritoId && audiencia.audEstado);
+          this.audienciasFiltradas = [...this.audiencias]; // Copia las audiencias filtradas
+        } else {
+          this.audiencias = data;
+        }
   
         // Obtener autoridades por audiencia
         this.audiencias.forEach(audiencia => {
@@ -87,15 +92,45 @@ export class ListaAudienciasComponent implements OnInit {
               audiencia.juez = autoridades.find(a => a.autoridad.aut_tipo === 'juez')?.autoridad.aut_nombre || '-';
               audiencia.fiscal = autoridades.find(a => a.autoridad.aut_tipo === 'fiscal')?.autoridad.aut_nombre || '-';
               audiencia.defensor = autoridades.find(a => a.autoridad.aut_tipo === 'defensor')?.autoridad.aut_nombre || '-';
+
+              if (this.esUsuario == false) {
+              this.filtrarAudienciasPorAutoridadLogeada(audiencia)
+              }
+
             },
             error => console.error('Error obteniendo autoridades:', error)
           );
         });
+        
       },
       error => {
         console.error('Error al obtener audiencias:', error);
       }
     );
+  }
+
+  filtrarAudienciasPorAutoridadLogeada(audiencia: any) {
+      if(audiencia.juez == this.aut_nombre_log) {
+        // Aca verificamos que no haya sido agregada previamente
+        if (!this.audienciasFiltradas.some(a => a.aud_id === audiencia.aud_id)) {
+          this.audienciasFiltradas.push(audiencia); // Agrega la audiencia
+        }
+        return;
+      }
+
+      if(audiencia.fiscal == this.aut_nombre_log) {
+        if (!this.audienciasFiltradas.some(a => a.aud_id === audiencia.aud_id)) {
+          this.audienciasFiltradas.push(audiencia);
+        }
+        return;
+      }
+
+      if(audiencia.defensor == this.aut_nombre_log) {
+        if (!this.audienciasFiltradas.some(a => a.aud_id === audiencia.aud_id)) {
+          this.audienciasFiltradas.push(audiencia);
+        }
+        return;
+      }
   }
   
 

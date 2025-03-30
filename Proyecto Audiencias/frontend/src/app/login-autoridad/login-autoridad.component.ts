@@ -11,7 +11,6 @@ import { UsuariosService } from '../services/usuarios.service';
 
 export class LoginAutoridadComponent {
   email: string = '';
-  idAut: number = 0;
   autoridades: any[] = [];
 
   // Creamos una instancia de usuariosService para poder usar los metodos que se encuentran dentro del archivo
@@ -35,10 +34,10 @@ export class LoginAutoridadComponent {
   }
 
   onLogin() {
-    const idAut = this.autoridades.find(a => a.id === this.idAut);
+    const idAut = this.autoridades.find(a => a.autMail === this.email && a.autEstado)?.aut_nombre;
     const user = this.autoridades.find(a => a.autMail === this.email && a.autEstado);
     if (user) {
-      this.router.navigate(['/lista-audiencias'], { queryParams: { esUsuario: false } });
+      this.router.navigate(['/lista-audiencias'], { queryParams: { esUsuario: false, idAut } });
       } else {
       alert('Credenciales incorrectas');
     }
