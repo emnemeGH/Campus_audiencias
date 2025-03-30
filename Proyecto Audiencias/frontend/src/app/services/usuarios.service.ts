@@ -64,7 +64,7 @@ export class UsuariosService {
         // Mapear usuarios
         let listaUsuarios = usuarios.map(usuario => ({
           id: usuario.usr_id,
-          nombre: usuario.usr_nombre,
+          nombre: usuario.usrNombre,
           username: usuario.usrUsername,
           correo: usuario.usrMail,
           rol: usuario.usrIsAdmin ? 'Administrador' : 'Operador',  // Si usrIsAdmin es 1 -> Admin, si es 0 -> Operador

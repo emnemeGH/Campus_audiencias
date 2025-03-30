@@ -6,7 +6,7 @@ import { UsuariosService } from '../services/usuarios.service';
 // Declaramos una estructura para los objetos
 export interface Usuario {
   usr_id?: number,
-  usr_nombre?: string,
+  usrNombre?: string,
   usrMail?: string,
   usrUsername?: string,
   usrPassword?: string,
@@ -35,7 +35,7 @@ export class EditarUsuarioComponent implements OnInit {
 
   usuario: Usuario = {
     usr_id: 0,
-    usr_nombre: '',
+    usrNombre: '',
     usrMail: '',
     usrUsername: '',
     usrPassword: '',
@@ -113,15 +113,16 @@ export class EditarUsuarioComponent implements OnInit {
                 : null
         };
 
-        console.log("📤 Datos de Autoridad enviados al backend:", autoridadEditada);
-
-        this.usuariosService.editarAutoridad(autoridadEditada).subscribe(
-            (response) => {
-                console.log('✅ Autoridad editada con éxito', response);
+        this.usuariosService.editarAutoridad(autoridadEditada).subscribe({
+            next: (response) => {
                 this.router.navigate(['/lista-usuarios']);
             },
-            (error) => console.error('❌ Error al editar autoridad:', error)
-        );
+            error: (error) => {
+                alert(error.error?.error || "❌ Error al editar la autoridad.");
+                console.error('❌ Error al editar autoridad:', error);
+            }
+        });
+
     } else {
         const usuarioEditado = {
             ...this.usuario,
@@ -131,17 +132,19 @@ export class EditarUsuarioComponent implements OnInit {
                 : null
         };
 
-        console.log("📤 Datos de Usuario enviados al backend:", usuarioEditado);
-
-        this.usuariosService.editarUsuario(usuarioEditado).subscribe(
-            (response) => {
+        this.usuariosService.editarUsuario(usuarioEditado).subscribe({
+            next: (response) => {
                 console.log("✅ Usuario editado con éxito:", response);
                 this.router.navigate(['/lista-usuarios']);
             },
-            (error) => console.error("❌ Error al editar usuario:", error)
-        );
+            error: (error) => {
+                alert(error.error?.error || "❌ Error al editar el usuario.");
+                console.error("❌ Error al editar usuario:", error);
+            }
+        });
     }
 }
+
 
 
 }

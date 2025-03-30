@@ -73,7 +73,7 @@ export class CrearUsuarioComponent {
       // Enviar a la tabla de usuarios
       this.usuariosService.agregarUsuario({
         usuario: {
-          usr_nombre: this.nuevoUsuario.nombre,
+          usrNombre: this.nuevoUsuario.nombre,
           usrUsername: this.nuevoUsuario.username,
           usrMail: this.nuevoUsuario.correo,
           usrPassword: this.nuevoUsuario.password,

@@ -17,7 +17,6 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer usr_id;
-    private String usr_nombre;
     private Integer usr_login;
     
     @ManyToOne
@@ -54,12 +53,24 @@ public class Usuario {
         this.usrIsAdmin = usrIsAdmin;
     }
 
+    @Column(name = "usr_nombre")
+    private String usrNombre;
+
+    public String getUsrNombre() {
+        return usrNombre;
+    }
+
+    public void setUsrNombre(String usrNombre) {
+        this.usrNombre = usrNombre;
+    }
+
     @Column(name = "usr_username")
     private String usrUsername;
 
     public String getUsrUsername() {
         return usrUsername;
     }
+
     public void setUsrUsername(String usrUsername) {
         this.usrUsername = usrUsername;
     }

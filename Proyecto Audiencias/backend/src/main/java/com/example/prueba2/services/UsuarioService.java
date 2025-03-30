@@ -64,6 +64,7 @@ public class UsuarioService extends BaseServiceImpl<Usuario, Integer> {
         }
 
         // Actualizar datos del usuario
+        usuarioExistente.setUsrNombre(usuarioActualizado.getUsrNombre());
         usuarioExistente.setUsrUsername(usuarioActualizado.getUsrUsername());
         usuarioExistente.setUsrMail(usuarioActualizado.getUsrMail());
         usuarioExistente.setUsrUsername(usuarioActualizado.getUsrUsername());
